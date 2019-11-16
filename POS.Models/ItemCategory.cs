@@ -4,7 +4,12 @@ using System.Text;
 
 namespace POS.Models
 {
-    class ItemCategory
+    public class ItemCategory
     {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public string ParentCategoryId { get; set; }
+        public int? Level { get; set; }
     }
 }
