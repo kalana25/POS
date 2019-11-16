@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace AgendaWeb.Models.Enums
+namespace POS.Models.Enums
 {
     public enum ResourceCategory
     {

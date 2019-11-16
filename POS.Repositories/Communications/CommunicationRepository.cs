@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Text;
 using Microsoft.EntityFrameworkCore;
-using AgendaWeb.DAL;
-using AgendaWeb.Models;
+using POS.DAL;
+using POS.Models;
 
-namespace AgendaWeb.Repositories.Communications
+namespace POS.Repositories.Communications
 {
     public class CommunicationRepository:Repository<Communication>,ICommunicationRepository
     {

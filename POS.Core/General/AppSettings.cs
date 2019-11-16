@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace AgendaWeb.Core.General
+namespace POS.Core.General
 {
     public class AppSettings
     {

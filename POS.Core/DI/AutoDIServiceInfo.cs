@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace AgendaWeb.Core.DI
+namespace POS.Core.DI
 {
     public class AutoDIServiceInfo
     {

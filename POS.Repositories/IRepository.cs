@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Text;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
-using AgendaWeb.Core.DI;
+using POS.Core.DI;
 
-namespace AgendaWeb.Repositories
+namespace POS.Repositories
 {
     [AutoDIService]
     public interface IRepository<TEntity> where TEntity : class

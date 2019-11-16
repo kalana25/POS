@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using AgendaWeb.Core.Interfaces;
+using POS.Core.Interfaces;
 
-namespace AgendaWeb.Core.Implementation
+namespace POS.Core.Implementation
 {
     public class UseCaseFactory : IUseCaseFactory
     {

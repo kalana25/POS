@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using AgendaWeb.Core.General;
+using POS.Core.General;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace AgendaWeb.Core.DI
+namespace POS.Core.DI
 {
     public static class IServiceCollectionExtensions
     {

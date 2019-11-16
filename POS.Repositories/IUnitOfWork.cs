@@ -2,15 +2,15 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
-using AgendaWeb.Repositories.Addresses;
-using AgendaWeb.Repositories.Communications;
-using AgendaWeb.Repositories.Collaborators;
-using AgendaWeb.Core.DI;
+using POS.Repositories.Addresses;
+using POS.Repositories.Communications;
+using POS.Repositories.Collaborators;
+using POS.Core.DI;
 
 
-namespace AgendaWeb.Repositories
+namespace POS.Repositories
 {
-    [AutoDIService(implementationType: "AgendaWeb.Repositories.UnitOfWork")]
+    [AutoDIService(implementationType: "POS.Repositories.UnitOfWork")]
     public interface IUnitOfWork : IDisposable
     {
         IAddressRepository Addresses { get; }

@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 using Microsoft.EntityFrameworkCore;
-using AgendaWeb.Models;
+using POS.Models;
 
-namespace AgendaWeb.DAL
+namespace POS.DAL
 {
     public class DataBaseContext : DbContext
     {

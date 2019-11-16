@@ -10,12 +10,12 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using Swashbuckle.AspNetCore.Swagger;
-using AgendaWeb.DAL;
-using AgendaWeb.Core.General;
+using POS.DAL;
+using POS.Core.General;
 using AutoMapper;
-using AgendaWeb.Core.DI;
+using POS.Core.DI;
 
-namespace AgendaWeb.API
+namespace POS.API
 {
     public class Startup
     {

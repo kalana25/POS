@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace AgendaWeb.Core.Interfaces
+namespace POS.Core.Interfaces
 {
     public abstract class UseCase
     {

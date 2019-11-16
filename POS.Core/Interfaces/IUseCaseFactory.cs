@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using AgendaWeb.Core.DI;
+using POS.Core.DI;
 
-namespace AgendaWeb.Core.Interfaces
+namespace POS.Core.Interfaces
 {
-    [AutoDIService(implementationType: "AgendaWeb.Core.Implementation.UseCaseFactory")]
+    [AutoDIService(implementationType: "POS.Core.Implementation.UseCaseFactory")]
     public interface IUseCaseFactory
     {
         T Create<T>() where T : UseCase;

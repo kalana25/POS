@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Text;
 using Microsoft.EntityFrameworkCore;
-using AgendaWeb.DAL;
-using AgendaWeb.Models;
+using POS.DAL;
+using POS.Models;
 
-namespace AgendaWeb.Repositories.Addresses
+namespace POS.Repositories.Addresses
 {
     public class AddressRepository:Repository<Address>,IAddressRepository
     {

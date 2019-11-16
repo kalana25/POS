@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
-using AgendaWeb.DAL;
-using AgendaWeb.Repositories.Addresses;
-using AgendaWeb.Repositories.Communications;
-using AgendaWeb.Repositories.Collaborators;
+using POS.DAL;
+using POS.Repositories.Addresses;
+using POS.Repositories.Communications;
+using POS.Repositories.Collaborators;
 
-namespace AgendaWeb.Repositories
+namespace POS.Repositories
 {
     public class UnitOfWork : IUnitOfWork
     {

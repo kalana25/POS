@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using AgendaWeb.Models;
+using POS.Models;
 using System.Linq;
-using AgendaWeb.DAL;
+using POS.DAL;
 using Microsoft.EntityFrameworkCore;
 
-namespace AgendaWeb.Repositories.Collaborators
+namespace POS.Repositories.Collaborators
 {
     public class CollaboratorRepository : Repository<Collaborator>, ICollaboratorRepository
     {

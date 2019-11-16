@@ -6,7 +6,7 @@ using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 
-namespace AgendaWeb.Repositories
+namespace POS.Repositories
 {
     public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
     {

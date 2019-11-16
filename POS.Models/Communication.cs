@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using AgendaWeb.Models.Enums;
+using POS.Models.Enums;
 using System.ComponentModel.DataAnnotations;
 
 
-namespace AgendaWeb.Models
+namespace POS.Models
 {
     public class Communication
     {

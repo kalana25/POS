@@ -7,7 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace AgendaWeb.Core.DI
+namespace POS.Core.DI
 {
     public class AutoDIRegisterService
     {

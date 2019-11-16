@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using AgendaWeb.Core.DI;
-using AgendaWeb.Models;
+using POS.Core.DI;
+using POS.Models;
 
-namespace AgendaWeb.Repositories.Collaborators
+namespace POS.Repositories.Collaborators
 {
     [AutoDIService]
     public interface ICollaboratorRepository: IRepository<Collaborator>

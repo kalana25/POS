@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using AgendaWeb.Models;
-using AgendaWeb.Core.DI;
+using POS.Models;
+using POS.Core.DI;
 
-namespace AgendaWeb.Repositories.Communications
+namespace POS.Repositories.Communications
 {
     [AutoDIService]
     public interface ICommunicationRepository: IRepository<Communication>

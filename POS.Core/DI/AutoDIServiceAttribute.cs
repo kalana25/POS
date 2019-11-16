@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace AgendaWeb.Core.DI
+namespace POS.Core.DI
 {
     public class AutoDIServiceAttribute : Attribute
     {

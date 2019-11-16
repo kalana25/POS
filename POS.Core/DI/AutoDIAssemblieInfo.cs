@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace AgendaWeb.Core.DI
+namespace POS.Core.DI
 {
     public class AutoDIAssemblieInfo
     {

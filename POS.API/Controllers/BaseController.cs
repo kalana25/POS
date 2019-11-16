@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using AgendaWeb.Repositories;
+using POS.Repositories;
 
-namespace AgendaWeb.API.Controllers
+namespace POS.API.Controllers
 {
     [Route("api/[controller]")]
     public class BaseController<UnitOfWork,Model> : Controller where UnitOfWork:IUnitOfWork where Model:class

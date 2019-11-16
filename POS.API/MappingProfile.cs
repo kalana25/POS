@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using AgendaWeb.Models;
+using POS.Models;
 
-namespace AgendaWeb.API
+namespace POS.API
 {
     public class MappingProfile : Profile
     {
