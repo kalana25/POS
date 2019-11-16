@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\POS.Core\POS.Core.csproj" />
+    <ProjectReference Include="..\POS.DAL\POS.DAL.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="8.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="DTO\" />
+    <Folder Include="General\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\POS.Core\POS.Core.csproj" />
+    <ProjectReference Include="..\POS.Repositories\POS.Repositories.csproj" />
+  </ItemGroup>
+
+</Project>
