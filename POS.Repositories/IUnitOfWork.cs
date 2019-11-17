@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using POS.Repositories.Addresses;
 using POS.Repositories.Communications;
 using POS.Repositories.Collaborators;
+using POS.Repositories.Suppliers;
 using POS.Core.DI;
 
 
@@ -16,6 +17,7 @@ namespace POS.Repositories
         IAddressRepository Addresses { get; }
         ICommunicationRepository Communications { get; }
         ICollaboratorRepository Collaborators { get; }
+        ISupplierRepository Suppliers { get; }
         Task<int> Complete();
     }
 }

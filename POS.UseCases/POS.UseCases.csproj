@@ -9,11 +9,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="DTO\" />
-    <Folder Include="General\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\POS.Core\POS.Core.csproj" />
     <ProjectReference Include="..\POS.Repositories\POS.Repositories.csproj" />
   </ItemGroup>

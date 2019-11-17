@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using POS.Models;
+using POS.UseCases.DTO;
 
 namespace POS.API
 {
@@ -38,7 +39,7 @@ namespace POS.API
             //    .ForMember(d => d.Address, m => m.MapFrom(o => o.Address))
             //    .ForMember(d => d.Communication, m => m.MapFrom(o => o.Communication));
 
-            //CreateMap<AddressSaveDTO, Address>();
+            CreateMap<SupplierSaveDto, Supplier>();
             //CreateMap<AddressInfoDTO, Address>();
 
             //CreateMap<CommunicationSaveDTO, Communication>();
@@ -81,7 +82,7 @@ namespace POS.API
             //    .ForMember(d => d.Address, m => m.MapFrom(o => o.Address))
             //    .ForMember(d => d.Communication, m => m.MapFrom(o => o.Communication));
 
-            //CreateMap<Address, AddressInfoDTO>();
+            CreateMap<Supplier, SupplierInfoDto>();
 
             //CreateMap<Communication, CommunicationInfoDTO>();
 
