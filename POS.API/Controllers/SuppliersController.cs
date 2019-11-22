@@ -9,6 +9,7 @@ using POS.Core.Interfaces;
 using POS.UseCases.General.Suppliers.SaveSupplier;
 using POS.UseCases.General.Suppliers.GetSupplier;
 using POS.UseCases.General.Suppliers.UpdateSupplier;
+using POS.UseCases.General.Suppliers.DeleteSupplier;
 
 namespace POS.API.Controllers
 {
@@ -94,6 +95,26 @@ namespace POS.API.Controllers
                     return Ok(result);
                 }
                 return BadRequest();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(Microsoft.AspNetCore.Http.StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            try
+            {
+                if (id < 1)
+                {
+                    return NotFound();
+                }
+                var deleteSupplier = usecaseFactory.Create<DeleteSupplierUsecase>();
+                deleteSupplier.Id = id;
+                var result = await deleteSupplier.Execute();
+                return Ok(result);
             }
             catch (Exception ex)
             {
