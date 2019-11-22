@@ -4,6 +4,7 @@ using System.Text;
 using System.Threading.Tasks;
 using POS.DAL;
 using POS.Repositories.Suppliers;
+using POS.Repositories.ItemCategories;
 
 namespace POS.Repositories
 {
@@ -12,13 +13,16 @@ namespace POS.Repositories
         private readonly DataBaseContext context;
 
         public ISupplierRepository Suppliers { get; set; }
+        public IItemCategoryRepository ItemCategory { get; set; }
 
 
         public UnitOfWork(DataBaseContext context,
-            ISupplierRepository supplierRepository)
+            ISupplierRepository supplierRepository,
+            IItemCategoryRepository itemCategoryRepository)
         {
             this.context = context;
             Suppliers = supplierRepository;
+            ItemCategory = itemCategoryRepository;
         }
 
         public async Task<int> Complete()

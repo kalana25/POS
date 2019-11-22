@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using POS.Repositories.Suppliers;
+using POS.Repositories.ItemCategories;
 using POS.Core.DI;
 
 
@@ -12,6 +13,7 @@ namespace POS.Repositories
     public interface IUnitOfWork : IDisposable
     {
         ISupplierRepository Suppliers { get; }
+        IItemCategoryRepository ItemCategory { get; }
         Task<int> Complete();
     }
 }
