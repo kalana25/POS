@@ -8,6 +8,7 @@ using POS.UseCases.DTO;
 using POS.Core.Interfaces;
 using POS.UseCases.General.Suppliers.SaveSupplier;
 using POS.UseCases.General.Suppliers.GetSupplier;
+using POS.UseCases.General.Suppliers.UpdateSupplier;
 
 namespace POS.API.Controllers
 {
@@ -71,6 +72,33 @@ namespace POS.API.Controllers
             }
         }
 
-
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Put(int id, [FromBody] SupplierSaveDto supplier)
+        {
+            try
+            {
+                if (id < 0)
+                {
+                    return NotFound();
+                }
+                if (supplier == null)
+                {
+                    return BadRequest();
+                }
+                if (ModelState.IsValid)
+                {
+                    var updateSupplier = this.usecaseFactory.Create<UpdateSupplierUseCase>();
+                    updateSupplier.Id = id;
+                    updateSupplier.Dto = supplier;
+                    var result = await updateSupplier.Execute();
+                    return Ok(result);
+                }
+                return BadRequest();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(Microsoft.AspNetCore.Http.StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
     }
 }
