@@ -1,26 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using POS.UseCases.DTO;
 using POS.Core.Interfaces;
-using POS.UseCases.General.ItemCategories.DeleteItemCategory;
-using POS.UseCases.General.ItemCategories.GetItemCategories;
-using POS.UseCases.General.ItemCategories.GetItemCategory;
-using POS.UseCases.General.ItemCategories.SaveItemCategory;
-using POS.UseCases.General.ItemCategories.UpdateItemCategory;
+using POS.UseCases.General.Items.GetItems;
+using POS.UseCases.General.Items.GetItem;
+using POS.UseCases.General.Items.SaveItem;
+using POS.UseCases.General.Items.UpdateItem;
+using POS.UseCases.General.Items.DeleteItem;
 
 namespace POS.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ItemCategoriesController : ControllerBase
+    public class ItemsController : ControllerBase
     {
         private readonly IUseCaseFactory usecaseFactory;
 
-        public ItemCategoriesController(IUseCaseFactory usecaseFactory)
+        public ItemsController(IUseCaseFactory usecaseFactory)
         {
             this.usecaseFactory = usecaseFactory;
         }
@@ -30,8 +32,8 @@ namespace POS.API.Controllers
         {
             try
             {
-                var findItemCategories = usecaseFactory.Create<GetItemCategoriesUsecase>();
-                var result = await findItemCategories.Execute();
+                var findItems = usecaseFactory.Create<GetItemsUsecase>();
+                var result = await findItems.Execute();
                 if (result == null)
                 {
                     return NotFound();
@@ -45,19 +47,19 @@ namespace POS.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] ItemCategorySaveDto itemCategory)
+        public async Task<IActionResult> Post([FromBody] ItemSaveDto item)
         {
             try
             {
-                if (itemCategory == null)
+                if (item == null)
                 {
                     return BadRequest();
                 }
                 if (ModelState.IsValid)
                 {
-                    var saveItemCategory = usecaseFactory.Create<SaveItemCategoryUsecase>();
-                    saveItemCategory.Dto = itemCategory;
-                    var result = await saveItemCategory.Execute();
+                    var saveItem = usecaseFactory.Create<SaveItemUsecase>();
+                    saveItem.Dto = item;
+                    var result = await saveItem.Execute();
                     return CreatedAtAction(nameof(Get), new { id = result.Id }, result);
                 }
                 return BadRequest();
@@ -78,9 +80,9 @@ namespace POS.API.Controllers
                     return BadRequest();
                 }
 
-                var findItemCategory = usecaseFactory.Create<GetItemCategoryUsecase>();
-                findItemCategory.Id = id;
-                var result = await findItemCategory.Execute();
+                var findItem = usecaseFactory.Create<GetItemUsecase>();
+                findItem.Id = id;
+                var result = await findItem.Execute();
                 if (result == null)
                 {
                     return NotFound();
@@ -94,7 +96,7 @@ namespace POS.API.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(int id, [FromBody] ItemCategorySaveDto itemCategory)
+        public async Task<IActionResult> Put(int id, [FromBody] ItemSaveDto item)
         {
             try
             {
@@ -102,16 +104,16 @@ namespace POS.API.Controllers
                 {
                     return NotFound();
                 }
-                if (itemCategory == null)
+                if (item == null)
                 {
                     return BadRequest();
                 }
                 if (ModelState.IsValid)
                 {
-                    var updateItemCategory = this.usecaseFactory.Create<UpdateItemCategoryUsecase>();
-                    updateItemCategory.Id = id;
-                    updateItemCategory.Dto = itemCategory;
-                    var result = await updateItemCategory.Execute();
+                    var updateItem = this.usecaseFactory.Create<UpdateItemUsecase>();
+                    updateItem.Id = id;
+                    updateItem.Dto = item;
+                    var result = await updateItem.Execute();
                     return Ok(result);
                 }
                 return BadRequest();
@@ -131,9 +133,9 @@ namespace POS.API.Controllers
                 {
                     return NotFound();
                 }
-                var deleteItemCategory = usecaseFactory.Create<DeleteItemCategoryUsecase>();
-                deleteItemCategory.Id = id;
-                var result = await deleteItemCategory.Execute();
+                var deleteItem = usecaseFactory.Create<DeleteItemUsecase>();
+                deleteItem.Id = id;
+                var result = await deleteItem.Execute();
                 return Ok(result);
             }
             catch (Exception ex)
@@ -141,5 +143,6 @@ namespace POS.API.Controllers
                 return StatusCode(Microsoft.AspNetCore.Http.StatusCodes.Status500InternalServerError, ex.Message);
             }
         }
+
     }
 }
