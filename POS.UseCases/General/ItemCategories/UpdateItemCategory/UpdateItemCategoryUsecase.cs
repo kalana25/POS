@@ -5,17 +5,17 @@ using POS.UseCases.DTO;
 using POS.Models;
 using POS.Core.Interfaces;
 
-namespace POS.UseCases.General.Suppliers.UpdateSupplier
+namespace POS.UseCases.General.ItemCategories.UpdateItemCategory
 {
-    public class UpdateSupplierUseCase:UseCase
+    public class UpdateItemCategoryUsecase:UseCase
     {
         private readonly IMapper mapper;
         private readonly IUnitOfWork unitOfWork;
 
         public int Id { get; set; }
-        public SupplierSaveDto Dto { get; set; }
+        public ItemCategorySaveDto Dto { get; set; }
 
-        public UpdateSupplierUseCase(
+        public UpdateItemCategoryUsecase(
             IMapper mapper,
             IUnitOfWork unitOfWork)
         {
@@ -25,11 +25,9 @@ namespace POS.UseCases.General.Suppliers.UpdateSupplier
 
         public async Task<int> Execute()
         {
-            Supplier supplier = await unitOfWork.Suppliers.Get(this.Id);
-            mapper.Map<SupplierSaveDto, Supplier>(Dto, supplier);
+            ItemCategory itemCategory = await unitOfWork.ItemCategory.Get(Id);
+            mapper.Map<ItemCategorySaveDto, ItemCategory>(Dto, itemCategory);
             return await unitOfWork.Complete();
         }
-
-
     }
 }
