@@ -7,6 +7,9 @@ namespace POS.UseCases.DTO
 {
     public class ItemSaveDto
     {
+        [MaxLength(100)]
+        public string Code { get; set; }
+
         [MaxLength(250)]
         public string Name { get; set; }
 
