@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Text;
 using System.ComponentModel.DataAnnotations;
 
-namespace POS.Models
+namespace POS.UseCases.DTO
 {
-    public class ItemCategory
+    public class ItemCategoryInfoDto
     {
         public int Id { get; set; }
 

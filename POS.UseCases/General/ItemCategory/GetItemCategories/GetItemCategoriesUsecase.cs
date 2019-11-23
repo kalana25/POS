@@ -8,9 +8,24 @@ using POS.Models;
 using POS.Repositories;
 using POS.UseCases.DTO;
 
-namespace POS.UseCases.General.ItemCategory.GetItemCategories
+namespace POS.UseCases.General.ItemCategories.GetItemCategories
 {
     public class GetItemCategoriesUsecase:UseCase
     {
+        private readonly IMapper mapper;
+        private readonly IUnitOfWork unitOfWork;
+
+        public GetItemCategoriesUsecase(IMapper mapper, IUnitOfWork unitOfWork)
+        {
+            this.mapper = mapper;
+            this.unitOfWork = unitOfWork;
+        }
+
+        public async Task<IEnumerable<ItemCategoryInfoDto>> Execute()
+        {
+            IEnumerable<ItemCategory> categories = await unitOfWork.ItemCategory.GetItemCategories();
+            IEnumerable<ItemCategoryInfoDto> result = mapper.Map<IEnumerable<ItemCategory>, IEnumerable<ItemCategoryInfoDto>>(categories);
+            return result;
+        }
     }
 }
