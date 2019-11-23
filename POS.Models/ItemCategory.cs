@@ -18,5 +18,7 @@ namespace POS.Models
         public int ParentCategoryId { get; set; }
 
         public int? Level { get; set; }
+
+        public ICollection<Item> Items { get; set; }
     }
 }
