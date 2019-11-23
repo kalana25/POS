@@ -3,26 +3,25 @@ using POS.Repositories;
 using POS.Models;
 using POS.Core.Interfaces;
 
-namespace POS.UseCases.General.Suppliers.DeleteSupplier
+namespace POS.UseCases.General.ItemCategories.DeleteItemCategory
 {
-    public class DeleteSupplierUsecase: UseCase
+    public class DeleteItemCategoryUsecase:UseCase
     {
         private readonly IUnitOfWork unitOfWork;
 
         public int Id { get; set; }
 
-        public DeleteSupplierUsecase(
+        public DeleteItemCategoryUsecase(
             IUnitOfWork unitOfWork)
         {
             this.unitOfWork = unitOfWork;
         }
 
-        public async Task<int>Execute()
+        public async Task<int> Execute()
         {
-            Supplier supplier = await unitOfWork.Suppliers.Get(Id);
-            unitOfWork.Suppliers.Remove(supplier);
+            ItemCategory itemCategory = await unitOfWork.ItemCategory.Get(Id);
+            unitOfWork.ItemCategory.Remove(itemCategory);
             return await unitOfWork.Complete();
         }
-
     }
 }
