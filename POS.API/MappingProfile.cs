@@ -16,6 +16,7 @@ namespace POS.API
 
             CreateMap<SupplierSaveDto, Supplier>();
             CreateMap<ItemCategorySaveDto, ItemCategory>();
+            CreateMap<ItemSaveDto, Item>();
 
 
             #endregion
@@ -31,6 +32,7 @@ namespace POS.API
 
             CreateMap<Supplier, SupplierInfoDto>();
             CreateMap<ItemCategory, ItemCategoryInfoDto>();
+            CreateMap<Item, ItemInfoDto>();
 
             #endregion
         }
