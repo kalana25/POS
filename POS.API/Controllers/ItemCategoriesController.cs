@@ -25,6 +25,26 @@ namespace POS.API.Controllers
             this.usecaseFactory = usecaseFactory;
         }
 
+        [HttpGet("findall/")]
+        public async Task<IActionResult> GetAll()
+        {
+            try
+            {
+                var findItemCategories = usecaseFactory.Create<GetItemCategoriesUsecase>();
+                var result = await findItemCategories.Execute();
+                if (result == null)
+                {
+                    return NotFound();
+                }
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(Microsoft.AspNetCore.Http.StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
+
+
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] ItemCategorySaveDto itemCategory)
         {
