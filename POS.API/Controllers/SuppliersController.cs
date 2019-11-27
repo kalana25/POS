@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using POS.UseCases.DTO;
 using POS.Core.Interfaces;
 using POS.UseCases.General.Suppliers.SaveSupplier;
+using POS.UseCases.General.Suppliers.GetSuppliers;
 using POS.UseCases.General.Suppliers.GetSupplier;
 using POS.UseCases.General.Suppliers.UpdateSupplier;
 using POS.UseCases.General.Suppliers.DeleteSupplier;
@@ -41,6 +42,25 @@ namespace POS.API.Controllers
                     return CreatedAtAction(nameof(Get), new { id = result.Id }, result);
                 }
                 return BadRequest();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(Microsoft.AspNetCore.Http.StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
+
+        [HttpGet("findall/")]
+        public async Task<IActionResult> GetAll()
+        {
+            try
+            {
+                var findSuppliers = usecaseFactory.Create<GetSuppliersUsecase>();
+                var result = await findSuppliers.Execute();
+                if (result == null)
+                {
+                    return NotFound();
+                }
+                return Ok(result);
             }
             catch (Exception ex)
             {
