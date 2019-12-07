@@ -4,6 +4,7 @@ using System.Text;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using POS.Core.General;
 using Microsoft.EntityFrameworkCore;
 
 namespace POS.Repositories
@@ -35,6 +36,21 @@ namespace POS.Repositories
             return await this.context.Set<TEntity>().Where(predicate).ToListAsync();
         }
 
+        public async Task<ResponseData<TEntity>> GetPagination(RequestData requestData)
+        {
+            int count = await Count();
+            IEnumerable<TEntity> items = await this.context.Set<TEntity>()
+                //.OrderBy(sortPredicate)
+                .Skip((requestData.Page - 1) * requestData.PageSize)
+                .Take(requestData.PageSize)
+                .ToListAsync();
+            return new ResponseData<TEntity>(requestData.Page, requestData.PageSize, count, items);
+        }
+
+        public async Task<int> Count()
+        {
+            return await this.context.Set<TEntity>().CountAsync();
+        }
 
 
 
