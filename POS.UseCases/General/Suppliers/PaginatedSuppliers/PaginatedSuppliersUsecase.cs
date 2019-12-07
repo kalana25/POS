@@ -16,17 +16,19 @@ namespace POS.UseCases.General.Suppliers.PaginatedSuppliers
         private readonly IMapper mapper;
         private readonly IUnitOfWork unitOfWork;
 
+        public RequestData RequestData { get; set; }
+
         public PaginatedSuppliersUsecase(IMapper mapper, IUnitOfWork unitOfWork)
         {
             this.mapper = mapper;
             this.unitOfWork = unitOfWork;
         }
 
-        public async Task<ResponseData<SupplierInfoDto>> Execute(RequestData reqData)
+        public async Task<ResponseData<SupplierInfoDto>> Execute()
         {
-            var respond = await this.unitOfWork.Suppliers.GetPagination(reqData);
+            var respond = await this.unitOfWork.Suppliers.GetPagination(RequestData);
             IEnumerable<SupplierInfoDto> result = mapper.Map<IEnumerable<Supplier>, IEnumerable<SupplierInfoDto>>(respond.Items);
-            return new ResponseData<SupplierInfoDto>(reqData.Page, reqData.PageSize, respond.TotalCount, result);
+            return new ResponseData<SupplierInfoDto>(RequestData.Page, RequestData.PageSize, respond.TotalCount, result);
         }
     }
 }

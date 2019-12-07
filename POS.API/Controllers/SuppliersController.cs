@@ -5,7 +5,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using POS.UseCases.DTO;
+using POS.Core.General;
 using POS.Core.Interfaces;
+using POS.UseCases.General.Suppliers.PaginatedSuppliers;
 using POS.UseCases.General.Suppliers.SaveSupplier;
 using POS.UseCases.General.Suppliers.GetSuppliers;
 using POS.UseCases.General.Suppliers.GetSupplier;
@@ -23,6 +25,26 @@ namespace POS.API.Controllers
         public SuppliersController(IUseCaseFactory usecaseFactory)
         {
             this.usecaseFactory = usecaseFactory;
+        }
+
+        [HttpGet("pagination")]
+        public async Task<IActionResult> GetPagination([FromQuery]RequestData req)
+        {
+            try
+            {
+                var supplierPagination = usecaseFactory.Create<PaginatedSuppliersUsecase>();
+                supplierPagination.RequestData = req;
+                var result = await supplierPagination.Execute();
+                if (result == null)
+                {
+                    return NotFound();
+                }
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(Microsoft.AspNetCore.Http.StatusCodes.Status500InternalServerError, ex.Message);
+            }
         }
 
         [HttpPost]

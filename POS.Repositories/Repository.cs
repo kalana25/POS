@@ -41,7 +41,7 @@ namespace POS.Repositories
             int count = await Count();
             IEnumerable<TEntity> items = await this.context.Set<TEntity>()
                 //.OrderBy(sortPredicate)
-                .Skip((requestData.Page - 1) * requestData.PageSize)
+                .Skip((requestData.Page-1) * requestData.PageSize)
                 .Take(requestData.PageSize)
                 .ToListAsync();
             return new ResponseData<TEntity>(requestData.Page, requestData.PageSize, count, items);
