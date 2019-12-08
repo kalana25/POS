@@ -42,6 +42,16 @@ namespace POS.API
             services.AddDbContext<DataBaseContext>(options => options.UseSqlServer(AppSettings.ConnectionString.Development));
 
             services.AddMvc();
+            services.AddCors(options =>
+            {
+                // this defines a CORS policy called "default"
+                options.AddPolicy("default", policy =>
+                {
+                    policy.AllowAnyOrigin()
+                        .AllowAnyHeader()
+                        .AllowAnyMethod();
+                });
+            });
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new Info { Title = "API", Version = "v1" });
@@ -55,6 +65,7 @@ namespace POS.API
             {
                 app.UseDeveloperExceptionPage();
             }
+            app.UseCors("default");
             app.UseStaticFiles();
             app.UseSwagger();
             app.UseSwaggerUI(c =>
