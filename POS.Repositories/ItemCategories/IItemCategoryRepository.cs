@@ -11,6 +11,7 @@ namespace POS.Repositories.ItemCategories
     public interface IItemCategoryRepository:IRepository<ItemCategory>
     {
         Task<IEnumerable<ItemCategory>> GetItemCategories();
+        Task<IEnumerable<ItemCategory>> GetItemCategoriesByLevel(int level);
         Task<ItemCategory> GetItemCategory(int id);
     }
 }

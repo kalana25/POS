@@ -8,6 +8,7 @@ using POS.UseCases.DTO;
 using POS.Core.Interfaces;
 using POS.UseCases.General.ItemCategories.DeleteItemCategory;
 using POS.UseCases.General.ItemCategories.GetItemCategories;
+using POS.UseCases.General.ItemCategories.GetItemCategoriesByLevel;
 using POS.UseCases.General.ItemCategories.GetItemCategory;
 using POS.UseCases.General.ItemCategories.SaveItemCategory;
 using POS.UseCases.General.ItemCategories.UpdateItemCategory;
@@ -25,13 +26,33 @@ namespace POS.API.Controllers
             this.usecaseFactory = usecaseFactory;
         }
 
-        [HttpGet("findall/")]
+        [HttpGet("findall")]
         public async Task<IActionResult> GetAll()
         {
             try
             {
                 var findItemCategories = usecaseFactory.Create<GetItemCategoriesUsecase>();
                 var result = await findItemCategories.Execute();
+                if (result == null)
+                {
+                    return NotFound();
+                }
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(Microsoft.AspNetCore.Http.StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
+
+        [HttpGet("findall/level/{level}")]
+        public async Task<IActionResult> GetAllByLevel(int level)
+        {
+            try
+            {
+                var findCategorisByLevel = usecaseFactory.Create<GetItemCategoriesByLevelUsecase>();
+                findCategorisByLevel.Level = level;
+                var result = await findCategorisByLevel.Execute();
                 if (result == null)
                 {
                     return NotFound();
