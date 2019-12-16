@@ -17,6 +17,7 @@ namespace POS.DAL
         public DbSet<Supplier> Suppliers { get; set; }
         public DbSet<ItemCategory> Categories { get; set; }
         public DbSet<Item> Items { get; set; }
+        public DbSet<PurchaseOrder> PurchaseOrders { get; set; }
 
     }
 }
