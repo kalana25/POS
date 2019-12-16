@@ -23,7 +23,7 @@ namespace POS.UseCases.General.Items.SaveItem
         public async Task<Item> Execute()
         {
             Item item = mapper.Map<ItemSaveDto, Item>(Dto);
-            unitOfWork.Item.Add(item);
+            unitOfWork.Items.Add(item);
             await unitOfWork.Complete();
             return item;
         }

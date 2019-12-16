@@ -23,7 +23,7 @@ namespace POS.UseCases.General.Items.GetItems
 
         public async Task<IEnumerable<ItemInfoDto>> Execute()
         {
-            IEnumerable<Item> item = await unitOfWork.Item.GetItems();
+            IEnumerable<Item> item = await unitOfWork.Items.GetItems();
             IEnumerable<ItemInfoDto> result = mapper.Map<IEnumerable<Item>, IEnumerable<ItemInfoDto>>(item);
             return result;
         }

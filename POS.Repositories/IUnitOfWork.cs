@@ -15,7 +15,7 @@ namespace POS.Repositories
     {
         ISupplierRepository Suppliers { get; }
         IItemCategoryRepository ItemCategory { get; }
-        IItemRepository Item { get; }
+        IItemRepository Items { get; }
         Task<int> Complete();
     }
 }

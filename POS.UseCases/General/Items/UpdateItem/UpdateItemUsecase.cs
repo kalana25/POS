@@ -25,7 +25,7 @@ namespace POS.UseCases.General.Items.UpdateItem
 
         public async Task<int> Execute()
         {
-            Item item = await unitOfWork.Item.Get(Id);
+            Item item = await unitOfWork.Items.Get(Id);
             mapper.Map<ItemSaveDto, Item>(Dto, item);
             return await unitOfWork.Complete();
         }

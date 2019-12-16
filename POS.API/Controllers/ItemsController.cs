@@ -8,8 +8,10 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using POS.UseCases.DTO;
 using POS.Core.Interfaces;
+using POS.Core.General;
 using POS.UseCases.General.Items.GetItems;
 using POS.UseCases.General.Items.GetItem;
+using POS.UseCases.General.Items.PaginatedItems;
 using POS.UseCases.General.Items.SaveItem;
 using POS.UseCases.General.Items.UpdateItem;
 using POS.UseCases.General.Items.DeleteItem;
@@ -34,6 +36,26 @@ namespace POS.API.Controllers
             {
                 var findItems = usecaseFactory.Create<GetItemsUsecase>();
                 var result = await findItems.Execute();
+                if (result == null)
+                {
+                    return NotFound();
+                }
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(Microsoft.AspNetCore.Http.StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
+
+        [HttpGet("pagination")]
+        public async Task<IActionResult> GetPagination([FromQuery]RequestData req)
+        {
+            try
+            {
+                var itemPagination = usecaseFactory.Create<PaginatedItemsUsecase>();
+                itemPagination.RequestData = req;
+                var result = await itemPagination.Execute();
                 if (result == null)
                 {
                     return NotFound();

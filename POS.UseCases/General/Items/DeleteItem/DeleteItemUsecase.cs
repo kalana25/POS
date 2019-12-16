@@ -19,8 +19,8 @@ namespace POS.UseCases.General.Items.DeleteItem
 
         public async Task<int> Execute()
         {
-            Item item = await unitOfWork.Item.Get(Id);
-            unitOfWork.Item.Remove(item);
+            Item item = await unitOfWork.Items.Get(Id);
+            unitOfWork.Items.Remove(item);
             return await unitOfWork.Complete();
         }
     }

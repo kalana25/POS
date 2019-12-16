@@ -15,7 +15,7 @@ namespace POS.Repositories
 
         public ISupplierRepository Suppliers { get; set; }
         public IItemCategoryRepository ItemCategory { get; set; }
-        public IItemRepository Item { get; set; }
+        public IItemRepository Items { get; set; }
 
 
         public UnitOfWork(DataBaseContext context,
@@ -26,7 +26,7 @@ namespace POS.Repositories
             this.context = context;
             Suppliers = supplierRepository;
             ItemCategory = itemCategoryRepository;
-            Item = itemRepository;
+            Items = itemRepository;
         }
 
         public async Task<int> Complete()

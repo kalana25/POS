@@ -22,7 +22,7 @@ namespace POS.UseCases.General.Items.GetItem
 
         public async Task<ItemInfoDto> Execute()
         {
-            Item item = await unitOfWork.Item.GetItem(Id);
+            Item item = await unitOfWork.Items.GetItem(Id);
             ItemInfoDto result = mapper.Map<Item, ItemInfoDto>(item);
             return result;
         }
