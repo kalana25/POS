@@ -8,7 +8,7 @@ using POS.UseCases.DTO;
 using POS.Core.Interfaces;
 using POS.Core.General;
 using POS.UseCases.General.PurchaseOrders.GetPurchaseOrders;
-using POS.UseCases.General.Items.GetItem;
+using POS.UseCases.General.PurchaseOrders.GetPurchaseOrder;
 using POS.UseCases.General.Items.PaginatedItems;
 using POS.UseCases.General.Items.SaveItem;
 using POS.UseCases.General.Items.UpdateItem;
@@ -34,6 +34,31 @@ namespace POS.API.Controllers
             {
                 var findPurchaseOrders = usecaseFactory.Create<GetPurchaseOrdersUsecase>();
                 var result = await findPurchaseOrders.Execute();
+                if (result == null)
+                {
+                    return NotFound();
+                }
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(Microsoft.AspNetCore.Http.StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
+
+        [HttpGet("header/find/{id}")]
+        public async Task<IActionResult> Get(int id)
+        {
+            try
+            {
+                if (id < 1)
+                {
+                    return BadRequest();
+                }
+
+                var findPurchaseOrder = usecaseFactory.Create<GetPurchaseOrderUsecase>();
+                findPurchaseOrder.Id = id;
+                var result = await findPurchaseOrder.Execute();
                 if (result == null)
                 {
                     return NotFound();
