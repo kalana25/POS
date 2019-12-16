@@ -14,7 +14,7 @@ namespace POS.Repositories
         private readonly DataBaseContext context;
 
         public ISupplierRepository Suppliers { get; set; }
-        public IItemCategoryRepository ItemCategory { get; set; }
+        public IItemCategoryRepository ItemCategories { get; set; }
         public IItemRepository Items { get; set; }
 
 
@@ -25,7 +25,7 @@ namespace POS.Repositories
         {
             this.context = context;
             Suppliers = supplierRepository;
-            ItemCategory = itemCategoryRepository;
+            ItemCategories = itemCategoryRepository;
             Items = itemRepository;
         }
 

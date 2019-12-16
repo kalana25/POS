@@ -25,7 +25,7 @@ namespace POS.UseCases.General.ItemCategories.GetItemCategoriesByLevel
 
         public async Task<IEnumerable<ItemCategoryInfoDto>> Execute()
         {
-            IEnumerable<ItemCategory> categories = await unitOfWork.ItemCategory.GetItemCategoriesByLevel(Level);
+            IEnumerable<ItemCategory> categories = await unitOfWork.ItemCategories.GetItemCategoriesByLevel(Level);
             IEnumerable<ItemCategoryInfoDto> result = mapper.Map<IEnumerable<ItemCategory>, IEnumerable<ItemCategoryInfoDto>>(categories);
             return result;
         }

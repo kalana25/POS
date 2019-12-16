@@ -19,8 +19,8 @@ namespace POS.UseCases.General.ItemCategories.DeleteItemCategory
 
         public async Task<int> Execute()
         {
-            ItemCategory itemCategory = await unitOfWork.ItemCategory.Get(Id);
-            unitOfWork.ItemCategory.Remove(itemCategory);
+            ItemCategory itemCategory = await unitOfWork.ItemCategories.Get(Id);
+            unitOfWork.ItemCategories.Remove(itemCategory);
             return await unitOfWork.Complete();
         }
     }

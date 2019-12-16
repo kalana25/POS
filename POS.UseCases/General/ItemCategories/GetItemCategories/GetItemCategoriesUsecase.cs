@@ -23,7 +23,7 @@ namespace POS.UseCases.General.ItemCategories.GetItemCategories
 
         public async Task<IEnumerable<ItemCategoryInfoDto>> Execute()
         {
-            IEnumerable<ItemCategory> categories = await unitOfWork.ItemCategory.GetItemCategories();
+            IEnumerable<ItemCategory> categories = await unitOfWork.ItemCategories.GetItemCategories();
             IEnumerable<ItemCategoryInfoDto> result = mapper.Map<IEnumerable<ItemCategory>, IEnumerable<ItemCategoryInfoDto>>(categories);
             return result;
         }

@@ -25,7 +25,7 @@ namespace POS.UseCases.General.ItemCategories.UpdateItemCategory
 
         public async Task<int> Execute()
         {
-            ItemCategory itemCategory = await unitOfWork.ItemCategory.Get(Id);
+            ItemCategory itemCategory = await unitOfWork.ItemCategories.Get(Id);
             mapper.Map<ItemCategorySaveDto, ItemCategory>(Dto, itemCategory);
             return await unitOfWork.Complete();
         }

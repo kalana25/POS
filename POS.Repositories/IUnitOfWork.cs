@@ -14,7 +14,7 @@ namespace POS.Repositories
     public interface IUnitOfWork : IDisposable
     {
         ISupplierRepository Suppliers { get; }
-        IItemCategoryRepository ItemCategory { get; }
+        IItemCategoryRepository ItemCategories { get; }
         IItemRepository Items { get; }
         Task<int> Complete();
     }

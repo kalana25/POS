@@ -22,7 +22,7 @@ namespace POS.UseCases.General.ItemCategories.GetItemCategory
 
         public async Task<ItemCategoryInfoDto> Execute()
         {
-            ItemCategory category = await unitOfWork.ItemCategory.GetItemCategory(Id);
+            ItemCategory category = await unitOfWork.ItemCategories.GetItemCategory(Id);
             ItemCategoryInfoDto result = mapper.Map<ItemCategory, ItemCategoryInfoDto>(category);
             return result;
         }

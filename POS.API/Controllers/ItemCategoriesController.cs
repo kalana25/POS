@@ -6,11 +6,13 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using POS.UseCases.DTO;
 using POS.Core.Interfaces;
+using POS.Core.General;
 using POS.UseCases.General.ItemCategories.DeleteItemCategory;
 using POS.UseCases.General.ItemCategories.GetItemCategories;
 using POS.UseCases.General.ItemCategories.GetItemCategoriesByLevel;
 using POS.UseCases.General.ItemCategories.GetItemCategoriesByParentAndLevel;
 using POS.UseCases.General.ItemCategories.GetItemCategory;
+using POS.UseCases.General.ItemCategories.PaginatedItemCategories;
 using POS.UseCases.General.ItemCategories.SaveItemCategory;
 using POS.UseCases.General.ItemCategories.UpdateItemCategory;
 
@@ -26,6 +28,27 @@ namespace POS.API.Controllers
         {
             this.usecaseFactory = usecaseFactory;
         }
+
+        [HttpGet("pagination")]
+        public async Task<IActionResult> GetPagination([FromQuery]RequestData req)
+        {
+            try
+            {
+                var categoryPagination = usecaseFactory.Create<PaginatedItemCategoriesUsecase>();
+                categoryPagination.RequestData = req;
+                var result = await categoryPagination.Execute();
+                if (result == null)
+                {
+                    return NotFound();
+                }
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(Microsoft.AspNetCore.Http.StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
+
 
         [HttpGet("findall")]
         public async Task<IActionResult> GetAll()

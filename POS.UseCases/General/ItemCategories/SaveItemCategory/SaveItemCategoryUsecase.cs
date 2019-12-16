@@ -23,7 +23,7 @@ namespace POS.UseCases.General.ItemCategories.SaveItemCategory
         public async Task<ItemCategory> Execute()
         {
             ItemCategory itemCategory = mapper.Map<ItemCategorySaveDto, ItemCategory>(Dto);
-            unitOfWork.ItemCategory.Add(itemCategory);
+            unitOfWork.ItemCategories.Add(itemCategory);
             await unitOfWork.Complete();
             return itemCategory;
         }
