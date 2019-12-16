@@ -33,6 +33,7 @@ namespace POS.API
             CreateMap<Supplier, SupplierInfoDto>();
             CreateMap<ItemCategory, ItemCategoryInfoDto>();
             CreateMap<Item, ItemInfoDto>();
+            CreateMap<PurchaseOrder, PoHeaderInfoDto>();
 
             #endregion
         }
