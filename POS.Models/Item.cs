@@ -11,12 +11,15 @@ namespace POS.Models
         public int Id { get; set; }
 
         [MaxLength(100)]
+        [Required]
         public string Code { get; set; }
 
         [MaxLength(250)]
+        [Required]
         public string Name { get; set; }
 
         [ForeignKey("ItemCateogry")]
+        [Required]
         public int CategoryId { get; set; }
 
         public decimal Price { get; set; }
