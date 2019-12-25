@@ -18,5 +18,7 @@ namespace POS.UseCases.DTO
         public decimal Price { get; set; }
 
         public string Barcode { get; set; }
+
+        public bool Active { get; set; }
     }
 }

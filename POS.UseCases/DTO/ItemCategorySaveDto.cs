@@ -6,6 +6,9 @@ namespace POS.UseCases.DTO
 {
     public class ItemCategorySaveDto
     {
+        [MaxLength(100)]
+        public string Code { get; set; }
+
         [MaxLength(250)]
         public string Name { get; set; }
 
@@ -15,5 +18,7 @@ namespace POS.UseCases.DTO
         public int ParentCategoryId { get; set; }
 
         public int? Level { get; set; }
+
+        public bool Active { get; set; }
     }
 }
