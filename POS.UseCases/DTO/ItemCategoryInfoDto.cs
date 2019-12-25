@@ -9,6 +9,8 @@ namespace POS.UseCases.DTO
     {
         public int Id { get; set; }
 
+        public string Code { get; set; }
+
         [MaxLength(250)]
         public string Name { get; set; }
 
