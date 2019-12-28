@@ -8,11 +8,14 @@ namespace POS.UseCases.DTO
     public class ItemSaveDto
     {
         [MaxLength(100)]
+        [Required]
         public string Code { get; set; }
 
         [MaxLength(250)]
+        [Required]
         public string Name { get; set; }
 
+        [Required]
         public int CategoryId { get; set; }
 
         public decimal Price { get; set; }

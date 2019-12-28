@@ -66,7 +66,7 @@ namespace POS.API.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpPost("save")]
         public async Task<IActionResult> Post([FromBody] ItemSaveDto item)
         {
             try
