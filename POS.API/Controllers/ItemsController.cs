@@ -8,6 +8,7 @@ using POS.UseCases.DTO;
 using POS.Core.Interfaces;
 using POS.Core.General;
 using POS.UseCases.General.Items.GetItems;
+using POS.UseCases.General.Items.GetItemsByLevel;
 using POS.UseCases.General.Items.GetItem;
 using POS.UseCases.General.Items.PaginatedItems;
 using POS.UseCases.General.Items.SaveItem;
@@ -34,6 +35,26 @@ namespace POS.API.Controllers
             {
                 var findItems = usecaseFactory.Create<GetItemsUsecase>();
                 var result = await findItems.Execute();
+                if (result == null)
+                {
+                    return NotFound();
+                }
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(Microsoft.AspNetCore.Http.StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
+
+        [HttpGet("findall/level/{level}")]
+        public async Task<IActionResult> GetAllByLevel(int level)
+        {
+            try
+            {
+                var findCategorisByLevel = usecaseFactory.Create<GetItemsByLevelUsecase>();
+                findCategorisByLevel.Level = level;
+                var result = await findCategorisByLevel.Execute();
                 if (result == null)
                 {
                     return NotFound();

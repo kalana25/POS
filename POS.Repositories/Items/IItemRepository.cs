@@ -10,5 +10,6 @@ namespace POS.Repositories.Items
     {
         Task<Item> GetItem(int id);
         Task<IEnumerable<Item>> GetItems();
+        Task<IEnumerable<Item>> GetItemsByLevel(int level);
     }
 }
