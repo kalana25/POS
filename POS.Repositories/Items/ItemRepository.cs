@@ -36,5 +36,10 @@ namespace POS.Repositories.Items
         {
             return await DatabaseContext.Items.Where(x => x.ItemCateogry.Level == level).ToListAsync();
         }
+
+        public async Task<IEnumerable<Item>> GetItemsByCategoyry(int category)
+        {
+            return await DatabaseContext.Items.Where(x => x.CategoryId==category).ToListAsync();
+        }
     }
 }
