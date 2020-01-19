@@ -157,7 +157,7 @@ namespace POS.API.Controllers
             }
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("update/{id}")]
         public async Task<IActionResult> Put(int id, [FromBody] ItemSaveDto item)
         {
             try

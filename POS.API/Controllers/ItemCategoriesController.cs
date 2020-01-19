@@ -159,7 +159,7 @@ namespace POS.API.Controllers
             }
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("update/{id}")]
         public async Task<IActionResult> Put(int id, [FromBody] ItemCategorySaveDto itemCategory)
         {
             try

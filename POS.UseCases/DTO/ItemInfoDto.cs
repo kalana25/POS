@@ -18,5 +18,7 @@ namespace POS.UseCases.DTO
 
         public string Barcode { get; set; }
 
+        public bool Active { get; set; }
+
     }
 }

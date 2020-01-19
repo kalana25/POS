@@ -20,5 +20,7 @@ namespace POS.UseCases.DTO
         public int ParentCategoryId { get; set; }
 
         public int? Level { get; set; }
+
+        public bool Active { get; set; }
     }
 }
