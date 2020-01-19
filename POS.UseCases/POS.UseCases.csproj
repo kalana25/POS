@@ -16,7 +16,6 @@
   <ItemGroup>
     <Folder Include="General\PurchaseOrders\DeletePurchaseOrder\" />
     <Folder Include="General\PurchaseOrders\UpdatePurchaseOrder\" />
-    <Folder Include="General\PurchaseOrders\SavePurchaseOrder\" />
   </ItemGroup>
 
 </Project>

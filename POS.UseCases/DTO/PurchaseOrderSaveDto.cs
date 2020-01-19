@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Text;
 using System.ComponentModel.DataAnnotations;
 
-namespace POS.Models
+namespace POS.UseCases.DTO
 {
-    public class PurchaseOrder
+    public class PurchaseOrderSaveDto
     {
         public int Id { get; set; }
 
@@ -20,6 +20,14 @@ namespace POS.Models
         [Required]
         public decimal TotalPrice { get; set; }
 
-        public List<PurchaseOrderDetail> Items { get; set; }
+        [Required]
+        public List<PurchaseOrderSaveDetail> Items { get; set; }
+    }
+
+    public class PurchaseOrderSaveDetail
+    {
+        public int ItemId { get; set; }
+        public int Quantity { get; set; }
+        public int Unit { get; set; }
     }
 }
