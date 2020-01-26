@@ -20,6 +20,6 @@ namespace POS.Models
         [Required]
         public decimal TotalPrice { get; set; }
 
-        public List<PurchaseOrderDetail> Items { get; set; }
+        public ICollection<PurchaseOrderDetail> Items { get; set; }
     }
 }

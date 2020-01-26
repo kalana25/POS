@@ -18,6 +18,9 @@ namespace POS.API
             CreateMap<ItemCategorySaveDto, ItemCategory>();
             CreateMap<ItemSaveDto, Item>();
 
+            CreateMap<PurchaseOrderSaveDto, PurchaseOrder>();
+            CreateMap<PurchaseOrderSaveDetail, PurchaseOrderDetail>();
+
 
             #endregion
 

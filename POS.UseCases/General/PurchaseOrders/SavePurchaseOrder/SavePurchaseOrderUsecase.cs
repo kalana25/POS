@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using POS.Core.Interfaces;
+using System.Collections.Generic;
 using AutoMapper;
 using POS.Models;
 using POS.Repositories;
@@ -23,11 +24,12 @@ namespace POS.UseCases.General.PurchaseOrders.SavePurchaseOrder
         public async Task<PoHeaderInfoDto> Execute()
         {
             PurchaseOrder header = mapper.Map<PurchaseOrderSaveDto, PurchaseOrder>(Dto);
-            //PurchaseOrderD
-            //PurchaseOrder purchaseOrder = await unitOfWork.PurchaseOrders.Get(Id);
-            //PoHeaderInfoDto result = mapper.Map<PurchaseOrder, PoHeaderInfoDto>(purchaseOrder);
-            //return result;
-            return null;
+            List<PurchaseOrderDetail> details = mapper.Map<List<PurchaseOrderSaveDetail>, List<PurchaseOrderDetail>>(Dto.Items);
+            header.Items = details;
+            unitOfWork.PurchaseOrders.Add(header);
+            await unitOfWork.Complete();
+            var headerDto =  this.mapper.Map<PurchaseOrder, PoHeaderInfoDto>(header);
+            return headerDto;
         }
     }
 }
