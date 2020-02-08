@@ -10,7 +10,7 @@ using POS.Core.General;
 using POS.UseCases.General.PurchaseOrders.GetPurchaseOrders;
 using POS.UseCases.General.PurchaseOrders.GetPurchaseOrder;
 using POS.UseCases.General.Items.PaginatedItems;
-using POS.UseCases.General.Items.SaveItem;
+using POS.UseCases.General.PurchaseOrders.SavePurchaseOrder;
 using POS.UseCases.General.Items.UpdateItem;
 using POS.UseCases.General.Items.DeleteItem;
 
@@ -64,6 +64,30 @@ namespace POS.API.Controllers
                     return NotFound();
                 }
                 return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(Microsoft.AspNetCore.Http.StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
+
+        [HttpPost("save")]
+        public async Task<IActionResult> Post([FromBody] PurchaseOrderSaveDto dto)
+        {
+            try
+            {
+                if (dto == null)
+                {
+                    return BadRequest();
+                }
+                if (ModelState.IsValid)
+                {
+                    var savePo = usecaseFactory.Create<SavePurchaseOrderUsecase>();
+                    savePo.Dto = dto;
+                    var result = await savePo.Execute();
+                    return CreatedAtAction(nameof(Get), new { id = result.Id }, result);
+                }
+                return BadRequest();
             }
             catch (Exception ex)
             {
