@@ -10,7 +10,8 @@ namespace POS.Repositories.PurchaseOrders
     [AutoDIService]
     public interface IPurchaseOrderRepository:IRepository<PurchaseOrder>
     {
-        //Task<PurchaseOrder> GetPurchaseOrder(int id);
+
+        Task<PurchaseOrder> GetPurchaseOrderWithDetails(int id);
         //Task<IEnumerable<PurchaseOrder>> GetPurchaseOrders();
     }
 }

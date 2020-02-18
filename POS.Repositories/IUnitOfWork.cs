@@ -6,6 +6,7 @@ using POS.Repositories.Items;
 using POS.Repositories.Suppliers;
 using POS.Repositories.ItemCategories;
 using POS.Repositories.PurchaseOrders;
+using POS.Repositories.PurchaseOrderDetails;
 using POS.Core.DI;
 
 
@@ -18,6 +19,7 @@ namespace POS.Repositories
         IItemCategoryRepository ItemCategories { get; }
         IItemRepository Items { get; }
         IPurchaseOrderRepository PurchaseOrders { get; }
+        IPurchaseOrderDetailRepository PurchaseOrderDetails { get; }
         Task<int> Complete();
     }
 }
