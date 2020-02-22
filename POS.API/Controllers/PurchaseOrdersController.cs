@@ -12,7 +12,7 @@ using POS.UseCases.General.PurchaseOrders.GetPurchaseOrder;
 using POS.UseCases.General.Items.PaginatedItems;
 using POS.UseCases.General.PurchaseOrders.SavePurchaseOrder;
 using POS.UseCases.General.PurchaseOrders.UpdatePurchaseOrder;
-using POS.UseCases.General.Items.DeleteItem;
+using POS.UseCases.General.PurchaseOrders.DeletePurchaseOrder;
 
 namespace POS.API.Controllers
 {
@@ -113,6 +113,26 @@ namespace POS.API.Controllers
                     return CreatedAtAction(nameof(Get), new { id = result.Id }, result);
                 }
                 return BadRequest();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(Microsoft.AspNetCore.Http.StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
+
+        [HttpDelete("delete/{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            try
+            {
+                if (id < 1)
+                {
+                    return NotFound();
+                }
+                var deletePurchaseOrder = usecaseFactory.Create<DeletePurchaseOrderDeleteUsecase>();
+                deletePurchaseOrder.Id = id;
+                var result = await deletePurchaseOrder.Execute();
+                return Ok(result);
             }
             catch (Exception ex)
             {

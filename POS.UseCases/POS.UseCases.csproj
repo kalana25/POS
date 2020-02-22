@@ -13,8 +13,4 @@
     <ProjectReference Include="..\POS.Repositories\POS.Repositories.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="General\PurchaseOrders\DeletePurchaseOrder\" />
-  </ItemGroup>
-
 </Project>
