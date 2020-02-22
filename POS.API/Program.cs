@@ -19,6 +19,10 @@ namespace POS.API
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
+                .ConfigureAppConfiguration((_, builder) =>
+                {
+                    builder.AddJsonFile($"appsettings.{Environment.MachineName}.json", true, true);
+                })
                 .UseStartup<Startup>();
     }
 }
