@@ -18,9 +18,16 @@ namespace POS.UseCases.DTO
         [Required]
         public decimal TotalPrice { get; set; }
 
-        public int[] ItemsAdded { get; set; }
+        public List<PurchaseOrderUpdateDetail> Items { get; set; }
+        public List<int> DeleteItemIds { get; set; }
 
-        public int[] ItemsDeleted { get; set; }
+    }
 
+    public class PurchaseOrderUpdateDetail
+    {
+        public int Id { get; set; }
+        public int ItemId { get; set; }
+        public int Quantity { get; set; }
+        public int Unit { get; set; }
     }
 }

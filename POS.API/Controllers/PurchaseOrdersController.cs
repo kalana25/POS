@@ -11,7 +11,7 @@ using POS.UseCases.General.PurchaseOrders.GetPurchaseOrders;
 using POS.UseCases.General.PurchaseOrders.GetPurchaseOrder;
 using POS.UseCases.General.Items.PaginatedItems;
 using POS.UseCases.General.PurchaseOrders.SavePurchaseOrder;
-using POS.UseCases.General.Items.UpdateItem;
+using POS.UseCases.General.PurchaseOrders.UpdatePurchaseOrder;
 using POS.UseCases.General.Items.DeleteItem;
 
 namespace POS.API.Controllers
@@ -85,6 +85,31 @@ namespace POS.API.Controllers
                     var savePo = usecaseFactory.Create<SavePurchaseOrderUsecase>();
                     savePo.Dto = dto;
                     var result = await savePo.Execute();
+                    return CreatedAtAction(nameof(Get), new { id = result.Id }, result);
+                }
+                return BadRequest();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(Microsoft.AspNetCore.Http.StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
+
+        [HttpPut("update")]
+        public async Task<IActionResult> Put(int Id,[FromBody] PurchaseOrderUpdateDto dto)
+        {
+            try
+            {
+                if (dto == null)
+                {
+                    return BadRequest();
+                }
+                if (ModelState.IsValid)
+                {
+                    var updatePo = usecaseFactory.Create<UpdatePurchaseOrderUsecase>();
+                    updatePo.Dto = dto;
+                    updatePo.Id = Id;
+                    var result = await updatePo.Execute();
                     return CreatedAtAction(nameof(Get), new { id = result.Id }, result);
                 }
                 return BadRequest();
