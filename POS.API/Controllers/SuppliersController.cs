@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using POS.UseCases.DTO;
 using POS.Core.General;
 using POS.Core.Interfaces;
 using POS.UseCases.General.Suppliers.PaginatedSuppliers;
@@ -13,6 +12,10 @@ using POS.UseCases.General.Suppliers.GetSuppliers;
 using POS.UseCases.General.Suppliers.GetSupplier;
 using POS.UseCases.General.Suppliers.UpdateSupplier;
 using POS.UseCases.General.Suppliers.DeleteSupplier;
+using POS.UseCases.DTO.Supplier;
+using POS.UseCases.General.Suppliers.SaveSupplierContact;
+using POS.UseCases.General.Suppliers.UpdateSupplierContact;
+using POS.UseCases.General.Suppliers.DeleteSupplierContact;
 
 namespace POS.API.Controllers
 {
@@ -61,6 +64,11 @@ namespace POS.API.Controllers
                     var saveSupplier = usecaseFactory.Create<SaveSupplierUsecase>();
                     saveSupplier.Dto = supplier;
                     var result = await saveSupplier.Execute();
+
+                    var supplierSaveContact = usecaseFactory.Create<SaveSupplierContactUseCase>();
+                    supplierSaveContact.GenerateContactBySuppler(result);
+                    await supplierSaveContact.Execute();
+
                     return CreatedAtAction(nameof(Get), new { id = result.Id }, result);
                 }
                 return BadRequest();
@@ -163,5 +171,90 @@ namespace POS.API.Controllers
                 return StatusCode(Microsoft.AspNetCore.Http.StatusCodes.Status500InternalServerError, ex.Message);
             }
         }
+
+
+        #region Supplier Contact Region
+
+        [HttpPost("contact")]
+        public async Task<IActionResult> AddSupplierContact([FromBody] SupplierContactSaveDto supplierContact)
+        {
+            try
+            {
+                if (supplierContact == null)
+                {
+                    return BadRequest();
+                }
+                if (ModelState.IsValid)
+                {
+                    var createSupplierContact = this.usecaseFactory.Create<SaveSupplierContactUseCase>();
+                    createSupplierContact.Dto = supplierContact;
+                    var result = await createSupplierContact.Execute();
+                    return Ok(result);
+                }
+                return BadRequest();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(Microsoft.AspNetCore.Http.StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
+
+
+
+        [HttpPut("contact/{id}")]
+        public async Task<IActionResult> PutSupplierContact(int id, [FromBody] SupplierContactSaveDto supplierContact)
+        {
+            try
+            {
+                if (id < 0)
+                {
+                    return NotFound();
+                }
+                if (supplierContact == null)
+                {
+                    return BadRequest();
+                }
+                if (ModelState.IsValid)
+                {
+                    var updateSupplier = this.usecaseFactory.Create<UpdateSupplierContactUseCase>();
+                    updateSupplier.Id = id;
+                    updateSupplier.Dto = supplierContact;
+                    var result = await updateSupplier.Execute();
+                    return Ok(result);
+                }
+                return BadRequest();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(Microsoft.AspNetCore.Http.StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
+
+
+        [HttpDelete("contact/{id}")]
+        public async Task<IActionResult> DeleteSupplierContact(int id)
+        {
+            try
+            {
+                if (id < 0)
+                {
+                    return NotFound();
+                }
+                if (ModelState.IsValid)
+                {
+                    var deleteSupplierContact = this.usecaseFactory.Create<DeleteSupplierContactUseCase>();
+                    deleteSupplierContact.Id = id;
+                    var result = await deleteSupplierContact.Execute();
+                    return Ok(result);
+                }
+                return BadRequest();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(Microsoft.AspNetCore.Http.StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
+
+        #endregion
     }
 }

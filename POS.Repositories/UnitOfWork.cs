@@ -18,19 +18,22 @@ namespace POS.Repositories
         public IItemCategoryRepository ItemCategories { get; set; }
         public IItemRepository Items { get; set; }
         public IPurchaseOrderRepository PurchaseOrders { get; set; }
+        public ISupplierContactRepository SupplierContacts { get; set; }
 
 
         public UnitOfWork(DataBaseContext context,
             ISupplierRepository supplierRepository,
             IItemCategoryRepository itemCategoryRepository,
             IItemRepository itemRepository,
-            IPurchaseOrderRepository purchaseOrderRepository)
+            IPurchaseOrderRepository purchaseOrderRepository,
+            ISupplierContactRepository supplierContactRepository)
         {
             this.context = context;
             Suppliers = supplierRepository;
             ItemCategories = itemCategoryRepository;
             Items = itemRepository;
             PurchaseOrders = purchaseOrderRepository;
+            SupplierContacts = supplierContactRepository;
         }
 
         public async Task<int> Complete()
