@@ -20,10 +20,10 @@ namespace POS.Repositories.PurchaseOrders
         //    return await DatabaseContext.PurchaseOrders.FindAsync(id);
         //}
 
-        //public async Task<IEnumerable<PurchaseOrder>> GetPurchaseOrders()
-        //{
-        //    return await DatabaseContext.PurchaseOrders.ToListAsync();
-        //}
+        public async Task<PurchaseOrder> GetPurchaseOrderWithDetails(int id)
+        {
+            return await DatabaseContext.PurchaseOrders.Include(p => p.Items).FirstOrDefaultAsync(x => x.Id == id);
+        }
 
         public DataBaseContext DatabaseContext
         {

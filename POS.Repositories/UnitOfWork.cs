@@ -7,6 +7,7 @@ using POS.Repositories.Suppliers;
 using POS.Repositories.ItemCategories;
 using POS.Repositories.Items;
 using POS.Repositories.PurchaseOrders;
+using POS.Repositories.PurchaseOrderDetails;
 
 namespace POS.Repositories
 {
@@ -19,6 +20,7 @@ namespace POS.Repositories
         public IItemRepository Items { get; set; }
         public IPurchaseOrderRepository PurchaseOrders { get; set; }
         public ISupplierContactRepository SupplierContacts { get; set; }
+        public IPurchaseOrderDetailRepository PurchaseOrderDetails { get; set; }
 
 
         public UnitOfWork(DataBaseContext context,
@@ -26,6 +28,7 @@ namespace POS.Repositories
             IItemCategoryRepository itemCategoryRepository,
             IItemRepository itemRepository,
             IPurchaseOrderRepository purchaseOrderRepository,
+            IPurchaseOrderDetailRepository purchaseOrderDetailsRepository),
             ISupplierContactRepository supplierContactRepository)
         {
             this.context = context;
@@ -33,6 +36,7 @@ namespace POS.Repositories
             ItemCategories = itemCategoryRepository;
             Items = itemRepository;
             PurchaseOrders = purchaseOrderRepository;
+            PurchaseOrderDetails = purchaseOrderDetailsRepository;
             SupplierContacts = supplierContactRepository;
         }
 

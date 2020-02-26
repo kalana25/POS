@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace POS.UseCases.DTO
 {
-    public class PurchaseOrderSaveDto
+    public class PurchaseOrderUpdateDto
     {
         [Required]
         public DateTime Date { get; set; }
@@ -18,12 +18,14 @@ namespace POS.UseCases.DTO
         [Required]
         public decimal TotalPrice { get; set; }
 
-        [Required]
-        public List<PurchaseOrderSaveDetail> Items { get; set; }
+        public List<PurchaseOrderUpdateDetail> Items { get; set; }
+        public List<int> DeleteItemIds { get; set; }
+
     }
 
-    public class PurchaseOrderSaveDetail
+    public class PurchaseOrderUpdateDetail
     {
+        public int Id { get; set; }
         public int ItemId { get; set; }
         public int Quantity { get; set; }
         public int Unit { get; set; }
