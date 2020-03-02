@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using POS.DAL;
 
 namespace POS.DAL.Migrations
 {
     [DbContext(typeof(DataBaseContext))]
-    partial class DataBaseContextModelSnapshot : ModelSnapshot
+    [Migration("20200228062927_WithCascadeDeleteRestiction")]
+    partial class WithCascadeDeleteRestiction
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -245,44 +247,6 @@ namespace POS.DAL.Migrations
                     b.ToTable("Suppliers");
                 });
 
-            modelBuilder.Entity("POS.Models.SupplierContact", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<bool>("Active");
-
-                    b.Property<string>("ContactNumber")
-                        .HasMaxLength(15);
-
-                    b.Property<string>("Email")
-                        .HasMaxLength(150);
-
-                    b.Property<string>("FirstName")
-                        .HasMaxLength(150);
-
-                    b.Property<string>("LastName")
-                        .HasMaxLength(150);
-
-                    b.Property<string>("Mobile")
-                        .HasMaxLength(15);
-
-                    b.Property<string>("Position")
-                        .HasMaxLength(150);
-
-                    b.Property<int>("SupplierId");
-
-                    b.Property<string>("Telephone")
-                        .HasMaxLength(15);
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("SupplierId");
-
-                    b.ToTable("SupplerContacts");
-                });
-
             modelBuilder.Entity("POS.Models.GoodReceivedNote", b =>
                 {
                     b.HasOne("POS.Models.PurchaseOrder", "PurchaseOrder")
@@ -323,14 +287,6 @@ namespace POS.DAL.Migrations
                         .WithMany("Items")
                         .HasForeignKey("PurchaseOrderId")
                         .OnDelete(DeleteBehavior.Restrict);
-                });
-
-            modelBuilder.Entity("POS.Models.SupplierContact", b =>
-                {
-                    b.HasOne("POS.Models.Supplier")
-                        .WithMany("SupplierContacts")
-                        .HasForeignKey("SupplierId")
-                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }
