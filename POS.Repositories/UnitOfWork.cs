@@ -28,7 +28,7 @@ namespace POS.Repositories
             IItemCategoryRepository itemCategoryRepository,
             IItemRepository itemRepository,
             IPurchaseOrderRepository purchaseOrderRepository,
-            IPurchaseOrderDetailRepository purchaseOrderDetailsRepository),
+            IPurchaseOrderDetailRepository purchaseOrderDetailsRepository,
             ISupplierContactRepository supplierContactRepository)
         {
             this.context = context;
