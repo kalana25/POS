@@ -43,6 +43,8 @@ namespace POS.UseCases.General.Suppliers.SaveSupplierContact
                 ContactNumber = supplier.ContactNo,
                 Telephone = supplier.Telephone,
                 Email = supplier.Email,
+                Mobile = "",
+                LastName = ""
             };
             unitOfWork.SupplierContacts.Add(supplierContact);
             unitOfWork.Complete();
