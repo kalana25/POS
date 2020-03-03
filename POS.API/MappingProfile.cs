@@ -39,6 +39,7 @@ namespace POS.API
             ////.ForMember(d => d.ResourceProfiles, m => m.Ignore());
 
             CreateMap<Supplier, SupplierInfoDto>();
+            CreateMap<SupplierContact, SupplierContactDto>();
             CreateMap<ItemCategory, ItemCategoryInfoDto>();
             CreateMap<Item, ItemInfoDto>();
             CreateMap<PurchaseOrder, PoHeaderInfoDto>();

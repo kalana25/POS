@@ -20,9 +20,9 @@ namespace POS.Repositories.Suppliers
             return await DatabaseContext.Suppliers.FindAsync(id);
         }
 
-        public async Task<IEnumerable<Supplier>> GetSuppliers()
+        public async Task<IEnumerable<Supplier>> GetSuppliersWithContacts()
         {
-            return await DatabaseContext.Suppliers.ToListAsync();
+            return await DatabaseContext.Suppliers.Where(x => x.Active == true).Include(x => x.SupplierContacts).Where(x => x.SupplierContacts.Any(z => z.Active == true)).ToListAsync();
         }
 
         public DataBaseContext DatabaseContext

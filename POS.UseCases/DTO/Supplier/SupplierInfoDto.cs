@@ -25,5 +25,7 @@ namespace POS.UseCases.DTO.Supplier
         public bool BlackList { get; set; }
 
         public bool Active { get; set; }
+
+        public List<SupplierContactDto> Contacts { get; set; }
     }
 }
