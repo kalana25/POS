@@ -20,6 +20,7 @@ namespace POS.Repositories
         public IItemCategoryRepository ItemCategories { get; set; }
         public IItemRepository Items { get; set; }
         public IPurchaseOrderRepository PurchaseOrders { get; set; }
+        public ISupplierContactRepository SupplierContacts { get; set; }
         public IPurchaseOrderDetailRepository PurchaseOrderDetails { get; set; }
         public IGoodReceivedNoteRepository GoodReceivedNotes { get; set; }
 
@@ -30,6 +31,7 @@ namespace POS.Repositories
             IItemRepository itemRepository,
             IPurchaseOrderRepository purchaseOrderRepository,
             IPurchaseOrderDetailRepository purchaseOrderDetailsRepository,
+            ISupplierContactRepository supplierContactRepository,
             IGoodReceivedNoteRepository goodReceivedNoteRepository)
         {
             this.context = context;
@@ -38,6 +40,7 @@ namespace POS.Repositories
             Items = itemRepository;
             PurchaseOrders = purchaseOrderRepository;
             PurchaseOrderDetails = purchaseOrderDetailsRepository;
+            SupplierContacts = supplierContactRepository;
             GoodReceivedNotes = goodReceivedNoteRepository;
         }
 

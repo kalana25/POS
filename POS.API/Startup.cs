@@ -14,6 +14,7 @@ using POS.DAL;
 using POS.Core.General;
 using AutoMapper;
 using POS.Core.DI;
+using Microsoft.Extensions.Hosting;
 
 namespace POS.API
 {
@@ -41,7 +42,9 @@ namespace POS.API
 
             services.AddDbContext<DataBaseContext>(options => options.UseSqlServer(AppSettings.ConnectionString.Development));
 
-            services.AddMvc();
+            services.AddMvc(options => {
+                options.EnableEndpointRouting = false;
+            });
             services.AddCors(options =>
             {
                 // this defines a CORS policy called "default"
@@ -54,12 +57,12 @@ namespace POS.API
             });
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new Info { Title = "API", Version = "v1" });
+                c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo{ Title = "API", Version = "v1" });
             });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {

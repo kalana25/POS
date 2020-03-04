@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using POS.Models;
 using POS.UseCases.DTO;
+using POS.UseCases.DTO.Supplier;
 
 namespace POS.API
 {
@@ -15,6 +16,7 @@ namespace POS.API
             #region DTOToModel
 
             CreateMap<SupplierSaveDto, Supplier>();
+            CreateMap<SupplierContactSaveDto, SupplierContact>();
             CreateMap<ItemCategorySaveDto, ItemCategory>();
             CreateMap<ItemSaveDto, Item>();
 
@@ -39,6 +41,7 @@ namespace POS.API
             ////.ForMember(d => d.ResourceProfiles, m => m.Ignore());
 
             CreateMap<Supplier, SupplierInfoDto>();
+            CreateMap<SupplierContact, SupplierContactDto>();
             CreateMap<ItemCategory, ItemCategoryInfoDto>();
             CreateMap<Item, ItemInfoDto>();
             CreateMap<PurchaseOrder, PoHeaderInfoDto>();

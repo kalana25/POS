@@ -7,7 +7,7 @@ using POS.Core.General;
 using AutoMapper;
 using POS.Models;
 using POS.Repositories;
-using POS.UseCases.DTO;
+using POS.UseCases.DTO.Supplier;
 
 namespace POS.UseCases.General.Suppliers.PaginatedSuppliers
 {

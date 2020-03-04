@@ -10,6 +10,6 @@ namespace POS.Repositories.Suppliers
     public interface ISupplierRepository:IRepository<Supplier>
     {
         Task<Supplier> GetSupplier(int id);
-        Task<IEnumerable<Supplier>> GetSuppliers();
+        Task<IEnumerable<Supplier>> GetSuppliersWithContacts();
     }
 }

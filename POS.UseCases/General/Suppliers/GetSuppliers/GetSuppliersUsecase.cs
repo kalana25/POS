@@ -6,7 +6,7 @@ using POS.Core.Interfaces;
 using AutoMapper;
 using POS.Models;
 using POS.Repositories;
-using POS.UseCases.DTO;
+using POS.UseCases.DTO.Supplier;
 
 namespace POS.UseCases.General.Suppliers.GetSuppliers
 {
@@ -23,7 +23,7 @@ namespace POS.UseCases.General.Suppliers.GetSuppliers
 
         public async Task<IEnumerable<SupplierInfoDto>> Execute()
         {
-            IEnumerable<Supplier> itmes = await unitOfWork.Suppliers.GetSuppliers();
+            IEnumerable<Supplier> itmes = await unitOfWork.Suppliers.GetSuppliersWithContacts();
             IEnumerable<SupplierInfoDto> result = mapper.Map<IEnumerable<Supplier>, IEnumerable<SupplierInfoDto>>(itmes);
             return result;
         }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace POS.UseCases.DTO
+namespace POS.UseCases.DTO.Supplier
 {
     public class SupplierInfoDto
     {
@@ -25,5 +25,7 @@ namespace POS.UseCases.DTO
         public bool BlackList { get; set; }
 
         public bool Active { get; set; }
+
+        public List<SupplierContactDto> Contacts { get; set; }
     }
 }

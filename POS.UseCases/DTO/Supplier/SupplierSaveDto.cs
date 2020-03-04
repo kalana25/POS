@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.ComponentModel.DataAnnotations;
 
-namespace POS.UseCases.DTO
+namespace POS.UseCases.DTO.Supplier
 {
     public class SupplierSaveDto
     {

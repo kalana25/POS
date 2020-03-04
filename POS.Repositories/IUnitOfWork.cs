@@ -17,6 +17,7 @@ namespace POS.Repositories
     public interface IUnitOfWork : IDisposable
     {
         ISupplierRepository Suppliers { get; }
+        ISupplierContactRepository SupplierContacts { get; }
         IItemCategoryRepository ItemCategories { get; }
         IItemRepository Items { get; }
         IPurchaseOrderRepository PurchaseOrders { get; }

@@ -33,5 +33,7 @@ namespace POS.Models
         public bool BlackList { get; set; }
 
         public bool Active { get; set; }
+
+        public virtual ICollection<SupplierContact> SupplierContacts { get; set; }
     }
 }

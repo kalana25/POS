@@ -4,6 +4,7 @@ using POS.Repositories;
 using POS.UseCases.DTO;
 using POS.Models;
 using POS.Core.Interfaces;
+using POS.UseCases.DTO.Supplier;
 
 namespace POS.UseCases.General.Suppliers.UpdateSupplier
 {
