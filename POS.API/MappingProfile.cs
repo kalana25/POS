@@ -24,6 +24,8 @@ namespace POS.API
             CreateMap<PurchaseOrderUpdateDto, PurchaseOrder>();
             CreateMap<PurchaseOrderUpdateDetail, PurchaseOrderDetail>();
 
+            CreateMap<GoodReceivedNoteSaveDto, GoodReceivedNote>();
+
 
             #endregion
 
@@ -40,6 +42,7 @@ namespace POS.API
             CreateMap<ItemCategory, ItemCategoryInfoDto>();
             CreateMap<Item, ItemInfoDto>();
             CreateMap<PurchaseOrder, PoHeaderInfoDto>();
+            CreateMap<GoodReceivedNote, GrnHeaderInfoDto>();
 
             #endregion
         }
