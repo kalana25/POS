@@ -9,7 +9,7 @@ using POS.Core.Interfaces;
 using POS.Core.General;
 using POS.UseCases.General.PurchaseOrders.GetPurchaseOrders;
 using POS.UseCases.General.PurchaseOrders.GetPurchaseOrder;
-using POS.UseCases.General.Items.PaginatedItems;
+using POS.UseCases.General.PurchaseOrders.PaginatedPurchaseOrders;
 using POS.UseCases.General.PurchaseOrders.SavePurchaseOrder;
 using POS.UseCases.General.PurchaseOrders.UpdatePurchaseOrder;
 using POS.UseCases.General.PurchaseOrders.DeletePurchaseOrder;
@@ -25,6 +25,26 @@ namespace POS.API.Controllers
         public PurchaseOrdersController(IUseCaseFactory usecaseFactory)
         {
             this.usecaseFactory = usecaseFactory;
+        }
+
+        [HttpGet("pagination")]
+        public async Task<IActionResult> GetPagination([FromQuery]RequestData req)
+        {
+            try
+            {
+                var itemPagination = usecaseFactory.Create<PaginatedPurchaseOrdersUsecase>();
+                itemPagination.RequestData = req;
+                var result = await itemPagination.Execute();
+                if (result == null)
+                {
+                    return NotFound();
+                }
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(Microsoft.AspNetCore.Http.StatusCodes.Status500InternalServerError, ex.Message);
+            }
         }
 
         [HttpGet("header/findall")]
