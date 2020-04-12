@@ -48,7 +48,7 @@ namespace POS.API
             services.AddCors(options =>
             {
                 // this defines a CORS policy called "default"
-                options.AddDefaultPolicy( policy =>
+                options.AddPolicy("default", policy =>
                 {
                     policy.AllowAnyOrigin()
                         .AllowAnyHeader()
