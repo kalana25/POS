@@ -23,6 +23,7 @@ namespace POS.UseCases.General.PurchaseOrders.DeletePurchaseOrder
         public async Task<int> Execute()
         {
             var purchaseOrder = await unitOfWork.PurchaseOrders.GetPurchaseOrderWithDetails(Id);
+            unitOfWork.PurchaseOrderDetails.RemoveRange(purchaseOrder.Items);
             unitOfWork.PurchaseOrders.Remove(purchaseOrder);
             return await unitOfWork.Complete();
         }
