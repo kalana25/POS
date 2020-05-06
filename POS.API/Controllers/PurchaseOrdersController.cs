@@ -1,18 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using POS.UseCases.DTO;
-using POS.Core.Interfaces;
+﻿using Microsoft.AspNetCore.Mvc;
 using POS.Core.General;
-using POS.UseCases.General.PurchaseOrders.GetPurchaseOrders;
+using POS.Core.Interfaces;
+using POS.UseCases.DTO;
+using POS.UseCases.General.PurchaseOrders.DeletePurchaseOrder;
 using POS.UseCases.General.PurchaseOrders.GetPurchaseOrder;
+using POS.UseCases.General.PurchaseOrders.GetPurchaseOrderFullInfo;
+using POS.UseCases.General.PurchaseOrders.GetPurchaseOrders;
 using POS.UseCases.General.PurchaseOrders.PaginatedPurchaseOrders;
 using POS.UseCases.General.PurchaseOrders.SavePurchaseOrder;
 using POS.UseCases.General.PurchaseOrders.UpdatePurchaseOrder;
-using POS.UseCases.General.PurchaseOrders.DeletePurchaseOrder;
+using System;
+using System.Threading.Tasks;
 
 namespace POS.API.Controllers
 {
@@ -79,6 +77,31 @@ namespace POS.API.Controllers
                 var findPurchaseOrder = usecaseFactory.Create<GetPurchaseOrderUsecase>();
                 findPurchaseOrder.Id = id;
                 var result = await findPurchaseOrder.Execute();
+                if (result == null)
+                {
+                    return NotFound();
+                }
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(Microsoft.AspNetCore.Http.StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
+
+        [HttpGet("fullinfo/find/{id}")]
+        public async Task<IActionResult> GetFullInfo(int id)
+        {
+            try
+            {
+                if (id < 1)
+                {
+                    return BadRequest();
+                }
+
+                var findPoFullInfo = usecaseFactory.Create<GetPurchaseOrderFullInfoUsecase>();
+                findPoFullInfo.Id = id;
+                var result = await findPoFullInfo.Execute();
                 if (result == null)
                 {
                     return NotFound();

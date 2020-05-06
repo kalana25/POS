@@ -12,6 +12,7 @@ namespace POS.Repositories.PurchaseOrders
     {
 
         Task<PurchaseOrder> GetPurchaseOrderWithDetails(int id);
+        Task<PurchaseOrder> GetPurchaseOrderWithFullInfo(int id);
         //Task<IEnumerable<PurchaseOrder>> GetPurchaseOrders();
     }
 }

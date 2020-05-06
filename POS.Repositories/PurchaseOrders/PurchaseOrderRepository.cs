@@ -25,6 +25,13 @@ namespace POS.Repositories.PurchaseOrders
             return await DatabaseContext.PurchaseOrders.Include(p => p.Items).FirstOrDefaultAsync(x => x.Id == id);
         }
 
+
+        //Will include grn and more in furture
+        public async Task<PurchaseOrder> GetPurchaseOrderWithFullInfo(int id)
+        {
+            return await DatabaseContext.PurchaseOrders.Include(p => p.Items).ThenInclude(i=>i.Item).FirstOrDefaultAsync(x => x.Id == id);
+        }
+
         public DataBaseContext DatabaseContext
         {
             get { return context as DataBaseContext; }

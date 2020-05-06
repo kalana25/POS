@@ -45,6 +45,10 @@ namespace POS.API
             CreateMap<ItemCategory, ItemCategoryInfoDto>();
             CreateMap<Item, ItemInfoDto>();
             CreateMap<PurchaseOrder, PoHeaderInfoDto>();
+
+            //This is because PoWithFullInfoDto is inherited by PoHeaderInfoDto
+            CreateMap<PoHeaderInfoDto, PoWithFullInfoDto>();
+            CreateMap<PurchaseOrderDetail, PoDetailInfoWithItemDto>();
             CreateMap<GoodReceivedNote, GrnHeaderInfoDto>();
 
             #endregion
