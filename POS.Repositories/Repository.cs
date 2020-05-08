@@ -36,11 +36,10 @@ namespace POS.Repositories
             return await this.context.Set<TEntity>().Where(predicate).ToListAsync();
         }
 
-        public async Task<ResponseData<TEntity>> GetPagination(RequestData requestData)
+        public virtual async Task<ResponseData<TEntity>> GetPagination(RequestData requestData)
         {
             int count = await Count();
             IEnumerable<TEntity> items = await this.context.Set<TEntity>()
-                //.OrderBy(sortPredicate)
                 .Skip((requestData.Page-1) * requestData.PageSize)
                 .Take(requestData.PageSize)
                 .ToListAsync();
