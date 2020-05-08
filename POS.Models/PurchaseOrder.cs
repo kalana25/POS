@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using POS.Models.Enums;
 using System.ComponentModel.DataAnnotations;
 
 namespace POS.Models
@@ -19,6 +20,15 @@ namespace POS.Models
 
         [Required]
         public decimal TotalPrice { get; set; }
+
+        [Required]
+        public PoStatus Status { get; set; }
+
+        [Required]
+        public DateTime CreatedOn { get; set; }
+
+        [Required]
+        public int CreatedBy { get; set; }
 
         public ICollection<PurchaseOrderDetail> Items { get; set; }
     }
