@@ -8,6 +8,7 @@ namespace POS.Models.Enums
     {
         Pending = 1,
         Progressing=2,
-        Completed = 3
+        Modified = 3,
+        Completed = 4
     }
 }
