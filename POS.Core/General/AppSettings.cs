@@ -7,6 +7,7 @@ namespace POS.Core.General
     public class AppSettings
     {
         public ConnectionString ConnectionString { get; set; }
+        public Auth Auth { get; set; }
     }
 
     public class ConnectionString
@@ -14,5 +15,13 @@ namespace POS.Core.General
         public string Development { get; set; }
         public string Production { get; set; }
         public string QA { get; set; }
+    }
+
+    public class Auth
+    {
+        public string Secret { get; set; }
+        public string Audience { get; set; }
+        public string Issuer { get; set; }
+
     }
 }
