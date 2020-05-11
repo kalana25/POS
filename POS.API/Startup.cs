@@ -13,8 +13,13 @@ using Swashbuckle.AspNetCore.Swagger;
 using POS.DAL;
 using POS.Core.General;
 using AutoMapper;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 using POS.Core.DI;
 using Microsoft.Extensions.Hosting;
+using Microsoft.CodeAnalysis.Options;
+using System.Text;
 
 namespace POS.API
 {
@@ -42,6 +47,37 @@ namespace POS.API
 
             services.AddDbContext<DataBaseContext>(options => options.UseSqlServer(AppSettings.ConnectionString.Development));
 
+            services.AddIdentity<IdentityUser, IdentityRole>(options =>
+            {
+                options.Password.RequireDigit = true;
+                options.Password.RequireLowercase = true;
+                options.Password.RequiredLength = 5;
+            })
+            .AddEntityFrameworkStores<DataBaseContext>()
+            .AddDefaultTokenProviders();
+
+            services.AddAuthentication(auth =>
+            {
+                auth.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                auth.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(options =>
+            {
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidIssuer = AppSettings.Auth.Issuer,
+                    ValidAudience = AppSettings.Auth.Audience,
+                    RequireExpirationTime = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(
+                        Encoding.UTF8.GetBytes(AppSettings.Auth.Secret)
+                        ),
+                    ValidateIssuerSigningKey = true,
+                };
+            });
+
+
             services.AddMvc(options => {
                 options.EnableEndpointRouting = false;
             });
@@ -68,6 +104,10 @@ namespace POS.API
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseAuthentication();
+            app.UseAuthorization();
+
             app.UseCors("default");
             app.UseStaticFiles();
             app.UseSwagger();
