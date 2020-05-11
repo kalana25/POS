@@ -16,6 +16,7 @@ namespace POS.DAL
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
             //Restict auto delete items when a category is deleted.
             modelBuilder.Entity<ItemCategory>()
                 .HasMany(c => c.Items)
