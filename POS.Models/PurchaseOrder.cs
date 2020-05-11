@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using POS.Models.Enums;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace POS.Models
 {
@@ -19,6 +20,7 @@ namespace POS.Models
         public int UserId { get; set; }
 
         [Required]
+        [Column(TypeName = "decimal(18,2)")]
         public decimal TotalPrice { get; set; }
 
         [Required]
