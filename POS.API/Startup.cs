@@ -20,6 +20,7 @@ using POS.Core.DI;
 using Microsoft.Extensions.Hosting;
 using Microsoft.CodeAnalysis.Options;
 using System.Text;
+using Microsoft.OpenApi.Models;
 
 namespace POS.API
 {
@@ -93,6 +94,31 @@ namespace POS.API
             });
             services.AddSwaggerGen(c =>
             {
+                var security = new Dictionary<string, IEnumerable<string>>
+                {
+                    {"Bearer",new string[0] }
+                };
+                c.AddSecurityDefinition("Bearer", new Microsoft.OpenApi.Models.OpenApiSecurityScheme { 
+                     Description = "JWT Authorization header using bearer scheme",
+                     Name="Authorization",
+                     In=ParameterLocation.Header,
+                    Type =SecuritySchemeType.ApiKey,
+                    BearerFormat = "JWT"
+                });
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
+                            {
+                                Type = ReferenceType.SecurityScheme,
+                                Id = "Bearer"
+                            }
+                        },
+                        new string[] {}
+                    }
+                });
                 c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo{ Title = "API", Version = "v1" });
             });
         }
