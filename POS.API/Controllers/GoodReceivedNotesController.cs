@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 using POS.UseCases.DTO;
 using POS.Core.Interfaces;
 using POS.Core.General;
@@ -12,6 +13,7 @@ using POS.UseCases.General.GoodReceivedNotes.GetGoodReceivedNote;
 
 namespace POS.API.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class GoodReceivedNotesController : ControllerBase

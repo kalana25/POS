@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 using POS.Core.General;
 using POS.Core.Interfaces;
 using POS.UseCases.DTO;
@@ -14,6 +15,7 @@ using System.Threading.Tasks;
 
 namespace POS.API.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class PurchaseOrdersController : ControllerBase
