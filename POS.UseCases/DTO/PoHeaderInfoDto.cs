@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using POS.Models.Enums;
 
 namespace POS.UseCases.DTO
 {
@@ -9,6 +10,8 @@ namespace POS.UseCases.DTO
         public int Id { get; set; }
 
         public DateTime? DeliveryDate { get; set; }
+
+        public PoStatus Status { get; set; }
 
         public DateTime Date { get; set; }
 
