@@ -8,12 +8,16 @@ namespace POS.UseCases.DTO
     {
         public int Id { get; set; }
 
+        public DateTime? DeliveryDate { get; set; }
+
         public DateTime Date { get; set; }
 
         public string Code { get; set; }
 
-        public int UserId { get; set; }
-
         public decimal TotalPrice { get; set; }
+
+        public DateTime CreatedOn { get; set; }
+
+        public string CreatedBy { get; set; }
     }
 }

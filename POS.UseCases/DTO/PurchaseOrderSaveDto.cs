@@ -10,13 +10,16 @@ namespace POS.UseCases.DTO
         [Required]
         public DateTime Date { get; set; }
 
+        public DateTime? DeliveryDate { get; set; }
+
         [Required]
         public string Code { get; set; }
 
-        public int UserId { get; set; }
-
         [Required]
         public decimal TotalPrice { get; set; }
+
+        [Required]
+        public string CreatedBy { get; set; }
 
         [Required]
         public List<PurchaseOrderSaveDetail> Items { get; set; }

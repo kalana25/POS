@@ -12,6 +12,7 @@ using POS.UseCases.General.PurchaseOrders.SavePurchaseOrder;
 using POS.UseCases.General.PurchaseOrders.UpdatePurchaseOrder;
 using System;
 using System.Threading.Tasks;
+using System.Security.Claims;
 
 namespace POS.API.Controllers
 {
@@ -127,6 +128,7 @@ namespace POS.API.Controllers
                 }
                 if (ModelState.IsValid)
                 {
+                    dto.CreatedBy = User.FindFirst(ClaimTypes.NameIdentifier).Value;
                     var savePo = usecaseFactory.Create<SavePurchaseOrderUsecase>();
                     savePo.Dto = dto;
                     var result = await savePo.Execute();

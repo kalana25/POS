@@ -8,7 +8,6 @@ using POS.UseCases.DTO;
 using Microsoft.AspNetCore.Identity;
 using System.Linq;
 using System;
-using System.Runtime.InteropServices.WindowsRuntime;
 using System.Security.Claims;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -21,22 +20,25 @@ namespace POS.UseCases.General.Authentication.LoginUser
     {
         private readonly UserManager<IdentityUser> userManager;
         private readonly IConfiguration configuration;
+        private readonly IMapper mapper;
 
         public UserLoginDto Dto { get; set; }
 
         public LoginUserUsecase(
             UserManager<IdentityUser> userManager,
+            IMapper mapper,
             IConfiguration configuration)
         {
             this.userManager = userManager;
+            this.mapper = mapper;
             this.configuration = configuration;
         }
 
-        public async Task<UserManagerResponse> Execute()
+        public async Task<UserLoginResultDto> Execute()
         {
             var user = await userManager.FindByEmailAsync(Dto.Email);
             if (user == null)
-                return new UserManagerResponse
+                return new UserLoginResultDto
                 {
                     IsSuccess = false,
                     Message = "There is no such user with that email address"
@@ -44,7 +46,7 @@ namespace POS.UseCases.General.Authentication.LoginUser
             
             var result = await userManager.CheckPasswordAsync(user, Dto.Password);
             if (!result)
-                return new UserManagerResponse
+                return new UserLoginResultDto
                 {
                     IsSuccess = false,
                     Message = "Incorrect password"
@@ -68,12 +70,13 @@ namespace POS.UseCases.General.Authentication.LoginUser
                 );
 
             string tokenString = new JwtSecurityTokenHandler().WriteToken(token);
-
-            return new UserManagerResponse
+            var userDto = mapper.Map<IdentityUser, UserInfoDto>(user);
+            return new UserLoginResultDto
             {
                 IsSuccess = true,
                 Message = tokenString,
-                Expire = token.ValidTo
+                Expire = token.ValidTo,
+                LoggedUser = userDto
             };
         }
     }

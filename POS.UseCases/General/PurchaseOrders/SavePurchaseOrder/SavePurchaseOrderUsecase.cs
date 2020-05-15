@@ -5,6 +5,8 @@ using AutoMapper;
 using POS.Models;
 using POS.Repositories;
 using POS.UseCases.DTO;
+using System;
+using System.Security.Claims;
 
 namespace POS.UseCases.General.PurchaseOrders.SavePurchaseOrder
 {
@@ -24,6 +26,7 @@ namespace POS.UseCases.General.PurchaseOrders.SavePurchaseOrder
         public async Task<PoHeaderInfoDto> Execute()
         {
             PurchaseOrder header = mapper.Map<PurchaseOrderSaveDto, PurchaseOrder>(Dto);
+            header.CreatedOn = DateTime.Now;
             List<PurchaseOrderDetail> details = mapper.Map<List<PurchaseOrderSaveDetail>, List<PurchaseOrderDetail>>(Dto.Items);
             header.Items = details;
             unitOfWork.PurchaseOrders.Add(header);

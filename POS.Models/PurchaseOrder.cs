@@ -14,10 +14,10 @@ namespace POS.Models
         [Required]
         public DateTime Date { get; set; }
 
+        public DateTime? DeliveryDate { get; set; }
+
         [Required]
         public string Code { get; set; }
-
-        public int UserId { get; set; }
 
         [Required]
         [Column(TypeName = "decimal(18,2)")]
@@ -30,7 +30,7 @@ namespace POS.Models
         public DateTime CreatedOn { get; set; }
 
         [Required]
-        public int CreatedBy { get; set; }
+        public string CreatedBy { get; set; }
 
         public ICollection<PurchaseOrderDetail> Items { get; set; }
     }
