@@ -19,9 +19,6 @@ namespace POS.UseCases.DTO
         public decimal TotalPrice { get; set; }
 
         [Required]
-        public string CreatedBy { get; set; }
-
-        [Required]
         public List<PurchaseOrderSaveDetail> Items { get; set; }
     }
 

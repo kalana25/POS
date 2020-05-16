@@ -7,6 +7,7 @@ using POS.Repositories;
 using POS.UseCases.DTO;
 using System;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Http;
 
 namespace POS.UseCases.General.PurchaseOrders.SavePurchaseOrder
 {
@@ -16,6 +17,7 @@ namespace POS.UseCases.General.PurchaseOrders.SavePurchaseOrder
         private readonly IUnitOfWork unitOfWork;
 
         public PurchaseOrderSaveDto Dto { get; set; }
+        public string CreatedBy { get; set; }
 
         public SavePurchaseOrderUsecase(IMapper mapper, IUnitOfWork unitOfWork)
         {
@@ -27,6 +29,7 @@ namespace POS.UseCases.General.PurchaseOrders.SavePurchaseOrder
         {
             PurchaseOrder header = mapper.Map<PurchaseOrderSaveDto, PurchaseOrder>(Dto);
             header.CreatedOn = DateTime.Now;
+            header.CreatedBy = this.CreatedBy;
             List<PurchaseOrderDetail> details = mapper.Map<List<PurchaseOrderSaveDetail>, List<PurchaseOrderDetail>>(Dto.Items);
             header.Items = details;
             unitOfWork.PurchaseOrders.Add(header);

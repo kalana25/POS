@@ -128,9 +128,9 @@ namespace POS.API.Controllers
                 }
                 if (ModelState.IsValid)
                 {
-                    dto.CreatedBy = User.FindFirst(ClaimTypes.NameIdentifier).Value;
                     var savePo = usecaseFactory.Create<SavePurchaseOrderUsecase>();
                     savePo.Dto = dto;
+                    savePo.CreatedBy = User.FindFirst(ClaimTypes.NameIdentifier).Value;
                     var result = await savePo.Execute();
                     return CreatedAtAction(nameof(Get), new { id = result.Id }, result);
                 }
