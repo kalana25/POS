@@ -11,6 +11,8 @@ namespace POS.Models
     {
         public int Id { get; set; }
 
+        public int? ReferenceId { get; set; }
+
         [Required]
         public DateTime Date { get; set; }
 

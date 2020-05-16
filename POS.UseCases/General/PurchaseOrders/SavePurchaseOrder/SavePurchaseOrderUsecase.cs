@@ -6,6 +6,7 @@ using POS.Models;
 using POS.Repositories;
 using POS.UseCases.DTO;
 using System;
+using POS.Models.Enums;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
 
@@ -30,6 +31,7 @@ namespace POS.UseCases.General.PurchaseOrders.SavePurchaseOrder
             PurchaseOrder header = mapper.Map<PurchaseOrderSaveDto, PurchaseOrder>(Dto);
             header.CreatedOn = DateTime.Now;
             header.CreatedBy = this.CreatedBy;
+            header.Status = PoStatus.Pending;
             List<PurchaseOrderDetail> details = mapper.Map<List<PurchaseOrderSaveDetail>, List<PurchaseOrderDetail>>(Dto.Items);
             header.Items = details;
             unitOfWork.PurchaseOrders.Add(header);
