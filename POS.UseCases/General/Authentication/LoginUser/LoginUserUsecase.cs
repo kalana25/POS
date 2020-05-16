@@ -55,6 +55,7 @@ namespace POS.UseCases.General.Authentication.LoginUser
             var claims = new[]
             {
                 new Claim("Email",Dto.Email),
+                new Claim(ClaimTypes.Email,Dto.Email),
                 new Claim(ClaimTypes.NameIdentifier,user.Id),
             };
 

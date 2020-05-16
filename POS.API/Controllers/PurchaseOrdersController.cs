@@ -131,7 +131,7 @@ namespace POS.API.Controllers
                     var savePo = usecaseFactory.Create<SavePurchaseOrderUsecase>();
                     savePo.Dto = dto;
                     savePo.CreatedBy = User.FindFirst(ClaimTypes.NameIdentifier).Value;
-                    savePo.CreatedByName = User.Identity.Name;
+                    savePo.CreatedByName = User.FindFirst(ClaimValueTypes.Email).Value;
                     var result = await savePo.Execute();
                     return CreatedAtAction(nameof(Get), new { id = result.Id }, result);
                 }
