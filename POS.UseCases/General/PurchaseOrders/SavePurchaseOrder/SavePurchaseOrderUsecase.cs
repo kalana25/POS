@@ -19,6 +19,7 @@ namespace POS.UseCases.General.PurchaseOrders.SavePurchaseOrder
 
         public PurchaseOrderSaveDto Dto { get; set; }
         public string CreatedBy { get; set; }
+        public string CreatedByName { get; set; }
 
         public SavePurchaseOrderUsecase(IMapper mapper, IUnitOfWork unitOfWork)
         {
@@ -31,6 +32,7 @@ namespace POS.UseCases.General.PurchaseOrders.SavePurchaseOrder
             PurchaseOrder header = mapper.Map<PurchaseOrderSaveDto, PurchaseOrder>(Dto);
             header.CreatedOn = DateTime.Now;
             header.CreatedBy = this.CreatedBy;
+            header.CreatedByName = CreatedByName;
             header.Status = PoStatus.Pending;
             List<PurchaseOrderDetail> details = mapper.Map<List<PurchaseOrderSaveDetail>, List<PurchaseOrderDetail>>(Dto.Items);
             header.Items = details;

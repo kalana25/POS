@@ -34,6 +34,9 @@ namespace POS.Models
         [Required]
         public string CreatedBy { get; set; }
 
+        [Required]
+        public string CreatedByName { get; set; }
+
         public ICollection<PurchaseOrderDetail> Items { get; set; }
     }
 }
