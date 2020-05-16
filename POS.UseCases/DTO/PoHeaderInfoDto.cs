@@ -9,6 +9,8 @@ namespace POS.UseCases.DTO
     {
         public int Id { get; set; }
 
+        public int? ReferenceId { get; set; }
+
         public DateTime? DeliveryDate { get; set; }
 
         public PoStatus Status { get; set; }
@@ -20,6 +22,8 @@ namespace POS.UseCases.DTO
         public decimal TotalPrice { get; set; }
 
         public DateTime CreatedOn { get; set; }
+
+        public string CreatedByName { get; set; }
 
         public string CreatedBy { get; set; }
     }
