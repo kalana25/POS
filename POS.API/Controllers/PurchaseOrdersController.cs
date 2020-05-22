@@ -143,8 +143,8 @@ namespace POS.API.Controllers
             }
         }
 
-        [HttpPut("update")]
-        public async Task<IActionResult> Put(int Id,[FromBody] PurchaseOrderUpdateDto dto)
+        [HttpPut("update/{id}")]
+        public async Task<IActionResult> Put(int id,[FromBody] PurchaseOrderUpdateDto dto)
         {
             try
             {
@@ -156,7 +156,9 @@ namespace POS.API.Controllers
                 {
                     var updatePo = usecaseFactory.Create<UpdatePurchaseOrderUsecase>();
                     updatePo.Dto = dto;
-                    updatePo.Id = Id;
+                    updatePo.CreatedBy = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+                    updatePo.CreatedByName = User.FindFirst(ClaimValueTypes.Email).Value;
+                    updatePo.Id = id;
                     var result = await updatePo.Execute();
                     return CreatedAtAction(nameof(Get), new { id = result.Id }, result);
                 }
