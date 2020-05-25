@@ -6,6 +6,7 @@ using POS.Models;
 using POS.Repositories;
 using POS.UseCases.DTO;
 using System.Collections;
+using POS.UseCases.DTO.Supplier;
 
 namespace POS.UseCases.General.PurchaseOrders.GetPurchaseOrderFullInfo
 {
@@ -28,6 +29,7 @@ namespace POS.UseCases.General.PurchaseOrders.GetPurchaseOrderFullInfo
             PurchaseOrder purchaseOrder = await unitOfWork.PurchaseOrders.GetPurchaseOrderWithFullInfo(Id);
             PoHeaderInfoDto header = mapper.Map<PurchaseOrder, PoHeaderInfoDto>(purchaseOrder);
             PoWithFullInfoDto result = mapper.Map<PoHeaderInfoDto, PoWithFullInfoDto>(header);
+            result.Supplier = mapper.Map<Supplier, SupplierInfoDto>(purchaseOrder.Supplier);
             result.Items= mapper.Map<IEnumerable<PurchaseOrderDetail>,IEnumerable<PoDetailInfoWithItemDto>>(purchaseOrder.Items);
             return result;
         }
