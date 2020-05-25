@@ -4,7 +4,9 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using POS.DAL;
+using POS.Core.General;
 using POS.Models;
+using Microsoft.EntityFrameworkCore.Storage;
 
 namespace POS.Repositories.PurchaseOrders
 {
@@ -15,10 +17,17 @@ namespace POS.Repositories.PurchaseOrders
 
         }
 
-        //public async Task<PurchaseOrder> GetPurchaseOrder(int id)
-        //{
-        //    return await DatabaseContext.PurchaseOrders.FindAsync(id);
-        //}
+        public override async Task<ResponseData<PurchaseOrder>> GetPagination(RequestData requestData)
+        {
+            int count = await DatabaseContext.PurchaseOrders.CountAsync();
+
+            IEnumerable<PurchaseOrder> items = await DatabaseContext.PurchaseOrders
+                .Include(p=>p.Supplier)
+                .Skip((requestData.Page - 1) * requestData.PageSize)
+                .Take(requestData.PageSize)
+                .ToListAsync();
+            return new ResponseData<PurchaseOrder>(requestData.Page, requestData.PageSize, count, items);
+        }
 
         public async Task<PurchaseOrder> GetPurchaseOrderWithDetails(int id)
         {

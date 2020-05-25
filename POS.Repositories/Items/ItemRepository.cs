@@ -44,7 +44,7 @@ namespace POS.Repositories.Items
 
         public override async Task<ResponseData<Item>> GetPagination(RequestData requestData)
         {
-            int count = await this.DatabaseContext.Items.CountAsync();
+            int count = await DatabaseContext.Items.CountAsync();
             IEnumerable<Item> items = await DatabaseContext.Items
                 .Where(
                 i=> EF.Functions.Like(i.Code,$"{requestData.Filter}%") 
