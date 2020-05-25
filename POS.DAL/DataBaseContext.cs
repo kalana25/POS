@@ -41,7 +41,10 @@ namespace POS.DAL
                 .WithOne(g => g.PurchaseOrderDetail)
                 .OnDelete(DeleteBehavior.Restrict);
 
-
+            modelBuilder.Entity<Supplier>()
+                .HasMany(s => s.PurchaseOrders)
+                .WithOne(p => p.Supplier)
+                .OnDelete(DeleteBehavior.Restrict);
         }
 
         public DbSet<Address> Addresses { get; set; }
