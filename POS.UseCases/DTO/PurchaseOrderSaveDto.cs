@@ -18,6 +18,8 @@ namespace POS.UseCases.DTO
         [Required]
         public decimal TotalPrice { get; set; }
 
+        public int SupplierId { get; set; }
+
         [Required]
         public List<PurchaseOrderSaveDetail> Items { get; set; }
     }

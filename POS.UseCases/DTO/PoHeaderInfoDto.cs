@@ -21,6 +21,8 @@ namespace POS.UseCases.DTO
 
         public decimal TotalPrice { get; set; }
 
+        public string Supplier { get; set; }
+
         public DateTime CreatedOn { get; set; }
 
         public string CreatedByName { get; set; }
