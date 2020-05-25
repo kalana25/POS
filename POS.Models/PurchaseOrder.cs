@@ -25,6 +25,9 @@ namespace POS.Models
         [Column(TypeName = "decimal(18,2)")]
         public decimal TotalPrice { get; set; }
 
+        [ForeignKey("Supplier")]
+        public int SupplierId { get; set; }
+
         [Required]
         public PoStatus Status { get; set; }
 
@@ -36,6 +39,8 @@ namespace POS.Models
 
         [Required]
         public string CreatedByName { get; set; }
+
+        public Supplier Supplier { get; set; }
 
         public ICollection<PurchaseOrderDetail> Items { get; set; }
     }

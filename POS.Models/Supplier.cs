@@ -34,6 +34,8 @@ namespace POS.Models
 
         public bool Active { get; set; }
 
+
+        public ICollection<PurchaseOrder> PurchaseOrders { get; set; }
         public virtual ICollection<SupplierContact> SupplierContacts { get; set; }
     }
 }
