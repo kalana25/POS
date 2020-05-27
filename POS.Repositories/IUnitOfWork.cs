@@ -8,6 +8,7 @@ using POS.Repositories.ItemCategories;
 using POS.Repositories.PurchaseOrders;
 using POS.Repositories.PurchaseOrderDetails;
 using POS.Repositories.GoodReceivedNotes;
+using POS.Repositories.Discounts;
 using POS.Core.DI;
 
 
@@ -23,6 +24,7 @@ namespace POS.Repositories
         IPurchaseOrderRepository PurchaseOrders { get; }
         IPurchaseOrderDetailRepository PurchaseOrderDetails { get; }
         IGoodReceivedNoteRepository GoodReceivedNotes { get; }
+        IDiscountRepository Discounts { get; }
         Task<int> Complete();
     }
 }
