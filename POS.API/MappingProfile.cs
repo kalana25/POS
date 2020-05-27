@@ -47,6 +47,8 @@ namespace POS.API
             CreateMap<Item, ItemInfoDto>();
             CreateMap<PurchaseOrder, PoHeaderInfoDto>()
                 .ForMember(d => d.SupplierName, m => m.MapFrom(o => o.Supplier.Name));
+            CreateMap<Discount, DiscountInfoDto>();
+            CreateMap<Discount, DiscountWithItemDto>();
 
             //This is because PoWithFullInfoDto is inherited by PoHeaderInfoDto
             CreateMap<PoHeaderInfoDto, PoWithFullInfoDto>();

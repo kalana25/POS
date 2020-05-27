@@ -22,5 +22,10 @@ namespace POS.Repositories.Discounts
         {
             get { return context as DataBaseContext; }
         }
+
+        public async Task<Discount> GetDiscountWithItem(int id)
+        {
+            return await DatabaseContext.Discounts.Include(d => d.Item).FirstOrDefaultAsync(x => x.Id == id);
+        }
     }
 }

@@ -57,6 +57,7 @@ namespace POS.DAL
         public DbSet<PurchaseOrderDetail> PurchaseOrderDetails { get; set; }
         public DbSet<GoodReceivedNote> GoodReceivedNotes { get; set; }
         public DbSet<GoodReceivedNoteItem> GoodReceivedNoteItems { get; set; }
+        public DbSet<Discount> Discounts { get; set; }
 
 
     }

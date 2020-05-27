@@ -10,5 +10,6 @@ namespace POS.Repositories.Discounts
     [AutoDIService]
     public interface IDiscountRepository:IRepository<Discount>
     {
+        Task<Discount> GetDiscountWithItem(int id);
     }
 }

@@ -9,16 +9,16 @@ using POS.Models;
 using POS.Core.Interfaces;
 using POS.UseCases.DTO;
 
-namespace POS.UseCases.General.Discounts.GetDiscount
+namespace POS.UseCases.General.Discounts.SaveDiscount
 {
-    public class GetDiscountUsecase: UseCase
+    public class SaveDiscountUsecase:UseCase
     {
         private readonly IUnitOfWork unitOfWork;
         private readonly IMapper mapper;
 
-        public int Id { get; set; }
+        public DiscountSaveDto Dto { get; set; }
 
-        public GetDiscountUsecase(
+        public SaveDiscountUsecase(
             IUnitOfWork unitOfWork,
             IMapper mapper)
         {
@@ -26,11 +26,13 @@ namespace POS.UseCases.General.Discounts.GetDiscount
             this.mapper = mapper;
         }
 
-        public async Task<DiscountWithItemDto> Execute()
+        public async Task<Discount> Execute()
         {
-            var discount = await unitOfWork.Discounts.GetDiscountWithItem(Id);
-            DiscountWithItemDto result = mapper.Map<Discount, DiscountWithItemDto>(discount);
-            return result;
+            Discount discount = mapper.Map<DiscountSaveDto, Discount>(Dto);
+            unitOfWork.Discounts.Add(discount);
+            await unitOfWork.Complete();
+            return discount;
         }
+
     }
 }
