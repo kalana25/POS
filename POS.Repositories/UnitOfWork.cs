@@ -24,7 +24,7 @@ namespace POS.Repositories
         public ISupplierContactRepository SupplierContacts { get; set; }
         public IPurchaseOrderDetailRepository PurchaseOrderDetails { get; set; }
         public IGoodReceivedNoteRepository GoodReceivedNotes { get; set; }
-        public IDiscountRepository DiscountRepository { get; set; }
+        public IDiscountRepository Discounts { get; set; }
 
 
         public UnitOfWork(DataBaseContext context,
@@ -45,7 +45,7 @@ namespace POS.Repositories
             PurchaseOrderDetails = purchaseOrderDetailsRepository;
             SupplierContacts = supplierContactRepository;
             GoodReceivedNotes = goodReceivedNoteRepository;
-            DiscountRepository = discountRepository;
+            Discounts = discountRepository;
         }
 
         public async Task<int> Complete()
