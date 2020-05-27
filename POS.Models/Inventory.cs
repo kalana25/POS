@@ -12,6 +12,7 @@ namespace POS.Models
         public int Quantity { get; set; }
         public int Date { get; set; }
         public float SellingPrice { get; set; }
+        public float PurchasingPrice { get; set; }
 
     }
 }

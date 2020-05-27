@@ -31,5 +31,6 @@ namespace POS.Models
         public bool Active { get; set; }
 
         public ItemCategory ItemCateogry { get; set; }
+        public ICollection<Discount> Discounts { get; set; }
     }
 }
