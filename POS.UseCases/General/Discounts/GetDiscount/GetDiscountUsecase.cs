@@ -26,10 +26,10 @@ namespace POS.UseCases.General.Discounts.GetDiscount
             this.mapper = mapper;
         }
 
-        public async Task<DiscountInfoDto> Execute()
+        public async Task<DiscountWithItemDto> Execute()
         {
             var discount = await unitOfWork.Discounts.Get(Id);
-            DiscountInfoDto result = mapper.Map<Discount, DiscountInfoDto>(discount);
+            DiscountWithItemDto result = mapper.Map<Discount, DiscountWithItemDto>(discount);
             return result;
         }
     }
