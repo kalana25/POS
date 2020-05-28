@@ -20,10 +20,10 @@ namespace POS.API.Controllers
     [Authorize]
     [Route("api/[controller]")]
     [ApiController]
-    public class DiscountController : ControllerBase
+    public class DiscountsController : ControllerBase
     {
         private readonly IUseCaseFactory usecaseFactory;
-        public DiscountController(IUseCaseFactory usecaseFactory)
+        public DiscountsController(IUseCaseFactory usecaseFactory)
         {
             this.usecaseFactory = usecaseFactory;
         }
