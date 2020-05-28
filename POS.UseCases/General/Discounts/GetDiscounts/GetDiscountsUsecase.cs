@@ -26,7 +26,7 @@ namespace POS.UseCases.General.Discounts.GetDiscounts
 
         public async Task<IEnumerable<DiscountInfoDto>> Execute()
         {
-            var discounts =await unitOfWork.Discounts.GetAll();
+            var discounts = await unitOfWork.Discounts.GetAllDiscountWithItem();
             IEnumerable<DiscountInfoDto> result = mapper.Map<IEnumerable<Discount>, IEnumerable<DiscountInfoDto>>(discounts);
             return result;
         }

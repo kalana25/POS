@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using POS.DAL;
 using POS.Models;
+using POS.Core.General;
 using System.Net.Mime;
 
 namespace POS.Repositories.Discounts
@@ -21,6 +22,22 @@ namespace POS.Repositories.Discounts
         public DataBaseContext DatabaseContext
         {
             get { return context as DataBaseContext; }
+        }
+
+        public override async Task<ResponseData<Discount>> GetPagination(RequestData requestData)
+        {
+            int count = await DatabaseContext.Discounts.CountAsync();
+            IEnumerable<Discount> items = await DatabaseContext.Discounts
+                .Include(d=>d.Item)
+                .Skip((requestData.Page - 1) * requestData.PageSize)
+                .Take(requestData.PageSize)
+                .ToListAsync();
+            return new ResponseData<Discount>(requestData.Page, requestData.PageSize, count, items);
+        }
+
+        public async Task<IEnumerable<Discount>> GetAllDiscountWithItem()
+        {
+            return await DatabaseContext.Discounts.Include(d => d.Item).ToListAsync();
         }
 
         public async Task<Discount> GetDiscountWithItem(int id)
