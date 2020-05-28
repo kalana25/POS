@@ -17,7 +17,7 @@ using POS.UseCases.General.Discounts.DeleteDiscount;
 
 namespace POS.API.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class DiscountController : ControllerBase
