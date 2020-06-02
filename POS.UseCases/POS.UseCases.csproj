@@ -15,7 +15,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="General\BaseUnits\GetBaseUnits\" />
     <Folder Include="General\BaseUnits\GetBaseUnit\" />
     <Folder Include="General\BaseUnits\DeleteBaseUnit\" />
     <Folder Include="General\BaseUnits\UpdateBaseUnit\" />
