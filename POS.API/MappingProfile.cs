@@ -52,6 +52,7 @@ namespace POS.API
             CreateMap<Discount, DiscountInfoDto>();
             CreateMap<Discount, DiscountWithItemDto>();
             CreateMap<BaseUnit, BaseUnitInfoDto>();
+            CreateMap<BaseUnit, BaseUnitFullInfoDto>();
 
             //This is because PoWithFullInfoDto is inherited by PoHeaderInfoDto
             CreateMap<PoHeaderInfoDto, PoWithFullInfoDto>();
