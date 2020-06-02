@@ -4,6 +4,7 @@ using POS.Repositories;
 using POS.UseCases.DTO;
 using POS.Models;
 using POS.Core.Interfaces;
+using System;
 
 namespace POS.UseCases.General.BaseUnits.UpdateBaseUnit
 {
@@ -14,6 +15,7 @@ namespace POS.UseCases.General.BaseUnits.UpdateBaseUnit
 
         public int Id { get; set; }
         public BaseUnitSaveDto Dto { get; set; }
+        public string UpdatedBy { get; set; }
 
         public UpdateBaseUnitUsecase(
             IMapper mapper,
@@ -26,6 +28,8 @@ namespace POS.UseCases.General.BaseUnits.UpdateBaseUnit
         public async Task<int> Execute()
         {
             BaseUnit unit = await unitOfWork.BaseUnits.Get(Id);
+            unit.UpdatedBy = this.UpdatedBy;
+            unit.UpdatedOn = DateTime.Now;
             mapper.Map<BaseUnitSaveDto, BaseUnit>(Dto, unit);
             return await unitOfWork.Complete();
         }
