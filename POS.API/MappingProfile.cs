@@ -30,6 +30,8 @@ namespace POS.API
             CreateMap<GoodReceivedNoteSaveDto, GoodReceivedNote>();
 
             CreateMap<DiscountSaveDto, Discount>();
+
+            CreateMap<BaseUnitSaveDto, BaseUnit>();
             #endregion
 
             #region ModelToDTO
