@@ -16,7 +16,6 @@
 
   <ItemGroup>
     <Folder Include="General\BaseUnits\GetBaseUnit\" />
-    <Folder Include="General\BaseUnits\UpdateBaseUnit\" />
   </ItemGroup>
 
 </Project>
