@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace POS.Models
 {
-    public class Unit
+    public class BaseUnit
     {
         public int Id { get; set; }
         [Required]

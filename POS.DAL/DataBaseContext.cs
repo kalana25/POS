@@ -58,7 +58,7 @@ namespace POS.DAL
         public DbSet<GoodReceivedNote> GoodReceivedNotes { get; set; }
         public DbSet<GoodReceivedNoteItem> GoodReceivedNoteItems { get; set; }
         public DbSet<Discount> Discounts { get; set; }
-
+        public DbSet<BaseUnit> BaseUnits { get; set; }
 
     }
 }
