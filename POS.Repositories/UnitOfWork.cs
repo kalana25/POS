@@ -11,6 +11,7 @@ using POS.Repositories.PurchaseOrderDetails;
 using POS.Repositories.GoodReceivedNotes;
 using POS.Repositories.Discounts;
 using POS.Repositories.BaseUnits;
+using POS.Repositories.PurchaseUnits;
 
 namespace POS.Repositories
 {
@@ -27,7 +28,7 @@ namespace POS.Repositories
         public IGoodReceivedNoteRepository GoodReceivedNotes { get; set; }
         public IDiscountRepository Discounts { get; set; }
         public IBaseUnitRepository BaseUnits { get; set; }
-
+        public IPurchaseUnitRepository PurchaseUnits { get; set; }
 
         public UnitOfWork(DataBaseContext context,
             ISupplierRepository supplierRepository,
@@ -38,7 +39,8 @@ namespace POS.Repositories
             ISupplierContactRepository supplierContactRepository,
             IGoodReceivedNoteRepository goodReceivedNoteRepository,
             IDiscountRepository discountRepository,
-            IBaseUnitRepository baseUnits)
+            IBaseUnitRepository baseUnits,
+            IPurchaseUnitRepository purchaseUnits)
         {
             this.context = context;
             Suppliers = supplierRepository;
@@ -50,6 +52,7 @@ namespace POS.Repositories
             GoodReceivedNotes = goodReceivedNoteRepository;
             Discounts = discountRepository;
             BaseUnits = baseUnits;
+            PurchaseUnits = purchaseUnits;
         }
 
         public async Task<int> Complete()
