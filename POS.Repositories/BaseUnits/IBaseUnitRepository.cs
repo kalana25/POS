@@ -8,5 +8,6 @@ namespace POS.Repositories.BaseUnits
     [AutoDIService]
     public interface IBaseUnitRepository:IRepository<BaseUnit>
     {
+        Task<BaseUnit> GetBaseUnitWithPurchaseUnits(int id);
     }
 }

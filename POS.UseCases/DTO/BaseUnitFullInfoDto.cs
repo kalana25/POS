@@ -10,5 +10,7 @@ namespace POS.UseCases.DTO
         public string Name { get; set; }
         public string Description { get; set; }
         public string Symbol { get; set; }
+
+        public IEnumerable<PurchaseUnitInfoDto> PurchaseUnits { get; set; }
     }
 }

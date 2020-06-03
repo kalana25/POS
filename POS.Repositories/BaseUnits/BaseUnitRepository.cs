@@ -19,5 +19,12 @@ namespace POS.Repositories.BaseUnits
         {
             get { return context as DataBaseContext; }
         }
+
+        public async Task<BaseUnit> GetBaseUnitWithPurchaseUnits(int id)
+        {
+            return await DatabaseContext.BaseUnits
+                .Include(b => b.PurchaseUnits)
+                .FirstOrDefaultAsync(x => x.Id == id);
+        }
     }
 }

@@ -27,7 +27,7 @@ namespace POS.UseCases.General.BaseUnits.GetBaseUnit
 
         public async Task<BaseUnitFullInfoDto> Execute()
         {
-            var baseUnit = await unitOfWork.BaseUnits.Get(Id);
+            var baseUnit = await unitOfWork.BaseUnits.GetBaseUnitWithPurchaseUnits(Id);
             BaseUnitFullInfoDto result = mapper.Map<BaseUnit, BaseUnitFullInfoDto>(baseUnit);
             return result;
         }
