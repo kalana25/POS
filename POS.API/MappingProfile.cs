@@ -32,6 +32,7 @@ namespace POS.API
             CreateMap<DiscountSaveDto, Discount>();
 
             CreateMap<BaseUnitSaveDto, BaseUnit>();
+            CreateMap<PurchaseUnitSaveDto, PurchaseUnit>();
             #endregion
 
             #region ModelToDTO
