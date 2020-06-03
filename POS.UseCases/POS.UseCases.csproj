@@ -14,4 +14,12 @@
     <ProjectReference Include="..\POS.Repositories\POS.Repositories.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="General\PurchaseUnits\GetPurchaseUnit\" />
+    <Folder Include="General\PurchaseUnits\GetPurchaseUnits\" />
+    <Folder Include="General\PurchaseUnits\UpdatePurchaseUnits\" />
+    <Folder Include="General\PurchaseUnits\SavePurchaseUnits\" />
+    <Folder Include="General\PurchaseUnits\PaginatedPurchaseUnits\" />
+  </ItemGroup>
+
 </Project>
