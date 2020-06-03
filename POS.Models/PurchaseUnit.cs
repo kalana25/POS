@@ -1,19 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Security.Principal;
 using System.Text;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace POS.Models
 {
-    public class BaseUnit
+    public class PurchaseUnit
     {
         public int Id { get; set; }
-        [Required]
+
         public string Name { get; set; }
-        public string Description { get; set; }
-        [Required]
+        public string Comment { get; set; }
         public string Symbol { get; set; }
+
+        [ForeignKey("BaseUnit")]
+        public int BaseUnitId { get; set; }
+        public int Quantity { get; set; }
 
         [Required]
         public string CreatedBy { get; set; }
@@ -22,7 +25,8 @@ namespace POS.Models
         public string UpdatedBy { get; set; }
         public DateTime UpdatedOn { get; set; }
 
-        public ICollection<PurchaseUnit> PurchaseUnits { get; set; }
+        public BaseUnit BaseUnit { get; set; }
+
 
     }
 }
