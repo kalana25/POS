@@ -13,6 +13,12 @@ using POS.UseCases.General.BaseUnits.GetBaseUnit;
 using POS.UseCases.General.BaseUnits.DeleteBaseUnit;
 using POS.UseCases.General.BaseUnits.SaveBaseUnit;
 using POS.UseCases.General.BaseUnits.UpdateBaseUnit;
+using POS.UseCases.General.PurchaseUnits.PaginatedPurchaseUnits;
+using POS.UseCases.General.PurchaseUnits.GetPurchaseUnit;
+using POS.UseCases.General.PurchaseUnits.GetPurchaseUnits;
+using POS.UseCases.General.PurchaseUnits.DeletePurchaseUnit;
+using POS.UseCases.General.PurchaseUnits.SavePurchaseUnit;
+using POS.UseCases.General.PurchaseUnits.UpdatePurchaseUnit;
 using POS.UseCases.DTO;
 using System.Security.Claims;
 
@@ -29,6 +35,8 @@ namespace POS.API.Controllers
         {
             this.usecaseFactory = usecaseFactory;
         }
+
+        #region Base Unit
 
         [HttpGet("base/pagination")]
         public async Task<IActionResult> GetPagination([FromQuery]RequestData req)
@@ -169,5 +177,151 @@ namespace POS.API.Controllers
                 return StatusCode(Microsoft.AspNetCore.Http.StatusCodes.Status500InternalServerError, ex.Message);
             }
         }
+
+        #endregion
+
+        #region Purchase Unit
+
+        [HttpGet("purchase/pagination")]
+        public async Task<IActionResult> GetPunitPagination([FromQuery]RequestData req)
+        {
+            try
+            {
+                var purchaseUnitPagination = usecaseFactory.Create<PaginatedPurchaseUnitsUsecase>();
+                purchaseUnitPagination.RequestData = req;
+                var result = await purchaseUnitPagination.Execute();
+                if (result == null)
+                {
+                    return NotFound();
+                }
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(Microsoft.AspNetCore.Http.StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
+
+        [HttpPost("purchase/save")]
+        public async Task<IActionResult> PostPunit([FromBody] PurchaseUnitSaveDto unit)
+        {
+            try
+            {
+                if (unit == null)
+                {
+                    return BadRequest();
+                }
+                if (ModelState.IsValid)
+                {
+                    var savePurchaseUnit = usecaseFactory.Create<SavePurchaseUnitUsecase>();
+                    savePurchaseUnit.Dto = unit;
+                    savePurchaseUnit.CreatedBy = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+                    var result = await savePurchaseUnit.Execute();
+
+                    return CreatedAtAction(nameof(GetPunit), new { id = result.Id }, result);
+                }
+                return BadRequest();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(Microsoft.AspNetCore.Http.StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
+
+        [HttpPut("purchase/update/{id}")]
+        public async Task<IActionResult> PutPunit(int id, [FromBody] PurchaseUnitSaveDto unit)
+        {
+            try
+            {
+                if (id < 0)
+                {
+                    return NotFound();
+                }
+                if (unit == null)
+                {
+                    return BadRequest();
+                }
+                if (ModelState.IsValid)
+                {
+                    var updatePurchaseUnit = this.usecaseFactory.Create<UpdatePurchaseUnitUsecase>();
+                    updatePurchaseUnit.Id = id;
+                    updatePurchaseUnit.Dto = unit;
+                    updatePurchaseUnit.UpdatedBy = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+                    var result = await updatePurchaseUnit.Execute();
+                    return Ok(result);
+                }
+                return BadRequest();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(Microsoft.AspNetCore.Http.StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
+
+        [HttpDelete("purchase/delete/{id}")]
+        public async Task<IActionResult> DeletePunit(int id)
+        {
+            try
+            {
+                if (id < 1)
+                {
+                    return NotFound();
+                }
+                var deletePurchaseUnit = usecaseFactory.Create<DeletePurchaseUnitUsecase>();
+                deletePurchaseUnit.Id = id;
+                var result = await deletePurchaseUnit.Execute();
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(Microsoft.AspNetCore.Http.StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
+
+        [HttpGet("purchase/findall/")]
+        public async Task<IActionResult> GetAllPunit()
+        {
+            try
+            {
+                var findPurchaseUnits = usecaseFactory.Create<GetPurchaseUnitsUsecase>();
+                var result = await findPurchaseUnits.Execute();
+                if (result == null)
+                {
+                    return NotFound();
+                }
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(Microsoft.AspNetCore.Http.StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
+
+        [HttpGet("purchase/find/{id}")]
+        public async Task<IActionResult> GetPunit(int id)
+        {
+            try
+            {
+                if (id < 1)
+                {
+                    return BadRequest();
+                }
+
+                var findPurchaseUnit = usecaseFactory.Create<GetPurchaseUnitUsecase>();
+                findPurchaseUnit.Id = id;
+                var result = await findPurchaseUnit.Execute();
+                if (result == null)
+                {
+                    return NotFound();
+                }
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(Microsoft.AspNetCore.Http.StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
+
+        #endregion
     }
 }
