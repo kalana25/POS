@@ -11,6 +11,7 @@ namespace POS.UseCases.DTO
         public string Comment { get; set; }
         public string Symbol { get; set; }
         public string BaseUnitName { get; set; }
+        public string ItemName { get; set; }
         public int Quantity { get; set; }
     }
 }

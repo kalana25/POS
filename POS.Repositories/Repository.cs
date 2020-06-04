@@ -21,12 +21,12 @@ namespace POS.Repositories
 
 
 
-        public async Task<TEntity> Get(int id)
+        public virtual async Task<TEntity> Get(int id)
         {
             return await this.context.Set<TEntity>().FindAsync(id);
         }
 
-        public async Task<IEnumerable<TEntity>> GetAll()
+        public virtual async Task<IEnumerable<TEntity>> GetAll()
         {
             return await this.context.Set<TEntity>().ToListAsync();
         }

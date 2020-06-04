@@ -9,5 +9,6 @@ namespace POS.Repositories.PurchaseUnits
     [AutoDIService]
     public interface IPurchaseUnitRepository:IRepository<PurchaseUnit>
     {
+
     }
 }
