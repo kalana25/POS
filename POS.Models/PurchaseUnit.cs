@@ -13,10 +13,12 @@ namespace POS.Models
         public string Name { get; set; }
         public string Comment { get; set; }
         public string Symbol { get; set; }
+        public int Quantity { get; set; }
 
         [ForeignKey("BaseUnit")]
         public int BaseUnitId { get; set; }
-        public int Quantity { get; set; }
+        [ForeignKey("Item")]
+        public int ItemId { get; set; }
 
         [Required]
         public string CreatedBy { get; set; }
@@ -26,6 +28,7 @@ namespace POS.Models
         public DateTime UpdatedOn { get; set; }
 
         public BaseUnit BaseUnit { get; set; }
+        public Item Item { get; set; }
 
 
     }

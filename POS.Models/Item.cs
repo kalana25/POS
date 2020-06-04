@@ -32,5 +32,6 @@ namespace POS.Models
 
         public ItemCategory ItemCateogry { get; set; }
         public ICollection<Discount> Discounts { get; set; }
+        public ICollection<PurchaseUnit> PurchaseUnits { get; set; }
     }
 }
