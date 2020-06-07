@@ -24,6 +24,7 @@ namespace POS.Repositories.PurchaseUnits
             IEnumerable<PurchaseUnit> items = await DatabaseContext.PurchaseUnits
                 .Include(d => d.BaseUnit)
                 .Include(d=>d.Item)
+                .Where(d=>d.ItemId==Convert.ToInt32(requestData.Filter))
                 .Skip((requestData.Page - 1) * requestData.PageSize)
                 .Take(requestData.PageSize)
                 .ToListAsync();
