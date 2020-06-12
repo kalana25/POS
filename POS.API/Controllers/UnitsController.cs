@@ -19,6 +19,7 @@ using POS.UseCases.General.PurchaseUnits.GetPurchaseUnits;
 using POS.UseCases.General.PurchaseUnits.DeletePurchaseUnit;
 using POS.UseCases.General.PurchaseUnits.SavePurchaseUnit;
 using POS.UseCases.General.PurchaseUnits.UpdatePurchaseUnit;
+using POS.UseCases.General.PurchaseUnits.GetPurchaseUnitsByItem;
 using POS.UseCases.DTO;
 using System.Security.Claims;
 
@@ -310,6 +311,31 @@ namespace POS.API.Controllers
                 var findPurchaseUnit = usecaseFactory.Create<GetPurchaseUnitUsecase>();
                 findPurchaseUnit.Id = id;
                 var result = await findPurchaseUnit.Execute();
+                if (result == null)
+                {
+                    return NotFound();
+                }
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(Microsoft.AspNetCore.Http.StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
+
+        [HttpGet("purchase/item/{id}")]
+        public async Task<IActionResult> GetPunitByItem(int id)
+        {
+            try
+            {
+                if (id < 1)
+                {
+                    return BadRequest();
+                }
+
+                var findPurchaseUnitsByItem = usecaseFactory.Create<GetPurchaseUnitsByItemUsecase>();
+                findPurchaseUnitsByItem.ItemId = id;
+                var result = await findPurchaseUnitsByItem.Execute();
                 if (result == null)
                 {
                     return NotFound();
