@@ -9,6 +9,6 @@ namespace POS.Repositories.PurchaseUnits
     [AutoDIService]
     public interface IPurchaseUnitRepository:IRepository<PurchaseUnit>
     {
-
+        Task<IEnumerable<PurchaseUnit>> GetByItem(int itemId);
     }
 }

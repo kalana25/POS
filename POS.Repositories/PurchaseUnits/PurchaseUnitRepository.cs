@@ -7,7 +7,7 @@ using System.Linq;
 using POS.DAL;
 using POS.Models;
 using POS.Core.General;
-
+using Microsoft.EntityFrameworkCore.Storage;
 
 namespace POS.Repositories.PurchaseUnits
 {
@@ -36,6 +36,14 @@ namespace POS.Repositories.PurchaseUnits
             return await DatabaseContext.PurchaseUnits
                 .Include(p => p.BaseUnit)
                 .Include(p => p.Item)
+                .ToListAsync();
+        }
+
+        public async Task<IEnumerable<PurchaseUnit>> GetByItem(int itemId)
+        {
+            return await DatabaseContext.PurchaseUnits
+                .Where(x=>x.ItemId == itemId)
+                .Include(p => p.BaseUnit)
                 .ToListAsync();
         }
 

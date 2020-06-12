@@ -323,7 +323,7 @@ namespace POS.API.Controllers
             }
         }
 
-        [HttpGet("purchase/item/{id}")]
+        [HttpGet("purchase/find/item/{id}")]
         public async Task<IActionResult> GetPunitByItem(int id)
         {
             try

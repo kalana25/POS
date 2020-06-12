@@ -55,6 +55,8 @@ namespace POS.API
                 .ForMember(d => d.BaseUnitName, m => m.MapFrom(o => o.BaseUnit.Name))
                 .ForMember(d => d.ItemName, m => m.MapFrom(o => o.Item.Name));
 
+            CreateMap<PurchaseUnit, PurchaseUnitFullInfoWithBaseUnitDto>();
+
             CreateMap<PurchaseUnit, PurchaseUnitFullInfoDto>();
 
             CreateMap<Discount, DiscountInfoDto>();

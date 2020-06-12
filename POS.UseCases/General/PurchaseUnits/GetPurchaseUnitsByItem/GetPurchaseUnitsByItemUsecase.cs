@@ -26,10 +26,10 @@ namespace POS.UseCases.General.PurchaseUnits.GetPurchaseUnitsByItem
             this.mapper = mapper;
         }
 
-        public async Task<IEnumerable<PurchaseUnitInfoDto>> Execute()
+        public async Task<IEnumerable<PurchaseUnitFullInfoWithBaseUnitDto>> Execute()
         {
-            var purchaseUnits = await unitOfWork.PurchaseUnits.Find(x => x.ItemId == this.ItemId);
-            IEnumerable<PurchaseUnitInfoDto> list = mapper.Map<IEnumerable<PurchaseUnit>, IEnumerable<PurchaseUnitInfoDto>>(purchaseUnits);
+            var purchaseUnits = await unitOfWork.PurchaseUnits.GetByItem(ItemId);
+            IEnumerable<PurchaseUnitFullInfoWithBaseUnitDto> list = mapper.Map<IEnumerable<PurchaseUnit>, IEnumerable<PurchaseUnitFullInfoWithBaseUnitDto>>(purchaseUnits);
             return list;
         }
 
