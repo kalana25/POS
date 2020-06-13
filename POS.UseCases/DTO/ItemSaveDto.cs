@@ -18,8 +18,6 @@ namespace POS.UseCases.DTO
         [Required]
         public int CategoryId { get; set; }
 
-        public decimal Price { get; set; }
-
         public int ReOrderLevel { get; set; }
 
         public string Barcode { get; set; }
