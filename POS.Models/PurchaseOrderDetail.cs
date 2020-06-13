@@ -20,6 +20,10 @@ namespace POS.Models
         [Required]
         public int Quantity { get; set; }
 
+        [Required]
+        [Column(TypeName = "decimal(18,2)")]
+        public decimal UnitPrice { get; set; }
+
         public int Unit { get; set; }
 
         public PurchaseOrder PurchaseOrder { get; set; }
