@@ -29,5 +29,6 @@ namespace POS.UseCases.DTO
         public int ItemId { get; set; }
         public int Quantity { get; set; }
         public int Unit { get; set; }
+        public decimal UnitPrice { get; set; }
     }
 }
