@@ -6,26 +6,16 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace POS.Models
 {
-    public class PurchaseUnit
+    public class PurchaseUnit:Unit
     {
-        public int Id { get; set; }
-
-        public string Name { get; set; }
         public string Comment { get; set; }
-        public string Symbol { get; set; }
         public int Quantity { get; set; }
 
         [ForeignKey("BaseUnit")]
         public int BaseUnitId { get; set; }
+
         [ForeignKey("Item")]
         public int ItemId { get; set; }
-
-        [Required]
-        public string CreatedBy { get; set; }
-        [Required]
-        public DateTime CreatedOn { get; set; }
-        public string UpdatedBy { get; set; }
-        public DateTime UpdatedOn { get; set; }
 
         public BaseUnit BaseUnit { get; set; }
         public Item Item { get; set; }

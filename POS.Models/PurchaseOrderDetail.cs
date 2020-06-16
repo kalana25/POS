@@ -24,8 +24,12 @@ namespace POS.Models
         [Column(TypeName = "decimal(18,2)")]
         public decimal UnitPrice { get; set; }
 
-        public int Unit { get; set; }
+        [ForeignKey("Unit")]
+        public int UnitId { get; set; }
+        public bool IsBaseUnit { get; set; }
 
+
+        public Unit Unit { get; set; }
         public PurchaseOrder PurchaseOrder { get; set; }
         public Item Item { get; set; }
         public ICollection<GoodReceivedNoteItem> GoodReceivedNoteItems { get; set; }

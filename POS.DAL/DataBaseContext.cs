@@ -50,6 +50,13 @@ namespace POS.DAL
                 .HasMany(bu => bu.PurchaseUnits)
                 .WithOne(pu => pu.BaseUnit)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Item>()
+                .HasMany(i => i.PurchaseUnits)
+                .WithOne(pu => pu.Item)
+                .OnDelete(DeleteBehavior.Restrict);
+
+
         }
 
         public DbSet<Address> Addresses { get; set; }
@@ -63,6 +70,7 @@ namespace POS.DAL
         public DbSet<GoodReceivedNote> GoodReceivedNotes { get; set; }
         public DbSet<GoodReceivedNoteItem> GoodReceivedNoteItems { get; set; }
         public DbSet<Discount> Discounts { get; set; }
+        public DbSet<Unit> Units { get; set; }
         public DbSet<BaseUnit> BaseUnits { get; set; }
         public DbSet<PurchaseUnit> PurchaseUnits { get; set; }
 
