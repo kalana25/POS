@@ -38,7 +38,13 @@ namespace POS.Repositories.PurchaseOrders
         //Will include grn and more in furture
         public async Task<PurchaseOrder> GetPurchaseOrderWithFullInfo(int id)
         {
-            return await DatabaseContext.PurchaseOrders.Include(p=>p.Supplier).Include(p => p.Items).ThenInclude(i=>i.Item).FirstOrDefaultAsync(x => x.Id == id);
+            return await DatabaseContext.PurchaseOrders
+                .Include(p=>p.Supplier)
+                .Include(p => p.Items)
+                .ThenInclude(i=>i.Item)
+                .Include(p=>p.Items)
+                .ThenInclude(i=>i.Unit)
+                .FirstOrDefaultAsync(x => x.Id == id);
         }
 
         public DataBaseContext DatabaseContext

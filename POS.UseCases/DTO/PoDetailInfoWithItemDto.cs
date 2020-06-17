@@ -14,6 +14,7 @@ namespace POS.UseCases.DTO
         public bool IsBaseUnit { get; set; }
         public decimal UnitPrice { get; set; }
 
+        public UnitInfoDto Unit { get; set; }
         public ItemInfoDto Item { get; set; }
     }
 }

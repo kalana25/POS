@@ -54,15 +54,19 @@ namespace POS.API
             CreateMap<PurchaseUnit, PurchaseUnitInfoDto>()
                 .ForMember(d => d.BaseUnitName, m => m.MapFrom(o => o.BaseUnit.Name))
                 .ForMember(d => d.ItemName, m => m.MapFrom(o => o.Item.Name));
-
             CreateMap<PurchaseUnit, PurchaseUnitFullInfoWithBaseUnitDto>();
-
             CreateMap<PurchaseUnit, PurchaseUnitFullInfoDto>();
+
+            CreateMap<BaseUnit, BaseUnitInfoDto>();
+            CreateMap<BaseUnit, BaseUnitFullInfoDto>();
+
+            CreateMap<Unit, UnitInfoDto>()
+                .Include<BaseUnit, BaseUnitInfoDto>()
+                .Include<PurchaseUnit, PurchaseUnitInfoDto>();
+
 
             CreateMap<Discount, DiscountInfoDto>();
             CreateMap<Discount, DiscountWithItemDto>();
-            CreateMap<BaseUnit, BaseUnitInfoDto>();
-            CreateMap<BaseUnit, BaseUnitFullInfoDto>();
 
             //This is because PoWithFullInfoDto is inherited by PoHeaderInfoDto
             CreateMap<PoHeaderInfoDto, PoWithFullInfoDto>();
