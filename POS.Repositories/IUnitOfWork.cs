@@ -11,6 +11,7 @@ using POS.Repositories.GoodReceivedNotes;
 using POS.Repositories.Discounts;
 using POS.Repositories.BaseUnits;
 using POS.Repositories.PurchaseUnits;
+using POS.Repositories.Grns;
 using POS.Core.DI;
 
 
@@ -29,7 +30,7 @@ namespace POS.Repositories
         IDiscountRepository Discounts { get; }
         IBaseUnitRepository BaseUnits { get; set; }
         IPurchaseUnitRepository PurchaseUnits { get; set; }
-
+        IGrnRepository Grns { get; set; }
         Task<int> Complete();
     }
 }

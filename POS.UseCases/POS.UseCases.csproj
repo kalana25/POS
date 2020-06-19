@@ -14,4 +14,12 @@
     <ProjectReference Include="..\POS.Repositories\POS.Repositories.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="General\Grn\GetGrns\" />
+    <Folder Include="General\Grn\GetGrn\" />
+    <Folder Include="General\Grn\GetPaginatedGrns\" />
+    <Folder Include="General\Grn\DeleteGrn\" />
+    <Folder Include="General\Grn\SaveGrn\" />
+  </ItemGroup>
+
 </Project>
