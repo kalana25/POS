@@ -9,8 +9,4 @@
     <ProjectReference Include="..\POS.DAL\POS.DAL.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="InventoryDetails\" />
-  </ItemGroup>
-
 </Project>

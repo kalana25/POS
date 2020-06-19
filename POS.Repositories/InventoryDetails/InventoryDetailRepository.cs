@@ -8,11 +8,11 @@ using POS.DAL;
 using POS.Models;
 using POS.Core.General;
 
-namespace POS.Repositories.Inventories
+namespace POS.Repositories.InventoryDetails
 {
-    public class InventoryRepository:Repository<Inventory>,IInventoryRepository
+    public class InventoryDetailRepository:Repository<InventoryDetail>,IInventoryDetailRepository
     {
-        public InventoryRepository(DataBaseContext context) : base(context)
+        public InventoryDetailRepository(DataBaseContext context) : base(context)
         {
 
         }
