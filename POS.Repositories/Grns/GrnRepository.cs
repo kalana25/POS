@@ -21,5 +21,16 @@ namespace POS.Repositories.Grns
         {
             get { return context as DataBaseContext; }
         }
+
+        public override async Task<ResponseData<GoodReceivedNote>> GetPagination(RequestData requestData)
+        {
+            int count = await DatabaseContext.GoodReceivedNotes.CountAsync();
+            IEnumerable<GoodReceivedNote> grns = await DatabaseContext.GoodReceivedNotes
+                .Include(g=>g.PurchaseOrder)
+                .Skip((requestData.Page - 1) * requestData.PageSize)
+                .Take(requestData.PageSize)
+                .ToListAsync();
+            return new ResponseData<GoodReceivedNote>(requestData.Page, requestData.PageSize, count, grns);
+        }
     }
 }

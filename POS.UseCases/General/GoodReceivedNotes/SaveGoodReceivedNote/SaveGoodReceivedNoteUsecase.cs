@@ -21,14 +21,14 @@ namespace POS.UseCases.General.GoodReceivedNotes.SaveGoodReceivedNote
             this.unitOfWork = unitOfWork;
         }
 
-        public async Task<GrnHeaderInfoDto> Execute()
+        public async Task<GrnPaginationHeaderInfoDto> Execute()
         {
             GoodReceivedNote header = mapper.Map<GoodReceivedNoteSaveDto, GoodReceivedNote>(Dto);
             List<GoodReceivedNoteItem> details = mapper.Map<List<GoodReceivedNoteSaveDetail>, List<GoodReceivedNoteItem>>(Dto.Items);
             header.Items = details;
             unitOfWork.GoodReceivedNotes.Add(header);
             await unitOfWork.Complete();
-            var headerDto = this.mapper.Map<GoodReceivedNote, GrnHeaderInfoDto>(header);
+            var headerDto = this.mapper.Map<GoodReceivedNote, GrnPaginationHeaderInfoDto>(header);
             return headerDto;
         }
     }

@@ -72,7 +72,12 @@ namespace POS.API
             //This is because PoWithFullInfoDto is inherited by PoHeaderInfoDto
             CreateMap<PoHeaderInfoDto, PoWithFullInfoDto>();
             CreateMap<PurchaseOrderDetail, PoDetailInfoWithItemDto>();
-            CreateMap<GoodReceivedNote, GrnHeaderInfoDto>();
+
+
+            CreateMap<GoodReceivedNote, GrnPaginationHeaderInfoDto>()
+                .ForMember(d => d.PurchaseOrderCode, m => m.MapFrom(o => o.PurchaseOrder.Code));
+
+
             #endregion
         }
     }

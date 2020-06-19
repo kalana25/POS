@@ -20,10 +20,10 @@ namespace POS.UseCases.General.GoodReceivedNotes.GetGoodReceivedNote
             this.unitOfWork = unitOfWork;
         }
 
-        public async Task<GrnHeaderInfoDto> Execute()
+        public async Task<GrnPaginationHeaderInfoDto> Execute()
         {
             GoodReceivedNote goodReceivedNote = await unitOfWork.GoodReceivedNotes.Get(Id);
-            GrnHeaderInfoDto result = mapper.Map<GoodReceivedNote, GrnHeaderInfoDto>(goodReceivedNote);
+            GrnPaginationHeaderInfoDto result = mapper.Map<GoodReceivedNote, GrnPaginationHeaderInfoDto>(goodReceivedNote);
             return result;
         }
     }
