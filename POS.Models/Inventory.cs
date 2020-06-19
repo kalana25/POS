@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace POS.Models
@@ -7,12 +8,25 @@ namespace POS.Models
     public class Inventory
     {
         public int Id { get; set; }
+
+        [ForeignKey("Item")]
         public int ItemId { get; set; }
-        public int GrnId { get; set; }
         public int Quantity { get; set; }
-        public int Date { get; set; }
-        public float SellingPrice { get; set; }
-        public float PurchasingPrice { get; set; }
+
+        [ForeignKey("Unit")]
+        public int BaseUnitId { get; set; }
+        public int ReOrderLevel { get; set; }
+
+        public string CreatedBy { get; set; }
+        public DateTime CreatedOn { get; set; }
+        public string UpdatedBy { get; set; }
+        public string UpdatedOn { get; set; }
+        public string CreatedByName { get; set; }
+        public string UpdatedByName { get; set; }
+
+        //Navigation Properties
+        public Item Item { get; set; }
+        public Unit Unit { get; set; }
 
     }
 }

@@ -18,8 +18,15 @@ namespace POS.Models
 
         public int Quantity { get; set; }
 
+        [ForeignKey("Unit")]
+        public int UnitId { get; set; }
+
+        public bool IsBaseUnit { get; set; }
+
+        public DateTime? ExpireDate { get; set; }
 
 
+        public Unit Unit { get; set; }
 
         public GoodReceivedNote GoodReceivedNote { get; set; }
 

@@ -14,7 +14,7 @@ namespace POS.Models
         public int PurchaseOrderId { get; set; }
 
         [Required]
-        public DateTime Date { get; set; }
+        public DateTime GrnDate { get; set; }
 
         public TimeSpan Time { get; set; }
 
@@ -23,6 +23,15 @@ namespace POS.Models
 
         [MaxLength(250)]
         public int Comment { get; set; }
+
+        [Required]
+        public DateTime CreatedOn { get; set; }
+
+        [Required]
+        public string CreatedBy { get; set; }
+
+        [Required]
+        public string CreatedByName { get; set; }
 
         public PurchaseOrder PurchaseOrder { get; set; }
 
