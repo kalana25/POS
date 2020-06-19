@@ -10,6 +10,9 @@ namespace POS.Models
     {
         public int Id { get; set; }
 
+        [Required]
+        public string Code { get; set; }
+
         [ForeignKey("PurchaseOrder")]
         public int PurchaseOrderId { get; set; }
 
@@ -17,9 +20,6 @@ namespace POS.Models
         public DateTime GrnDate { get; set; }
 
         public TimeSpan Time { get; set; }
-
-        [Required]
-        public int UserId { get; set; }
 
         [MaxLength(250)]
         public int Comment { get; set; }
