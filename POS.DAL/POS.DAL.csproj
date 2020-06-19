@@ -9,6 +9,10 @@
     <Compile Remove="Migrations\20200525072016_AddSupplerToPo.Designer.cs" />
     <Compile Remove="Migrations\20200619143411_model changes.cs" />
     <Compile Remove="Migrations\20200619143411_model changes.Designer.cs" />
+    <Compile Remove="Migrations\20200619160002_grn_model_changes.cs" />
+    <Compile Remove="Migrations\20200619160002_grn_model_changes.Designer.cs" />
+    <Compile Remove="Migrations\20200619161215_model_changes.cs" />
+    <Compile Remove="Migrations\20200619161215_model_changes.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

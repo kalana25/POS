@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace POS.Models
@@ -21,7 +22,13 @@ namespace POS.Models
         [ForeignKey("Unit")]
         public int UnitId { get; set; }
         public bool IsBaseUnit { get; set; }
+
+        [Required]
+        [Column(TypeName = "decimal(18,2)")]
         public float SellingPrice { get; set; }
+
+        [Required]
+        [Column(TypeName = "decimal(18,2)")]
         public float PurchasingPrice { get; set; }
 
         //Navigation Properties
