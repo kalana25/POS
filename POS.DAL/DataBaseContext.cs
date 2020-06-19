@@ -56,6 +56,16 @@ namespace POS.DAL
                 .WithOne(pu => pu.Item)
                 .OnDelete(DeleteBehavior.Restrict);
 
+            modelBuilder.Entity<Inventory>()
+                .HasMany(i => i.Details)
+                .WithOne(id => id.Inventory)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Unit>()
+                .HasMany(u => u.InventoryDetails)
+                .WithOne(id => id.Unit)
+                .OnDelete(DeleteBehavior.Restrict);
+
 
         }
 
@@ -69,6 +79,8 @@ namespace POS.DAL
         public DbSet<PurchaseOrderDetail> PurchaseOrderDetails { get; set; }
         public DbSet<GoodReceivedNote> GoodReceivedNotes { get; set; }
         public DbSet<GoodReceivedNoteItem> GoodReceivedNoteItems { get; set; }
+        public DbSet<Inventory> Inventory { get; set; }
+        public DbSet<InventoryDetail> InventoryDetail { get; set; }
         public DbSet<Discount> Discounts { get; set; }
         public DbSet<Unit> Units { get; set; }
         public DbSet<BaseUnit> BaseUnits { get; set; }

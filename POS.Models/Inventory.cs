@@ -27,6 +27,8 @@ namespace POS.Models
         //Navigation Properties
         public Item Item { get; set; }
         public Unit Unit { get; set; }
+        public ICollection<InventoryDetail> Details { get; set; }
+
 
     }
 }

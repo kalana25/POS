@@ -21,5 +21,8 @@ namespace POS.Models
         public DateTime CreatedOn { get; set; }
         public string UpdatedBy { get; set; }
         public DateTime UpdatedOn { get; set; }
+
+        //Navigation Properties
+        public ICollection<InventoryDetail> InventoryDetails { get; set; }
     }
 }
