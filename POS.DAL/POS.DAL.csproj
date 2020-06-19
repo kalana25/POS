@@ -7,6 +7,8 @@
   <ItemGroup>
     <Compile Remove="Migrations\20200525072016_AddSupplerToPo.cs" />
     <Compile Remove="Migrations\20200525072016_AddSupplerToPo.Designer.cs" />
+    <Compile Remove="Migrations\20200619143411_model changes.cs" />
+    <Compile Remove="Migrations\20200619143411_model changes.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
