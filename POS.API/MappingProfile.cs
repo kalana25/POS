@@ -44,6 +44,7 @@ namespace POS.API
             //    .ForMember(d => d.Description, m => m.MapFrom(o => o.Description))
             //    .ForMember(d => d.ResourceProfiles, m => m.MapFrom(o=>o.PlanProfiles));
             ////.ForMember(d => d.ResourceProfiles, m => m.Ignore());
+
             CreateMap<IdentityUser, UserInfoDto>();
             CreateMap<Supplier, SupplierInfoDto>();
             CreateMap<SupplierContact, SupplierContactDto>();

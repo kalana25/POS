@@ -35,6 +35,6 @@ namespace POS.Models
 
         public PurchaseOrder PurchaseOrder { get; set; }
 
-        public List<GoodReceivedNoteItem> Items { get; set; }
+        public ICollection<GoodReceivedNoteItem> Items { get; set; }
     }
 }
