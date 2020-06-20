@@ -22,7 +22,7 @@ namespace POS.Models
         public TimeSpan Time { get; set; }
 
         [MaxLength(250)]
-        public int Comment { get; set; }
+        public string Comment { get; set; }
 
         [Required]
         public DateTime CreatedOn { get; set; }
