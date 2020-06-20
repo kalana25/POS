@@ -27,8 +27,8 @@ namespace POS.API
             CreateMap<PurchaseOrderUpdateDto, PurchaseOrder>();
             CreateMap<PurchaseOrderUpdateDetail, PurchaseOrderDetail>();
 
-            CreateMap<GoodReceivedNoteSaveDto, GoodReceivedNote>();
-            CreateMap<GoodReceivedNoteItem, GrnSaveDetail>();          
+            CreateMap<GrnSaveDto, GoodReceivedNote>();
+            CreateMap<GrnSaveDetail, GoodReceivedNoteItem>();          
 
             CreateMap<DiscountSaveDto, Discount>();
 
