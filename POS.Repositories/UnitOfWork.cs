@@ -13,6 +13,8 @@ using POS.Repositories.Discounts;
 using POS.Repositories.BaseUnits;
 using POS.Repositories.PurchaseUnits;
 using POS.Repositories.Grns;
+using POS.Repositories.Inventories;
+using POS.Repositories.InventoryDetails;
 
 namespace POS.Repositories
 {
@@ -31,6 +33,8 @@ namespace POS.Repositories
         public IBaseUnitRepository BaseUnits { get; set; }
         public IPurchaseUnitRepository PurchaseUnits { get; set; }
         public IGrnRepository Grns { get; set; }
+        public IInventoryRepository Inventories { get; set; }
+        public IInventoryDetailRepository InventoryDetails { get; set; }
 
         public UnitOfWork(DataBaseContext context,
             ISupplierRepository supplierRepository,
@@ -43,7 +47,9 @@ namespace POS.Repositories
             IDiscountRepository discountRepository,
             IBaseUnitRepository baseUnits,
             IPurchaseUnitRepository purchaseUnits,
-            IGrnRepository grns)
+            IGrnRepository grns,
+            IInventoryRepository inventories,
+            IInventoryDetailRepository inventoryDetails)
         {
             this.context = context;
             Suppliers = supplierRepository;
@@ -57,6 +63,8 @@ namespace POS.Repositories
             BaseUnits = baseUnits;
             PurchaseUnits = purchaseUnits;
             Grns = grns;
+            Inventories = inventories;
+            InventoryDetails = inventoryDetails;
         }
 
         public async Task<int> Complete()

@@ -6,6 +6,7 @@ namespace POS.UseCases.DTO
 {
     public class GrnPaginationHeaderInfoDto:GrnHeaderBaseDto
     {
+        public int Id { get; set; }
         public int PurchaseOrderCode { get; set; }
         public string CreatedByName { get; set; }
     }
