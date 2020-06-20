@@ -8,8 +8,10 @@ using Microsoft.AspNetCore.Authorization;
 using POS.UseCases.DTO;
 using POS.Core.Interfaces;
 using POS.Core.General;
+using System.Security.Claims;
 using POS.UseCases.General.GoodReceivedNotes.SaveGoodReceivedNote;
 using POS.UseCases.General.GoodReceivedNotes.GetGoodReceivedNote;
+using POS.UseCases.General.GoodReceivedNotes.PaginatedGoodReceivedNote;
 
 namespace POS.API.Controllers
 {
@@ -27,7 +29,7 @@ namespace POS.API.Controllers
 
 
         [HttpPost("save")]
-        public async Task<IActionResult> Post([FromBody] GoodReceivedNoteSaveDto dto)
+        public async Task<IActionResult> Post([FromBody] GrnSaveDto dto)
         {
             try
             {
@@ -39,6 +41,8 @@ namespace POS.API.Controllers
                 {
                     var saveGrn = usecaseFactory.Create<SaveGoodReceivedNoteUsecase>();
                     saveGrn.Dto = dto;
+                    saveGrn.CreatedBy = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+                    saveGrn.CreatedByName = User.FindFirst(ClaimValueTypes.Email).Value;
                     var result = await saveGrn.Execute();
                     return CreatedAtAction(nameof(Get), new { id = result.Id }, result);
                 }
@@ -74,6 +78,27 @@ namespace POS.API.Controllers
                 return StatusCode(Microsoft.AspNetCore.Http.StatusCodes.Status500InternalServerError, ex.Message);
             }
         }
+
+        [HttpGet("pagination")]
+        public async Task<IActionResult> GetPagination([FromQuery]RequestData req)
+        {
+            try
+            {
+                var grnPagination = usecaseFactory.Create<PaginatedGoodReceivedNoteUsecase>();
+                grnPagination.RequestData = req;
+                var result = await grnPagination.Execute();
+                if (result == null)
+                {
+                    return NotFound();
+                }
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(Microsoft.AspNetCore.Http.StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
+
 
 
     }

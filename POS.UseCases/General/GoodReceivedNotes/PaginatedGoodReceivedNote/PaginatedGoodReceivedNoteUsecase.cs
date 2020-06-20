@@ -9,16 +9,16 @@ using POS.Models;
 using POS.Repositories;
 using POS.UseCases.DTO;
 
-namespace POS.UseCases.General.Grn.PaginatedGrns
+namespace POS.UseCases.General.GoodReceivedNotes.PaginatedGoodReceivedNote
 {
-    public class PaginatedGrnUsecase:UseCase
+    public class PaginatedGoodReceivedNoteUsecase:UseCase
     {
         private readonly IMapper mapper;
         private readonly IUnitOfWork unitOfWork;
 
         public RequestData RequestData { get; set; }
 
-        public PaginatedGrnUsecase(IMapper mapper, IUnitOfWork unitOfWork)
+        public PaginatedGoodReceivedNoteUsecase(IMapper mapper, IUnitOfWork unitOfWork)
         {
             this.mapper = mapper;
             this.unitOfWork = unitOfWork;

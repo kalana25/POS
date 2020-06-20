@@ -5,6 +5,8 @@ using AutoMapper;
 using POS.Models;
 using POS.Repositories;
 using POS.UseCases.DTO;
+using System;
+using POS.Models.Enums;
 
 namespace POS.UseCases.General.GoodReceivedNotes.SaveGoodReceivedNote
 {
@@ -13,7 +15,9 @@ namespace POS.UseCases.General.GoodReceivedNotes.SaveGoodReceivedNote
         private readonly IMapper mapper;
         private readonly IUnitOfWork unitOfWork;
 
-        public GoodReceivedNoteSaveDto Dto { get; set; }
+        public GrnSaveDto Dto { get; set; }
+        public string CreatedBy { get; set; }
+        public string CreatedByName { get; set; }
 
         public SaveGoodReceivedNoteUsecase(IMapper mapper, IUnitOfWork unitOfWork)
         {
@@ -21,14 +25,17 @@ namespace POS.UseCases.General.GoodReceivedNotes.SaveGoodReceivedNote
             this.unitOfWork = unitOfWork;
         }
 
-        public async Task<GrnPaginationHeaderInfoDto> Execute()
+        public async Task<GrnHeaderInfoDto> Execute()
         {
-            GoodReceivedNote header = mapper.Map<GoodReceivedNoteSaveDto, GoodReceivedNote>(Dto);
-            List<GoodReceivedNoteItem> details = mapper.Map<List<GoodReceivedNoteSaveDetail>, List<GoodReceivedNoteItem>>(Dto.Items);
-            header.Items = details;
-            unitOfWork.GoodReceivedNotes.Add(header);
+            GoodReceivedNote grnHeader = mapper.Map<GrnSaveDto, GoodReceivedNote>(Dto);
+            grnHeader.CreatedOn = DateTime.Now;
+            grnHeader.CreatedBy = this.CreatedBy;
+            grnHeader.CreatedByName = CreatedByName;
+            List<GoodReceivedNoteItem> details = mapper.Map<List<GrnSaveDetail>, List<GoodReceivedNoteItem>>(Dto.Items);
+            grnHeader.Items = details;
+            unitOfWork.GoodReceivedNotes.Add(grnHeader);
             await unitOfWork.Complete();
-            var headerDto = this.mapper.Map<GoodReceivedNote, GrnPaginationHeaderInfoDto>(header);
+            var headerDto = this.mapper.Map<GoodReceivedNote, GrnHeaderInfoDto>(grnHeader);
             return headerDto;
         }
     }
