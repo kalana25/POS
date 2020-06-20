@@ -28,6 +28,7 @@ namespace POS.API
             CreateMap<PurchaseOrderUpdateDetail, PurchaseOrderDetail>();
 
             CreateMap<GoodReceivedNoteSaveDto, GoodReceivedNote>();
+            CreateMap<GoodReceivedNoteItem, GrnSaveDetail>();          
 
             CreateMap<DiscountSaveDto, Discount>();
 
@@ -76,6 +77,7 @@ namespace POS.API
 
             CreateMap<GoodReceivedNote, GrnPaginationHeaderInfoDto>()
                 .ForMember(d => d.PurchaseOrderCode, m => m.MapFrom(o => o.PurchaseOrder.Code));
+            CreateMap<GoodReceivedNote, GrnHeaderInfoDto>();
 
 
             #endregion

@@ -1,10 +1,42 @@
-﻿using System;
+﻿using System.Threading.Tasks;
+using POS.Core.Interfaces;
 using System.Collections.Generic;
-using System.Text;
+using AutoMapper;
+using POS.Models;
+using POS.Repositories;
+using POS.UseCases.DTO;
+using System;
+using POS.Models.Enums;
 
 namespace POS.UseCases.General.Grn.SaveGrn
 {
-    class SaveGrnUsecase
+    public class SaveGrnUsecase:UseCase
     {
+        private readonly IMapper mapper;
+        private readonly IUnitOfWork unitOfWork;
+
+        public GrnSaveDto Dto { get; set; }
+        public string CreatedBy { get; set; }
+        public string CreatedByName { get; set; }
+
+        public SaveGrnUsecase(IMapper mapper, IUnitOfWork unitOfWork)
+        {
+            this.mapper = mapper;
+            this.unitOfWork = unitOfWork;
+        }
+
+        public async Task<GrnHeaderInfoDto> Execute()
+        {
+            GoodReceivedNote grnHeader = mapper.Map<GrnSaveDto, GoodReceivedNote>(Dto);
+            grnHeader.CreatedOn = DateTime.Now;
+            grnHeader.CreatedBy = this.CreatedBy;
+            grnHeader.CreatedByName = CreatedByName;
+            List<GoodReceivedNoteItem> details = mapper.Map<List<GrnSaveDetail>, List<GoodReceivedNoteItem>>(Dto.Items);
+            grnHeader.Items = details;
+            unitOfWork.GoodReceivedNotes.Add(grnHeader);
+            await unitOfWork.Complete();
+            var headerDto = this.mapper.Map<GoodReceivedNote, GrnHeaderInfoDto>(grnHeader);
+            return headerDto;
+        }
     }
 }

@@ -7,8 +7,6 @@ using POS.Repositories;
 using POS.UseCases.DTO;
 using System;
 using POS.Models.Enums;
-using System.Security.Claims;
-using Microsoft.AspNetCore.Http;
 
 namespace POS.UseCases.General.PurchaseOrders.SavePurchaseOrder
 {
