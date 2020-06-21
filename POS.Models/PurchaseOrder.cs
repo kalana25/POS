@@ -43,5 +43,6 @@ namespace POS.Models
         public Supplier Supplier { get; set; }
 
         public ICollection<PurchaseOrderDetail> Items { get; set; }
+        public ICollection<GoodReceivedNote> Grns { get; set; }
     }
 }

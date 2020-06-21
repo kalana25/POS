@@ -13,6 +13,8 @@
     <Compile Remove="Migrations\20200619160002_grn_model_changes.Designer.cs" />
     <Compile Remove="Migrations\20200619161215_model_changes.cs" />
     <Compile Remove="Migrations\20200619161215_model_changes.Designer.cs" />
+    <Compile Remove="Migrations\20200620191615_model changes 3.cs" />
+    <Compile Remove="Migrations\20200620191615_model changes 3.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
