@@ -8,6 +8,7 @@ namespace POS.UseCases.DTO
     {
         public int Id { get; set; }
         public string PurchaseOrderCode { get; set; }
+        public DateTime Time { get; set; }
         public string CreatedByName { get; set; }
 
     }

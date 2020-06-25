@@ -19,7 +19,7 @@ namespace POS.Models
         [Required]
         public DateTime GrnDate { get; set; }
 
-        public TimeSpan Time { get; set; }
+        public DateTime Time { get; set; }
 
         [MaxLength(250)]
         public string Comment { get; set; }

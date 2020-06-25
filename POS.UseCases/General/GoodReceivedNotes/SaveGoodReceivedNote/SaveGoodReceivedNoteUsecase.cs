@@ -31,6 +31,7 @@ namespace POS.UseCases.General.GoodReceivedNotes.SaveGoodReceivedNote
             grnHeader.CreatedOn = DateTime.Now;
             grnHeader.CreatedBy = this.CreatedBy;
             grnHeader.CreatedByName = CreatedByName;
+            grnHeader.Time = DateTime.Now;
             List<GoodReceivedNoteItem> details = mapper.Map<List<GrnSaveDetail>, List<GoodReceivedNoteItem>>(Dto.Items);
             grnHeader.Items = details;
             unitOfWork.GoodReceivedNotes.Add(grnHeader);

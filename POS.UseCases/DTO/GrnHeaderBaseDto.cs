@@ -8,7 +8,6 @@ namespace POS.UseCases.DTO
     {
         public string Code { get; set; }
         public DateTime GrnDate { get; set; }
-        public TimeSpan Time { get; set; }
         public string Comment { get; set; }
     }
 }
