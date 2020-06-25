@@ -16,7 +16,7 @@ namespace POS.UseCases.General.PurchaseOrders.PaginatedPurchaseOrders
         private readonly IMapper mapper;
         private readonly IUnitOfWork unitOfWork;
 
-        public RequestData RequestData { get; set; }
+        public ExtendedRequestData RequestData { get; set; }
 
         public PaginatedPurchaseOrdersUsecase(IMapper mapper, IUnitOfWork unitOfWork)
         {

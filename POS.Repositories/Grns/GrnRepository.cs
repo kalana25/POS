@@ -22,7 +22,7 @@ namespace POS.Repositories.Grns
             get { return context as DataBaseContext; }
         }
 
-        public override async Task<ResponseData<GoodReceivedNote>> GetPagination(RequestData requestData)
+        public override async Task<ResponseData<GoodReceivedNote>> GetPagination(IRequestData requestData)
         {
             int count = await DatabaseContext.GoodReceivedNotes.CountAsync();
             IEnumerable<GoodReceivedNote> grns = await DatabaseContext.GoodReceivedNotes

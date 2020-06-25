@@ -24,7 +24,7 @@ namespace POS.Repositories.Discounts
             get { return context as DataBaseContext; }
         }
 
-        public override async Task<ResponseData<Discount>> GetPagination(RequestData requestData)
+        public override async Task<ResponseData<Discount>> GetPagination(IRequestData requestData)
         {
             int count = await DatabaseContext.Discounts.CountAsync();
             IEnumerable<Discount> items = await DatabaseContext.Discounts

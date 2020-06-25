@@ -4,13 +4,15 @@ using System.Text;
 
 namespace POS.Core.General
 {
-    public class RequestData:IRequestData
+    public class ExtendedRequestData:IRequestData
     {
-        public RequestData()
+        public ExtendedRequestData()
         {
             Page = 1;
             PageSize = 10;
         }
+        public DateTime? From { get; set; }
+        public DateTime? To { get; set; }
         public int Page { get; set; }
 
         public int PageSize { get; set; }

@@ -17,16 +17,30 @@ namespace POS.Repositories.PurchaseOrders
 
         }
 
-        public override async Task<ResponseData<PurchaseOrder>> GetPagination(RequestData requestData)
+        public override async Task<ResponseData<PurchaseOrder>> GetPagination(IRequestData requestData)
         {
+            ExtendedRequestData eRequestData = requestData as ExtendedRequestData;
             int count = await DatabaseContext.PurchaseOrders.CountAsync();
 
-            IEnumerable<PurchaseOrder> items = await DatabaseContext.PurchaseOrders
-                .Include(p=>p.Supplier)
-                .Skip((requestData.Page - 1) * requestData.PageSize)
-                .Take(requestData.PageSize)
+            var items = DatabaseContext.PurchaseOrders
+                .Include(p => p.Supplier)
+                .Where(p => EF.Functions.Like(p.Code, $"{requestData.Filter}%"));
+
+            if(eRequestData.From.HasValue)
+            {
+                items = items.Where(p => p.Date >= eRequestData.From);
+            }
+
+            if(eRequestData.To.HasValue)
+            {
+                items = items.Where(p => p.Date <= eRequestData.To);
+            }
+
+            IEnumerable<PurchaseOrder> result =await items
+                .Skip((eRequestData.Page - 1) * eRequestData.PageSize)
+                .Take(eRequestData.PageSize)
                 .ToListAsync();
-            return new ResponseData<PurchaseOrder>(requestData.Page, requestData.PageSize, count, items);
+            return new ResponseData<PurchaseOrder>(requestData.Page, requestData.PageSize, count, result);
         }
 
         public async Task<PurchaseOrder> GetPurchaseOrderWithDetails(int id)

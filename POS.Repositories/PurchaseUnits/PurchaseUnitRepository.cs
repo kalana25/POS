@@ -18,7 +18,7 @@ namespace POS.Repositories.PurchaseUnits
 
         }
 
-        public override async Task<ResponseData<PurchaseUnit>> GetPagination(RequestData requestData)
+        public override async Task<ResponseData<PurchaseUnit>> GetPagination(IRequestData requestData)
         {
             int count = await DatabaseContext.PurchaseUnits.CountAsync();
             IEnumerable<PurchaseUnit> items = await DatabaseContext.PurchaseUnits

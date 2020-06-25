@@ -42,7 +42,7 @@ namespace POS.Repositories.Items
             return await DatabaseContext.Items.Where(x => x.CategoryId==category).ToListAsync();
         }
 
-        public override async Task<ResponseData<Item>> GetPagination(RequestData requestData)
+        public override async Task<ResponseData<Item>> GetPagination(IRequestData requestData)
         {
             int count = await DatabaseContext.Items.CountAsync();
             IEnumerable<Item> items = await DatabaseContext.Items

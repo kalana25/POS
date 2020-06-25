@@ -36,7 +36,7 @@ namespace POS.Repositories
             return await this.context.Set<TEntity>().Where(predicate).ToListAsync();
         }
 
-        public virtual async Task<ResponseData<TEntity>> GetPagination(RequestData requestData)
+        public virtual async Task<ResponseData<TEntity>> GetPagination(IRequestData requestData)
         {
             int count = await Count();
             IEnumerable<TEntity> items = await this.context.Set<TEntity>()

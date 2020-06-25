@@ -29,7 +29,7 @@ namespace POS.API.Controllers
         }
 
         [HttpGet("pagination")]
-        public async Task<IActionResult> GetPagination([FromQuery]RequestData req)
+        public async Task<IActionResult> GetPagination([FromQuery]ExtendedRequestData req)
         {
             try
             {
