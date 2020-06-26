@@ -28,8 +28,8 @@ namespace POS.API.Controllers
             this.usecaseFactory = usecaseFactory;
         }
 
-        [HttpGet("pagination")]
-        public async Task<IActionResult> GetPagination([FromQuery]ExtendedRequestData req)
+        [HttpPost("pagination")]
+        public async Task<IActionResult> GetPagination([FromBody]ExtendedRequestData req)
         {
             try
             {
