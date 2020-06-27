@@ -12,6 +12,7 @@ using System.Security.Claims;
 using POS.UseCases.General.GoodReceivedNotes.SaveGoodReceivedNote;
 using POS.UseCases.General.GoodReceivedNotes.GetGoodReceivedNote;
 using POS.UseCases.General.GoodReceivedNotes.PaginatedGoodReceivedNote;
+using POS.UseCases.General.GoodReceivedNotes.GetNextGoodReceivedNoteCode;
 
 namespace POS.API.Controllers
 {
@@ -99,7 +100,24 @@ namespace POS.API.Controllers
             }
         }
 
-
+        [HttpGet("find/next/code")]
+        public async Task<IActionResult> GetNextGrnCode()
+        {
+            try
+            {
+                var nextGrnCode = usecaseFactory.Create<GetNextGoodReceivedNoteCodeUsecase>();
+                var result = await nextGrnCode.Execute();
+                if (result == null)
+                {
+                    return NotFound();
+                }
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(Microsoft.AspNetCore.Http.StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
 
     }
 }

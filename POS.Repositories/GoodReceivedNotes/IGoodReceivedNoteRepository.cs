@@ -9,5 +9,6 @@ namespace POS.Repositories.GoodReceivedNotes
     [AutoDIService]
     public interface IGoodReceivedNoteRepository : IRepository<GoodReceivedNote>
     {
+        Task<GoodReceivedNote> GetLastGoodReceivedNote();
     }
 }
