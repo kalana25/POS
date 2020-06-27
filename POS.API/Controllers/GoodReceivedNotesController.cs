@@ -111,7 +111,7 @@ namespace POS.API.Controllers
                 {
                     return NotFound();
                 }
-                return Ok(result);
+                return Ok(new { code = result });
             }
             catch (Exception ex)
             {
