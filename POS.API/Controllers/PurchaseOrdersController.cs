@@ -10,6 +10,7 @@ using POS.UseCases.General.PurchaseOrders.GetPurchaseOrders;
 using POS.UseCases.General.PurchaseOrders.PaginatedPurchaseOrders;
 using POS.UseCases.General.PurchaseOrders.SavePurchaseOrder;
 using POS.UseCases.General.PurchaseOrders.UpdatePurchaseOrder;
+using POS.UseCases.General.PurchaseOrderDetails.GetPurchaseOrderDetailsByPurchaseOrder;
 using System;
 using System.Threading.Tasks;
 using System.Security.Claims;
@@ -80,6 +81,31 @@ namespace POS.API.Controllers
                 var findPurchaseOrder = usecaseFactory.Create<GetPurchaseOrderUsecase>();
                 findPurchaseOrder.Id = id;
                 var result = await findPurchaseOrder.Execute();
+                if (result == null)
+                {
+                    return NotFound();
+                }
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(Microsoft.AspNetCore.Http.StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
+
+        [HttpGet("detail/find/{purchaseOrderId}")]
+        public async Task<IActionResult> GetAllDetails(int purchaseOrderId)
+        {
+            try
+            {
+                if (purchaseOrderId < 1)
+                {
+                    return BadRequest();
+                }
+
+                var findPoDetails = usecaseFactory.Create<GetPurchaseOrderDetailsByPurchaseOrderUsecase>();
+                findPoDetails.PurchaseOrderId = purchaseOrderId;
+                var result = await findPoDetails.Execute();
                 if (result == null)
                 {
                     return NotFound();

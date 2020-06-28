@@ -10,5 +10,6 @@ namespace POS.Repositories.PurchaseOrderDetails
     [AutoDIService]
     public interface IPurchaseOrderDetailRepository : IRepository<PurchaseOrderDetail>
     {
+        Task<IEnumerable<PurchaseOrderDetail>> GetPurchaseOrderDetailsWithFullInfo(int purchaseOrderId);
     }
 }

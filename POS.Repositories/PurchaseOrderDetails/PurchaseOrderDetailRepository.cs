@@ -19,5 +19,14 @@ namespace POS.Repositories.PurchaseOrderDetails
         {
             get { return context as DataBaseContext; }
         }
+
+        public async Task<IEnumerable<PurchaseOrderDetail>> GetPurchaseOrderDetailsWithFullInfo(int purchaseOrderId)
+        {
+            return await DatabaseContext.PurchaseOrderDetails
+                .Where(d => d.PurchaseOrderId == purchaseOrderId)
+                .Include(d => d.Item)
+                .Include(d => d.Unit)
+                .ToListAsync();
+        }
     }
 }
