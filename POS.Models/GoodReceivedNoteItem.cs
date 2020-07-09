@@ -14,7 +14,7 @@ namespace POS.Models
         public int GoodReceivedNoteId { get; set; }
 
         [ForeignKey("PurchaseOrderDetail")]
-        public int PurchaseOrderDetailId { get; set; }
+        public int? PurchaseOrderDetailId { get; set; }
 
         public int Quantity { get; set; }
 
