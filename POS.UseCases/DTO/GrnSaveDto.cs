@@ -18,6 +18,7 @@ namespace POS.UseCases.DTO
         public int PurchaseOrderDetailId { get; set; }
         public int Quantity { get; set; }
         public int UnitId { get; set; }
+        public decimal SellingPrice { get; set; }
         public bool IsBaseUnit { get; set; }
         public DateTime? ExpireDate { get; set; }
     }
