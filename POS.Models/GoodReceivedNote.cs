@@ -33,6 +33,9 @@ namespace POS.Models
         [Required]
         public string CreatedByName { get; set; }
 
+        [Column(TypeName = "decimal(18,2)")]
+        public decimal TotalPrice { get; set; }
+
         public PurchaseOrder PurchaseOrder { get; set; }
 
         public ICollection<GoodReceivedNoteItem> Items { get; set; }
