@@ -25,11 +25,11 @@ namespace POS.Models
 
         [Required]
         [Column(TypeName = "decimal(18,2)")]
-        public float SellingPrice { get; set; }
+        public decimal SellingPrice { get; set; }
 
         [Required]
         [Column(TypeName = "decimal(18,2)")]
-        public float PurchasingPrice { get; set; }
+        public decimal PurchasingPrice { get; set; }
 
         //Navigation Properties
         public Unit Unit { get; set; }

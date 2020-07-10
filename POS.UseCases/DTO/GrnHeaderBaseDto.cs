@@ -9,5 +9,7 @@ namespace POS.UseCases.DTO
         public string Code { get; set; }
         public DateTime GrnDate { get; set; }
         public string Comment { get; set; }
+        public decimal TotalPrice { get; set; }
+
     }
 }

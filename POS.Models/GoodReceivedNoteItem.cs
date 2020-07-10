@@ -25,6 +25,10 @@ namespace POS.Models
 
         public DateTime? ExpireDate { get; set; }
 
+        public decimal SellingPrice { get; set; }
+
+        public decimal PurchasingPrice { get; set; }
+
 
         public Unit Unit { get; set; }
 

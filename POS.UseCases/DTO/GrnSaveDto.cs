@@ -15,10 +15,11 @@ namespace POS.UseCases.DTO
 
     public class GrnSaveDetail
     {
-        public int PurchaseOrderDetailId { get; set; }
+        public int? PurchaseOrderDetailId { get; set; }
         public int Quantity { get; set; }
         public int UnitId { get; set; }
         public decimal SellingPrice { get; set; }
+        public decimal PurchasingPrice { get; set; }
         public bool IsBaseUnit { get; set; }
         public DateTime? ExpireDate { get; set; }
     }
