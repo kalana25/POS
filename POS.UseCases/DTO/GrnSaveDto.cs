@@ -21,6 +21,7 @@ namespace POS.UseCases.DTO
         public decimal SellingPrice { get; set; }
         public decimal PurchasingPrice { get; set; }
         public bool IsBaseUnit { get; set; }
+        public int ItemId { get; set; }
         public DateTime? ExpireDate { get; set; }
     }
 }

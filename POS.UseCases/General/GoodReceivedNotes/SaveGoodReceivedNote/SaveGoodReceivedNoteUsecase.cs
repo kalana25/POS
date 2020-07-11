@@ -27,6 +27,8 @@ namespace POS.UseCases.General.GoodReceivedNotes.SaveGoodReceivedNote
 
         public async Task<GrnHeaderInfoDto> Execute()
         {
+            #region Insert GRN
+
             GoodReceivedNote grnHeader = mapper.Map<GrnSaveDto, GoodReceivedNote>(Dto);
             grnHeader.CreatedOn = DateTime.Now;
             grnHeader.CreatedBy = this.CreatedBy;
@@ -35,6 +37,20 @@ namespace POS.UseCases.General.GoodReceivedNotes.SaveGoodReceivedNote
             List<GoodReceivedNoteItem> details = mapper.Map<List<GrnSaveDetail>, List<GoodReceivedNoteItem>>(Dto.Items);
             grnHeader.Items = details;
             unitOfWork.GoodReceivedNotes.Add(grnHeader);
+
+            #endregion
+
+            #region Update Inventory
+
+            //foreach (var grnItem in details)
+            //{
+            //    Inventory invntry = new Inventory();
+            //    invntry.ItemId = grnItem.
+            //}
+
+            #endregion
+
+
             await unitOfWork.Complete();
             var headerDto = this.mapper.Map<GoodReceivedNote, GrnHeaderInfoDto>(grnHeader);
             return headerDto;

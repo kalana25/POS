@@ -29,6 +29,9 @@ namespace POS.Models
 
         public decimal PurchasingPrice { get; set; }
 
+        public int ItemId { get; set; }
+
+
 
         public Unit Unit { get; set; }
 
