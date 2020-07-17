@@ -94,6 +94,7 @@ namespace POS.UseCases.General.GoodReceivedNotes.SaveGoodReceivedNote
                     unitOfWork.InventoryDetails.Add(
                     new InventoryDetail
                     {
+                        InventoryId = inventory.Id,
                         ExpireDate = detail.ExpireDate,
                         Quantity = detail.Quantity,
                         SellingPrice = detail.SellingPrice,
