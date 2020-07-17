@@ -7,6 +7,7 @@ using POS.Repositories;
 using POS.UseCases.DTO;
 using System;
 using POS.Models.Enums;
+using System.Linq;
 
 namespace POS.UseCases.General.GoodReceivedNotes.SaveGoodReceivedNote
 {
@@ -42,11 +43,69 @@ namespace POS.UseCases.General.GoodReceivedNotes.SaveGoodReceivedNote
 
             #region Update Inventory
 
-            //foreach (var grnItem in details)
-            //{
-            //    Inventory invntry = new Inventory();
-            //    invntry.ItemId = grnItem.
-            //}
+            foreach(var detail in details)
+            {
+                Inventory inventory = await unitOfWork.Inventories.GetInventoryWithDetailsByItem(detail.ItemId);
+                if (inventory == null)  // If No inventory
+                {
+                    //new inventory
+                    var item = await unitOfWork.Items.Get(detail.ItemId);
+                    inventory = new Inventory
+                    {
+                        ItemId = detail.ItemId,
+                        Quantity = detail.Quantity,
+                        ReOrderLevel = item.ReOrderLevel,
+                        CreatedBy = this.CreatedBy,
+                        CreatedOn = DateTime.Now,
+                        CreatedByName = this.CreatedByName
+                    };
+                    if(detail.IsBaseUnit)
+                    {
+                        inventory.BaseUnitId = detail.UnitId;
+                    } 
+                    else
+                    {
+                        var purchaseUnit =await unitOfWork.PurchaseUnits.Get(detail.UnitId);
+                        inventory.BaseUnitId = purchaseUnit.BaseUnitId;
+                    }
+
+                    //new Inventory details
+                    inventory.Details = new List<InventoryDetail>();
+                    inventory.Details.Add(new InventoryDetail
+                    {
+                        ExpireDate = detail.ExpireDate,
+                        Quantity = detail.Quantity,
+                        SellingPrice = detail.SellingPrice,
+                        PurchasingPrice = detail.PurchasingPrice,
+                        StockInDate = DateTime.Now,
+                        IsBaseUnit = detail.IsBaseUnit,
+                        UnitId = detail.UnitId,
+                        GoodReceivedNote = grnHeader
+                    });
+                    unitOfWork.Inventories.Add(inventory);
+                }
+                else  //If there is an inventory
+                {
+                    // update inventory
+                    inventory.Quantity += detail.Quantity;
+                    inventory.UpdatedBy = CreatedBy;
+                    inventory.UpdatedByName = CreatedByName;
+                    inventory.UpdatedOn = DateTime.Now;
+                    unitOfWork.InventoryDetails.Add(
+                    new InventoryDetail
+                    {
+                        ExpireDate = detail.ExpireDate,
+                        Quantity = detail.Quantity,
+                        SellingPrice = detail.SellingPrice,
+                        PurchasingPrice = detail.PurchasingPrice,
+                        StockInDate = DateTime.Now,
+                        IsBaseUnit = detail.IsBaseUnit,
+                        UnitId = detail.UnitId,
+                        GoodReceivedNote = grnHeader
+                    });
+                }
+
+            }
 
             #endregion
 

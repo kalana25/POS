@@ -80,7 +80,7 @@ namespace POS.API
                 .ForMember(d => d.PurchaseOrderCode, m => m.MapFrom(o => o.PurchaseOrder.Code));
             CreateMap<GoodReceivedNote, GrnHeaderInfoDto>();
 
-
+            CreateMap<Inventory, InventoryHeaderInfoDto>();
             #endregion
         }
     }

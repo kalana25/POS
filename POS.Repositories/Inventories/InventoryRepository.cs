@@ -17,6 +17,13 @@ namespace POS.Repositories.Inventories
 
         }
 
+        public async Task<Inventory> GetInventoryWithDetailsByItem(int itemId)
+        {
+            return await DatabaseContext.Inventories
+                .Include(i => i.Details)
+                .FirstOrDefaultAsync(x => x.ItemId == itemId);
+        }
+
         public DataBaseContext DatabaseContext
         {
             get { return context as DataBaseContext; }

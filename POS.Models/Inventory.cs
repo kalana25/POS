@@ -20,7 +20,7 @@ namespace POS.Models
         public string CreatedBy { get; set; }
         public DateTime CreatedOn { get; set; }
         public string UpdatedBy { get; set; }
-        public string UpdatedOn { get; set; }
+        public DateTime UpdatedOn { get; set; }
         public string CreatedByName { get; set; }
         public string UpdatedByName { get; set; }
 
