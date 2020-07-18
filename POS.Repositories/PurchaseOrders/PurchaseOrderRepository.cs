@@ -6,6 +6,7 @@ using System.Linq;
 using POS.DAL;
 using POS.Core.General;
 using POS.Models;
+using POS.Models.Enums;
 using Microsoft.EntityFrameworkCore.Storage;
 
 namespace POS.Repositories.PurchaseOrders
@@ -24,6 +25,7 @@ namespace POS.Repositories.PurchaseOrders
 
             var items = DatabaseContext.PurchaseOrders
                 .Include(p => p.Supplier)
+                .Where(p=>p.Status!=PoStatus.Completed)
                 .Where(p => EF.Functions.Like(p.Code, $"{requestData.Filter}%"));
 
             if(eRequestData.From.HasValue)
