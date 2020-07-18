@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Text;
 using System.ComponentModel.DataAnnotations;
+using POS.Core.General;
+using POS.Models.Enums;
 
 namespace POS.UseCases.DTO
 {
@@ -9,6 +11,9 @@ namespace POS.UseCases.DTO
     {
         [Required]
         public int PurchaseOrderId { get; set; }
+
+        public PoStatus PurchaseOrderStatus { get; set; }
+
         [Required]
         public List<GrnSaveDetail> Items { get; set; }
     }

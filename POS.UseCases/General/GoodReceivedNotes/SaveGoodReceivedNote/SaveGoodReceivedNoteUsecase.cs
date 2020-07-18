@@ -110,6 +110,12 @@ namespace POS.UseCases.General.GoodReceivedNotes.SaveGoodReceivedNote
 
             #endregion
 
+            #region Update PurchaseOrder
+
+            var po = await unitOfWork.PurchaseOrders.Get(Dto.PurchaseOrderId);
+            po.Status = Dto.PurchaseOrderStatus;
+
+            #endregion
 
             await unitOfWork.Complete();
             var headerDto = this.mapper.Map<GoodReceivedNote, GrnHeaderInfoDto>(grnHeader);
