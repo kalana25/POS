@@ -63,6 +63,11 @@ namespace POS.Repositories.PurchaseOrders
                 .FirstOrDefaultAsync(x => x.Id == id);
         }
 
+        public async Task<PurchaseOrder> GetLastPurchaseOrder()
+        {
+            return await DatabaseContext.PurchaseOrders.OrderByDescending(x => x.Id).FirstOrDefaultAsync();
+        }
+
         public DataBaseContext DatabaseContext
         {
             get { return context as DataBaseContext; }

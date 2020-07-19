@@ -11,6 +11,7 @@ using POS.UseCases.General.PurchaseOrders.PaginatedPurchaseOrders;
 using POS.UseCases.General.PurchaseOrders.SavePurchaseOrder;
 using POS.UseCases.General.PurchaseOrders.UpdatePurchaseOrder;
 using POS.UseCases.General.PurchaseOrderDetails.GetPurchaseOrderDetailsByPurchaseOrder;
+using POS.UseCases.General.PurchaseOrders.GetNextPurchaseOrderCode;
 using System;
 using System.Threading.Tasks;
 using System.Security.Claims;
@@ -189,6 +190,25 @@ namespace POS.API.Controllers
                     return CreatedAtAction(nameof(Get), new { id = result.Id }, result);
                 }
                 return BadRequest();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(Microsoft.AspNetCore.Http.StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
+
+        [HttpGet("find/next/code")]
+        public async Task<IActionResult> GetNextGrnCode()
+        {
+            try
+            {
+                var nextGrnCode = usecaseFactory.Create<GetNextPurchaseOrderCodeUsecase>();
+                var result = await nextGrnCode.Execute();
+                if (result == null)
+                {
+                    return NotFound();
+                }
+                return Ok(new { code = result });
             }
             catch (Exception ex)
             {
