@@ -15,6 +15,17 @@ namespace POS.Repositories.GoodReceivedNotes
 
         }
 
+        public async Task<GoodReceivedNote> GetGoodReceivedNoteWithFullInfo(int id)
+        {
+            return await DatabaseContext.GoodReceivedNotes
+                .Include(g => g.PurchaseOrder)
+                .Include(g => g.Items)
+                .ThenInclude(i => i.PurchaseOrderDetail)
+                .Include(g => g.Items)
+                .ThenInclude(i => i.Unit)
+                .FirstOrDefaultAsync(x => x.Id == id);
+        }
+
         public async Task<GoodReceivedNote> GetLastGoodReceivedNote()
         {
             return await DatabaseContext.GoodReceivedNotes.OrderByDescending(x => x.Id).FirstOrDefaultAsync();

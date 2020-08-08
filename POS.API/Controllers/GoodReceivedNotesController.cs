@@ -13,6 +13,7 @@ using POS.UseCases.General.GoodReceivedNotes.SaveGoodReceivedNote;
 using POS.UseCases.General.GoodReceivedNotes.GetGoodReceivedNote;
 using POS.UseCases.General.GoodReceivedNotes.PaginatedGoodReceivedNote;
 using POS.UseCases.General.GoodReceivedNotes.GetNextGoodReceivedNoteCode;
+using POS.UseCases.General.GoodReceivedNotes.GetGoodReceivedNoteFullInfo;
 
 namespace POS.API.Controllers
 {
@@ -68,6 +69,31 @@ namespace POS.API.Controllers
                 var findGrn = usecaseFactory.Create<GetGoodReceivedNoteUsecase>();
                 findGrn.Id = id;
                 var result = await findGrn.Execute();
+                if (result == null)
+                {
+                    return NotFound();
+                }
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(Microsoft.AspNetCore.Http.StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
+
+        [HttpGet("fullinfo/find/{id}")]
+        public async Task<IActionResult> GetFullInfo(int id)
+        {
+            try
+            {
+                if (id < 1)
+                {
+                    return BadRequest();
+                }
+
+                var findGrnFullInfo = usecaseFactory.Create<GetGoodReceivedNoteFullInfoUsecase>();
+                findGrnFullInfo.Id = id;
+                var result = await findGrnFullInfo.Execute();
                 if (result == null)
                 {
                     return NotFound();

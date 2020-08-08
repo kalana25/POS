@@ -10,5 +10,6 @@ namespace POS.Repositories.GoodReceivedNotes
     public interface IGoodReceivedNoteRepository : IRepository<GoodReceivedNote>
     {
         Task<GoodReceivedNote> GetLastGoodReceivedNote();
+        Task<GoodReceivedNote> GetGoodReceivedNoteWithFullInfo(int id);
     }
 }
