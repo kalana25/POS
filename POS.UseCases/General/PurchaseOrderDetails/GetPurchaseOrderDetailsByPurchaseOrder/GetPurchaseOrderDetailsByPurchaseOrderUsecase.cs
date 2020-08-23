@@ -24,10 +24,10 @@ namespace POS.UseCases.General.PurchaseOrderDetails.GetPurchaseOrderDetailsByPur
             this.unitOfWork = unitOfWork;
         }
 
-        public async Task<IEnumerable<PoDetailInfoWithItemDto>> Execute()
+        public async Task<IEnumerable<PoDetailInfoWithItemAndUnitDto>> Execute()
         {
             IEnumerable<PurchaseOrderDetail> list = await unitOfWork.PurchaseOrderDetails.GetPurchaseOrderDetailsWithFullInfo(this.PurchaseOrderId);
-            var result = mapper.Map<IEnumerable<PurchaseOrderDetail>, IEnumerable<PoDetailInfoWithItemDto>>(list);
+            var result = mapper.Map<IEnumerable<PurchaseOrderDetail>, IEnumerable<PoDetailInfoWithItemAndUnitDto>>(list);
             return result;
         }
     }

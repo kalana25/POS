@@ -1,10 +1,11 @@
-﻿using System;
+﻿using POS.UseCases.DTO.Supplier;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace POS.UseCases.DTO
 {
-    public class PoDetailInfoWithItemDto
+    public class PoDetailInfoWithItemAndUnitDto
     {
         public int Id { get; set; }
         public int ItemId { get; set; }
@@ -12,6 +13,8 @@ namespace POS.UseCases.DTO
         public int UnitId { get; set; }
         public bool IsBaseUnit { get; set; }
         public decimal UnitPrice { get; set; }
+
+        public UnitInfoDto Unit { get; set; }
         public ItemInfoDto Item { get; set; }
     }
 }

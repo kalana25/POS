@@ -21,6 +21,7 @@ namespace POS.Repositories.GoodReceivedNotes
                 .Include(g => g.PurchaseOrder)
                 .Include(g => g.Items)
                 .ThenInclude(i => i.PurchaseOrderDetail)
+                .ThenInclude(podetail => podetail.Item)
                 .Include(g => g.Items)
                 .ThenInclude(i => i.Unit)
                 .FirstOrDefaultAsync(x => x.Id == id);

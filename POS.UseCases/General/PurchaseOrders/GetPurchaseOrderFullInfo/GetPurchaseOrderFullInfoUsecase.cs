@@ -30,7 +30,7 @@ namespace POS.UseCases.General.PurchaseOrders.GetPurchaseOrderFullInfo
             PoHeaderInfoDto header = mapper.Map<PurchaseOrder, PoHeaderInfoDto>(purchaseOrder);
             PoWithFullInfoDto result = mapper.Map<PoHeaderInfoDto, PoWithFullInfoDto>(header);
             result.Supplier = mapper.Map<Supplier, SupplierInfoDto>(purchaseOrder.Supplier);
-            result.Items= mapper.Map<IEnumerable<PurchaseOrderDetail>,IEnumerable<PoDetailInfoWithItemDto>>(purchaseOrder.Items);
+            result.Items= mapper.Map<IEnumerable<PurchaseOrderDetail>,IEnumerable<PoDetailInfoWithItemAndUnitDto>>(purchaseOrder.Items);
             return result;
         }
     }

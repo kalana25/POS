@@ -7,7 +7,7 @@ namespace POS.UseCases.DTO
 {
     public class PoWithFullInfoDto:PoHeaderInfoDto
     {
-        public IEnumerable<PoDetailInfoWithItemDto> Items { get; set; }
+        public IEnumerable<PoDetailInfoWithItemAndUnitDto> Items { get; set; }
         public SupplierInfoDto Supplier { get; set; }
     }
 }

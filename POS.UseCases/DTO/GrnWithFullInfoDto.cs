@@ -12,5 +12,7 @@ namespace POS.UseCases.DTO
         public string CreatedBy { get; set; }
         public string CreatedByName { get; set; }
         public PoHeaderInfoDto PurchaseOrder { get; set; }
+
+        public List<GrnItemFullInfoDto> Items { get; set; }
     }
 }
