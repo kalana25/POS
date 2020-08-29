@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using AutoMapper;
 using POS.Repositories;
 using POS.Core.General;
-using POS.UseCases.DTO.Supplier;
 using POS.Models;
 using POS.Core.Interfaces;
 using POS.UseCases.DTO;

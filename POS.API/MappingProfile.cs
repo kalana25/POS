@@ -83,6 +83,7 @@ namespace POS.API
             CreateMap<GoodReceivedNote, GrnWithFullInfoDto>();
 
             CreateMap<Inventory, InventoryHeaderInfoDto>();
+            CreateMap<Inventory, InventoryHeaderInfoWithItemAndUnit>();
 
             CreateMap<GoodReceivedNoteItem, GrnItemFullInfoDto>();
             #endregion

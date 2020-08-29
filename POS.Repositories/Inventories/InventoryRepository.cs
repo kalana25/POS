@@ -17,6 +17,21 @@ namespace POS.Repositories.Inventories
 
         }
 
+        public override async Task<ResponseData<Inventory>> GetPagination(IRequestData requestData)
+        {
+            int count = await DatabaseContext.Inventories.CountAsync();
+
+            var items = DatabaseContext.Inventories
+                .Include(p => p.Item)
+                .Include(p => p.Unit);
+
+            IEnumerable<Inventory> result = await items
+                .Skip((requestData.Page - 1) * requestData.PageSize)
+                .Take(requestData.PageSize)
+                .ToListAsync();
+            return new ResponseData<Inventory>(requestData.Page, requestData.PageSize, count, result);
+        }
+
         public async Task<Inventory> GetInventoryWithDetailsByItem(int itemId)
         {
             return await DatabaseContext.Inventories
