@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace POS.UseCases.DTO
 {
-    public class InventoryHeaderInfoDto:InventoryHeaderBaseDto
+    public class InventoryHeaderWithFullInfoDto:InventoryHeaderBaseDto
     {
         public int Id { get; set; }
         public int ItemId { get; set; }
@@ -17,5 +17,9 @@ namespace POS.UseCases.DTO
         public string CreatedByName { get; set; }
         public string UpdatedByName { get; set; }
 
+        public ItemInfoDto Item { get; set; }
+        public UnitInfoDto Unit { get; set; }
+
+        public List<InventoryDetailWithUnitAndGrnInfoDto> Details { get; set; }
     }
 }

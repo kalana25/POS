@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using POS.UseCases.General.Inventories.PaginatedInventories;
+using POS.UseCases.General.Inventories.GetInventoryByItem;
 using POS.Core.Interfaces;
 using POS.Core.General;
 
@@ -43,5 +44,31 @@ namespace POS.API.Controllers
                 return StatusCode(Microsoft.AspNetCore.Http.StatusCodes.Status500InternalServerError, ex.Message);
             }
         }
+
+        [HttpGet("fullinfo/find/ItemId/{itemId}")]
+        public async Task<IActionResult> GetFullInfo(int itemId)
+        {
+            try
+            {
+                if (itemId < 1)
+                {
+                    return BadRequest();
+                }
+
+                var findInventoryFullInfo = usecaseFactory.Create<GetInventoryByItemUsecase>();
+                findInventoryFullInfo.ItemId = itemId;
+                var result = await findInventoryFullInfo.Execute();
+                if (result == null)
+                {
+                    return NotFound();
+                }
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(Microsoft.AspNetCore.Http.StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
+
     }
 }

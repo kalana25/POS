@@ -36,6 +36,7 @@ namespace POS.Repositories.Inventories
         {
             return await DatabaseContext.Inventories
                 .Include(x=>x.Item)
+                .Include(x=>x.Unit)
                 .Include(i => i.Details)
                 .ThenInclude(d=>d.Unit)
                 .Include(i=>i.Details)

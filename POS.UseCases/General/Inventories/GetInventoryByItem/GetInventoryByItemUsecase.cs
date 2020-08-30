@@ -23,10 +23,10 @@ namespace POS.UseCases.General.Inventories.GetInventoryByItem
             this.unitOfWork = unitOfWork;
         }
 
-        public async Task<InventoryHeaderInfoDto> Execute()
+        public async Task<InventoryHeaderWithFullInfoDto> Execute()
         {
             var inventory = await unitOfWork.Inventories.GetInventoryWithDetailsByItem(ItemId);
-            InventoryHeaderInfoDto header = mapper.Map<Inventory, InventoryHeaderInfoDto>(inventory);
+            InventoryHeaderWithFullInfoDto header = mapper.Map<Inventory, InventoryHeaderWithFullInfoDto>(inventory);
             return header;
         }
 
