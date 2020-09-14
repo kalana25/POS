@@ -53,7 +53,6 @@ namespace POS.UseCases.General.GoodReceivedNotes.SaveGoodReceivedNote
                     inventory = new Inventory
                     {
                         ItemId = detail.ItemId,
-                        Quantity = detail.Quantity,
                         ReOrderLevel = item.ReOrderLevel,
                         CreatedBy = this.CreatedBy,
                         CreatedOn = DateTime.Now,
@@ -62,11 +61,13 @@ namespace POS.UseCases.General.GoodReceivedNotes.SaveGoodReceivedNote
                     if(detail.IsBaseUnit)
                     {
                         inventory.BaseUnitId = detail.UnitId;
+                        inventory.Quantity = detail.Quantity;
                     } 
                     else
                     {
                         var purchaseUnit =await unitOfWork.PurchaseUnits.Get(detail.UnitId);
                         inventory.BaseUnitId = purchaseUnit.BaseUnitId;
+                        inventory.Quantity = detail.Quantity * purchaseUnit.Quantity;
                     }
 
                     //new Inventory details
