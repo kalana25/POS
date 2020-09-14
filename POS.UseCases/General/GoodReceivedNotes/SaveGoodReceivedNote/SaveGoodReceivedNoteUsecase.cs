@@ -88,7 +88,15 @@ namespace POS.UseCases.General.GoodReceivedNotes.SaveGoodReceivedNote
                 else  //If there is an inventory
                 {
                     // update inventory
-                    inventory.Quantity += detail.Quantity;
+                    if(detail.IsBaseUnit)
+                    {
+                        inventory.Quantity += detail.Quantity;
+                    } 
+                    else
+                    {
+                        var purchaseUnit = await unitOfWork.PurchaseUnits.Get(detail.UnitId);
+                        inventory.Quantity = detail.Quantity * purchaseUnit.Quantity;
+                    }
                     inventory.UpdatedBy = CreatedBy;
                     inventory.UpdatedByName = CreatedByName;
                     inventory.UpdatedOn = DateTime.Now;
