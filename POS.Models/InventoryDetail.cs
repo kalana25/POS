@@ -18,6 +18,7 @@ namespace POS.Models
         public DateTime? ExpireDate { get; set; }
         public DateTime StockInDate { get; set; }
         public int Quantity { get; set; }
+        public int OpenBalanceQuantity { get; set; }
 
         [ForeignKey("Unit")]
         public int UnitId { get; set; }
@@ -30,6 +31,14 @@ namespace POS.Models
         [Required]
         [Column(TypeName = "decimal(18,2)")]
         public decimal PurchasingPrice { get; set; }
+
+        [Required]
+        [Column(TypeName = "decimal(18,2)")]
+        public decimal SellingPricePerBaseUnit { get; set; }
+
+        [Required]
+        [Column(TypeName = "decimal(18,2)")]
+        public decimal PurchasingPricePerBaseUnit { get; set; }
 
         //Navigation Properties
         public Unit Unit { get; set; }

@@ -11,6 +11,7 @@ namespace POS.UseCases.DTO
         public DateTime? ExpireDate { get; set; }
         public DateTime StockInDate { get; set; }
         public int Quantity { get; set; }
+        public int OpenBalanceQuantity { get; set; }
         public bool IsBaseUnit { get; set; }
 
         [Column(TypeName = "decimal(18,2)")]
@@ -18,6 +19,12 @@ namespace POS.UseCases.DTO
 
         [Column(TypeName = "decimal(18,2)")]
         public decimal PurchasingPrice { get; set; }
+
+        [Column(TypeName = "decimal(18,2)")]
+        public decimal SellingPricePerBaseUnit { get; set; }
+
+        [Column(TypeName = "decimal(18,2)")]
+        public decimal PurchasingPricePerBaseUnit { get; set; }
 
         public UnitInfoDto Unit { get; set; }
         public GrnHeaderInfoDto GoodReceivedNote { get; set; }
