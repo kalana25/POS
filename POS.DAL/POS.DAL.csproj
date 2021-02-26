@@ -5,19 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Migrations\20200525072016_AddSupplerToPo.cs" />
-    <Compile Remove="Migrations\20200525072016_AddSupplerToPo.Designer.cs" />
-    <Compile Remove="Migrations\20200619143411_model changes.cs" />
-    <Compile Remove="Migrations\20200619143411_model changes.Designer.cs" />
-    <Compile Remove="Migrations\20200619160002_grn_model_changes.cs" />
-    <Compile Remove="Migrations\20200619160002_grn_model_changes.Designer.cs" />
-    <Compile Remove="Migrations\20200619161215_model_changes.cs" />
-    <Compile Remove="Migrations\20200619161215_model_changes.Designer.cs" />
-    <Compile Remove="Migrations\20200620191615_model changes 3.cs" />
-    <Compile Remove="Migrations\20200620191615_model changes 3.Designer.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.1" />

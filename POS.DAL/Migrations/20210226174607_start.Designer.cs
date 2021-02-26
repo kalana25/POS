@@ -10,8 +10,8 @@ using POS.DAL;
 namespace POS.DAL.Migrations
 {
     [DbContext(typeof(DataBaseContext))]
-    [Migration("20200709173621_allowNewItems")]
-    partial class allowNewItems
+    [Migration("20210226174607_start")]
+    partial class start
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -333,6 +333,9 @@ namespace POS.DAL.Migrations
                     b.Property<DateTime>("Time")
                         .HasColumnType("datetime2");
 
+                    b.Property<decimal>("TotalPrice")
+                        .HasColumnType("decimal(18,2)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("PurchaseOrderId");
@@ -356,11 +359,20 @@ namespace POS.DAL.Migrations
                     b.Property<bool>("IsBaseUnit")
                         .HasColumnType("bit");
 
+                    b.Property<int>("ItemId")
+                        .HasColumnType("int");
+
                     b.Property<int?>("PurchaseOrderDetailId")
                         .HasColumnType("int");
 
+                    b.Property<decimal>("PurchasingPrice")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
+
+                    b.Property<decimal>("SellingPrice")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("UnitId")
                         .HasColumnType("int");
@@ -410,8 +422,8 @@ namespace POS.DAL.Migrations
                     b.Property<string>("UpdatedByName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("UpdatedOn")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<DateTime>("UpdatedOn")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -441,13 +453,22 @@ namespace POS.DAL.Migrations
                     b.Property<bool>("IsBaseUnit")
                         .HasColumnType("bit");
 
+                    b.Property<int>("OpenBalanceQuantity")
+                        .HasColumnType("int");
+
                     b.Property<decimal>("PurchasingPrice")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("PurchasingPricePerBaseUnit")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
                     b.Property<decimal>("SellingPrice")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("SellingPricePerBaseUnit")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<DateTime>("StockInDate")

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace POS.DAL.Migrations
 {
-    public partial class Initial : Migration
+    public partial class start : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -94,25 +94,6 @@ namespace POS.DAL.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Communications", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "PurchaseOrders",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Date = table.Column<DateTime>(nullable: false),
-                    Code = table.Column<string>(nullable: false),
-                    UserId = table.Column<int>(nullable: false),
-                    TotalPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    Status = table.Column<int>(nullable: false),
-                    CreatedOn = table.Column<DateTime>(nullable: false),
-                    CreatedBy = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_PurchaseOrders", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -251,7 +232,7 @@ namespace POS.DAL.Migrations
                     Code = table.Column<string>(maxLength: 100, nullable: false),
                     Name = table.Column<string>(maxLength: 250, nullable: false),
                     CategoryId = table.Column<int>(nullable: false),
-                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    ReOrderLevel = table.Column<int>(nullable: false),
                     Barcode = table.Column<string>(nullable: true),
                     Active = table.Column<bool>(nullable: false)
                 },
@@ -267,26 +248,31 @@ namespace POS.DAL.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "GoodReceivedNotes",
+                name: "PurchaseOrders",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    PurchaseOrderId = table.Column<int>(nullable: false),
+                    ReferenceId = table.Column<int>(nullable: true),
                     Date = table.Column<DateTime>(nullable: false),
-                    Time = table.Column<TimeSpan>(nullable: false),
-                    UserId = table.Column<int>(nullable: false),
-                    Comment = table.Column<int>(maxLength: 250, nullable: false)
+                    DeliveryDate = table.Column<DateTime>(nullable: true),
+                    Code = table.Column<string>(nullable: false),
+                    TotalPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    SupplierId = table.Column<int>(nullable: false),
+                    Status = table.Column<int>(nullable: false),
+                    CreatedOn = table.Column<DateTime>(nullable: false),
+                    CreatedBy = table.Column<string>(nullable: false),
+                    CreatedByName = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_GoodReceivedNotes", x => x.Id);
+                    table.PrimaryKey("PK_PurchaseOrders", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_GoodReceivedNotes_PurchaseOrders_PurchaseOrderId",
-                        column: x => x.PurchaseOrderId,
-                        principalTable: "PurchaseOrders",
+                        name: "FK_PurchaseOrders_Suppliers_SupplierId",
+                        column: x => x.SupplierId,
+                        principalTable: "Suppliers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -317,6 +303,125 @@ namespace POS.DAL.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Discounts",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    StartDate = table.Column<DateTime>(nullable: false),
+                    EndDate = table.Column<DateTime>(nullable: false),
+                    Rate = table.Column<decimal>(type: "decimal(5,2)", nullable: false),
+                    ItemId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Discounts", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Discounts_Items_ItemId",
+                        column: x => x.ItemId,
+                        principalTable: "Items",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Units",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(nullable: false),
+                    Symbol = table.Column<string>(nullable: false),
+                    CreatedBy = table.Column<string>(nullable: false),
+                    CreatedOn = table.Column<DateTime>(nullable: false),
+                    UpdatedBy = table.Column<string>(nullable: true),
+                    UpdatedOn = table.Column<DateTime>(nullable: false),
+                    Discriminator = table.Column<string>(nullable: false),
+                    Description = table.Column<string>(nullable: true),
+                    Comment = table.Column<string>(nullable: true),
+                    Quantity = table.Column<int>(nullable: true),
+                    BaseUnitId = table.Column<int>(nullable: true),
+                    ItemId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Units", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Units_Units_BaseUnitId",
+                        column: x => x.BaseUnitId,
+                        principalTable: "Units",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Units_Items_ItemId",
+                        column: x => x.ItemId,
+                        principalTable: "Items",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "GoodReceivedNotes",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Code = table.Column<string>(nullable: false),
+                    PurchaseOrderId = table.Column<int>(nullable: false),
+                    GrnDate = table.Column<DateTime>(nullable: false),
+                    Time = table.Column<DateTime>(nullable: false),
+                    Comment = table.Column<string>(maxLength: 250, nullable: true),
+                    CreatedOn = table.Column<DateTime>(nullable: false),
+                    CreatedBy = table.Column<string>(nullable: false),
+                    CreatedByName = table.Column<string>(nullable: false),
+                    TotalPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_GoodReceivedNotes", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_GoodReceivedNotes_PurchaseOrders_PurchaseOrderId",
+                        column: x => x.PurchaseOrderId,
+                        principalTable: "PurchaseOrders",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Inventories",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ItemId = table.Column<int>(nullable: false),
+                    Quantity = table.Column<int>(nullable: false),
+                    BaseUnitId = table.Column<int>(nullable: false),
+                    ReOrderLevel = table.Column<int>(nullable: false),
+                    CreatedBy = table.Column<string>(nullable: true),
+                    CreatedOn = table.Column<DateTime>(nullable: false),
+                    UpdatedBy = table.Column<string>(nullable: true),
+                    UpdatedOn = table.Column<DateTime>(nullable: false),
+                    CreatedByName = table.Column<string>(nullable: true),
+                    UpdatedByName = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Inventories", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Inventories_Units_BaseUnitId",
+                        column: x => x.BaseUnitId,
+                        principalTable: "Units",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Inventories_Items_ItemId",
+                        column: x => x.ItemId,
+                        principalTable: "Items",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "PurchaseOrderDetails",
                 columns: table => new
                 {
@@ -325,7 +430,9 @@ namespace POS.DAL.Migrations
                     PurchaseOrderId = table.Column<int>(nullable: false),
                     ItemId = table.Column<int>(nullable: false),
                     Quantity = table.Column<int>(nullable: false),
-                    Unit = table.Column<int>(nullable: false)
+                    UnitPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    UnitId = table.Column<int>(nullable: false),
+                    IsBaseUnit = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -342,6 +449,54 @@ namespace POS.DAL.Migrations
                         principalTable: "PurchaseOrders",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_PurchaseOrderDetails_Units_UnitId",
+                        column: x => x.UnitId,
+                        principalTable: "Units",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "InventoryDetails",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    InventoryId = table.Column<int>(nullable: false),
+                    GrnId = table.Column<int>(nullable: false),
+                    ExpireDate = table.Column<DateTime>(nullable: true),
+                    StockInDate = table.Column<DateTime>(nullable: false),
+                    Quantity = table.Column<int>(nullable: false),
+                    OpenBalanceQuantity = table.Column<int>(nullable: false),
+                    UnitId = table.Column<int>(nullable: false),
+                    IsBaseUnit = table.Column<bool>(nullable: false),
+                    SellingPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    PurchasingPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    SellingPricePerBaseUnit = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    PurchasingPricePerBaseUnit = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_InventoryDetails", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_InventoryDetails_GoodReceivedNotes_GrnId",
+                        column: x => x.GrnId,
+                        principalTable: "GoodReceivedNotes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_InventoryDetails_Inventories_InventoryId",
+                        column: x => x.InventoryId,
+                        principalTable: "Inventories",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_InventoryDetails_Units_UnitId",
+                        column: x => x.UnitId,
+                        principalTable: "Units",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -351,8 +506,14 @@ namespace POS.DAL.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     GoodReceivedNoteId = table.Column<int>(nullable: false),
-                    PurchaseOrderDetailId = table.Column<int>(nullable: false),
-                    Quantity = table.Column<int>(nullable: false)
+                    PurchaseOrderDetailId = table.Column<int>(nullable: true),
+                    Quantity = table.Column<int>(nullable: false),
+                    UnitId = table.Column<int>(nullable: false),
+                    IsBaseUnit = table.Column<bool>(nullable: false),
+                    ExpireDate = table.Column<DateTime>(nullable: true),
+                    SellingPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    PurchasingPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    ItemId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -369,6 +530,12 @@ namespace POS.DAL.Migrations
                         principalTable: "PurchaseOrderDetails",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_GoodReceivedNoteItems_Units_UnitId",
+                        column: x => x.UnitId,
+                        principalTable: "Units",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
@@ -411,6 +578,11 @@ namespace POS.DAL.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Discounts_ItemId",
+                table: "Discounts",
+                column: "ItemId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_GoodReceivedNoteItems_GoodReceivedNoteId",
                 table: "GoodReceivedNoteItems",
                 column: "GoodReceivedNoteId");
@@ -421,9 +593,39 @@ namespace POS.DAL.Migrations
                 column: "PurchaseOrderDetailId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_GoodReceivedNoteItems_UnitId",
+                table: "GoodReceivedNoteItems",
+                column: "UnitId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_GoodReceivedNotes_PurchaseOrderId",
                 table: "GoodReceivedNotes",
                 column: "PurchaseOrderId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Inventories_BaseUnitId",
+                table: "Inventories",
+                column: "BaseUnitId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Inventories_ItemId",
+                table: "Inventories",
+                column: "ItemId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_InventoryDetails_GrnId",
+                table: "InventoryDetails",
+                column: "GrnId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_InventoryDetails_InventoryId",
+                table: "InventoryDetails",
+                column: "InventoryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_InventoryDetails_UnitId",
+                table: "InventoryDetails",
+                column: "UnitId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Items_CategoryId",
@@ -441,9 +643,29 @@ namespace POS.DAL.Migrations
                 column: "PurchaseOrderId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_PurchaseOrderDetails_UnitId",
+                table: "PurchaseOrderDetails",
+                column: "UnitId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PurchaseOrders_SupplierId",
+                table: "PurchaseOrders",
+                column: "SupplierId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_SupplierContacts_SupplierId",
                 table: "SupplierContacts",
                 column: "SupplierId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Units_BaseUnitId",
+                table: "Units",
+                column: "BaseUnitId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Units_ItemId",
+                table: "Units",
+                column: "ItemId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -470,7 +692,13 @@ namespace POS.DAL.Migrations
                 name: "Communications");
 
             migrationBuilder.DropTable(
+                name: "Discounts");
+
+            migrationBuilder.DropTable(
                 name: "GoodReceivedNoteItems");
+
+            migrationBuilder.DropTable(
+                name: "InventoryDetails");
 
             migrationBuilder.DropTable(
                 name: "SupplierContacts");
@@ -482,19 +710,25 @@ namespace POS.DAL.Migrations
                 name: "AspNetUsers");
 
             migrationBuilder.DropTable(
+                name: "PurchaseOrderDetails");
+
+            migrationBuilder.DropTable(
                 name: "GoodReceivedNotes");
 
             migrationBuilder.DropTable(
-                name: "PurchaseOrderDetails");
+                name: "Inventories");
+
+            migrationBuilder.DropTable(
+                name: "PurchaseOrders");
+
+            migrationBuilder.DropTable(
+                name: "Units");
 
             migrationBuilder.DropTable(
                 name: "Suppliers");
 
             migrationBuilder.DropTable(
                 name: "Items");
-
-            migrationBuilder.DropTable(
-                name: "PurchaseOrders");
 
             migrationBuilder.DropTable(
                 name: "Categories");

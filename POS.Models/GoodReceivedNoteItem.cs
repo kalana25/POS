@@ -25,8 +25,10 @@ namespace POS.Models
 
         public DateTime? ExpireDate { get; set; }
 
+        [Column(TypeName = "decimal(18,2)")]
         public decimal SellingPrice { get; set; }
 
+        [Column(TypeName = "decimal(18,2)")]
         public decimal PurchasingPrice { get; set; }
 
         public int ItemId { get; set; }
