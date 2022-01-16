@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿
 using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using POS.Models;
@@ -15,7 +12,7 @@ namespace POS.API
         public MappingProfile()
         {
             #region DTOToModel
-
+            
             CreateMap<SupplierSaveDto, Supplier>();
             CreateMap<SupplierContactSaveDto, SupplierContact>();
             CreateMap<ItemCategorySaveDto, ItemCategory>();
@@ -28,12 +25,13 @@ namespace POS.API
             CreateMap<PurchaseOrderUpdateDetail, PurchaseOrderDetail>();
 
             CreateMap<GrnSaveDto, GoodReceivedNote>();
-            CreateMap<GrnSaveDetail, GoodReceivedNoteItem>();          
+            CreateMap<GrnSaveDetail, GoodReceivedNoteItem>();
 
             CreateMap<DiscountSaveDto, Discount>();
 
             CreateMap<BaseUnitSaveDto, BaseUnit>();
             CreateMap<PurchaseUnitSaveDto, PurchaseUnit>();
+            
             #endregion
 
             #region ModelToDTO
@@ -44,7 +42,7 @@ namespace POS.API
             //    .ForMember(d => d.Description, m => m.MapFrom(o => o.Description))
             //    .ForMember(d => d.ResourceProfiles, m => m.MapFrom(o=>o.PlanProfiles));
             ////.ForMember(d => d.ResourceProfiles, m => m.Ignore());
-
+            
             CreateMap<IdentityUser, UserInfoDto>();
             CreateMap<Supplier, SupplierInfoDto>();
             CreateMap<SupplierContact, SupplierContactDto>();
@@ -87,6 +85,7 @@ namespace POS.API
             CreateMap<InventoryDetail, InventoryDetailWithUnitAndGrnInfoDto>();
 
             CreateMap<GoodReceivedNoteItem, GrnItemFullInfoDto>();
+            
             #endregion
         }
     }

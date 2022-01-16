@@ -17,6 +17,7 @@ using POS.UseCases.DTO.Supplier;
 using POS.UseCases.General.Suppliers.SaveSupplierContact;
 using POS.UseCases.General.Suppliers.UpdateSupplierContact;
 using POS.UseCases.General.Suppliers.DeleteSupplierContact;
+using POS.UseCases.General.Suppliers.GetNextSupplierCode;
 
 namespace POS.API.Controllers
 {
@@ -74,6 +75,25 @@ namespace POS.API.Controllers
                     return CreatedAtAction(nameof(Get), new { id = result.Id }, result);
                 }
                 return BadRequest();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(Microsoft.AspNetCore.Http.StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
+
+        [HttpGet("find/next/code")]
+        public async Task<IActionResult> GetNextSupplierCode()
+        {
+            try
+            {
+                var nextGrnCode = usecaseFactory.Create<GetNextSupplierCodeUsecase>();
+                var result = await nextGrnCode.Execute();
+                if (result == null)
+                {
+                    return NotFound();
+                }
+                return Ok(new { code = result });
             }
             catch (Exception ex)
             {
