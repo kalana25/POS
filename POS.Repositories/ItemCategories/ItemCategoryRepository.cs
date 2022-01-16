@@ -40,5 +40,10 @@ namespace POS.Repositories.ItemCategories
         {
             return await DatabaseContext.Categories.FindAsync(id);
         }
+
+        public async Task<int> GetLastItemCategoryId()
+        {
+            return await DatabaseContext.Categories.OrderByDescending(x => x.Id).Select(x => x.Id).FirstOrDefaultAsync();
+        }
     }
 }

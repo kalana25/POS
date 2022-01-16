@@ -57,5 +57,9 @@ namespace POS.Repositories.Items
             return new ResponseData<Item>(requestData.Page, requestData.PageSize, count, items);            
         }
 
+        public async Task<int> GetLastItemId()
+        {
+            return await DatabaseContext.Items.OrderByDescending(x => x.Id).Select(x => x.Id).FirstOrDefaultAsync();
+        }
     }
 }

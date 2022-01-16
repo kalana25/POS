@@ -16,6 +16,7 @@ using POS.UseCases.General.ItemCategories.GetItemCategory;
 using POS.UseCases.General.ItemCategories.PaginatedItemCategories;
 using POS.UseCases.General.ItemCategories.SaveItemCategory;
 using POS.UseCases.General.ItemCategories.UpdateItemCategory;
+using POS.UseCases.General.ItemCategories.GetNextItemCategoryCode;
 
 namespace POS.API.Controllers
 {
@@ -44,6 +45,25 @@ namespace POS.API.Controllers
                     return NotFound();
                 }
                 return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(Microsoft.AspNetCore.Http.StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
+
+        [HttpGet("find/next/code")]
+        public async Task<IActionResult> GetNextItemCategoryCode()
+        {
+            try
+            {
+                var nextCategory = usecaseFactory.Create<GetNextItemCategoryCodeUsecase>();
+                var result = await nextCategory.Execute();
+                if (result == null)
+                {
+                    return NotFound();
+                }
+                return Ok(new { code = result });
             }
             catch (Exception ex)
             {

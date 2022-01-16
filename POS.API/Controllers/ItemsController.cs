@@ -16,6 +16,7 @@ using POS.UseCases.General.Items.PaginatedItems;
 using POS.UseCases.General.Items.SaveItem;
 using POS.UseCases.General.Items.UpdateItem;
 using POS.UseCases.General.Items.DeleteItem;
+using POS.UseCases.General.Items.GetNextItemCode;
 
 namespace POS.API.Controllers
 {
@@ -30,6 +31,26 @@ namespace POS.API.Controllers
         {
             this.usecaseFactory = usecaseFactory;
         }
+
+        [HttpGet("find/next/code")]
+        public async Task<IActionResult> GetNextItemCode()
+        {
+            try
+            {
+                var nextItemCode = usecaseFactory.Create<GetNextItemCodeUsecase>();
+                var result = await nextItemCode.Execute();
+                if (result == null)
+                {
+                    return NotFound();
+                }
+                return Ok(new { code = result });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(Microsoft.AspNetCore.Http.StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
+
 
         [HttpGet("findall/")]
         public async Task<IActionResult> GetAll()

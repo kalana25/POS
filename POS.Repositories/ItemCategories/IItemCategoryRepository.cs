@@ -14,5 +14,6 @@ namespace POS.Repositories.ItemCategories
         Task<IEnumerable<ItemCategory>> GetItemCategoriesByLevel(int level);
         Task<IEnumerable<ItemCategory>> GetItemCategoriesByParentAndLevel(int parent,int level);
         Task<ItemCategory> GetItemCategory(int id);
+        Task<int> GetLastItemCategoryId();
     }
 }
