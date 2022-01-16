@@ -25,9 +25,9 @@ namespace POS.Repositories.Suppliers
             return await DatabaseContext.Suppliers.Where(x => x.Active == true).Include(x => x.SupplierContacts).Where(x => x.SupplierContacts.Any(z => z.Active == true)).ToListAsync();
         }
 
-        public async Task<Supplier> GetLastSupplier()
+        public async Task<int> GetLastSupplierId()
         {
-            return await DatabaseContext.Suppliers.OrderByDescending(x => x.Id).FirstOrDefaultAsync();
+            return await DatabaseContext.Suppliers.OrderByDescending(x => x.Id).Select(x => x.Id).FirstOrDefaultAsync();
         }
 
         public DataBaseContext DatabaseContext

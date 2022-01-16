@@ -11,6 +11,6 @@ namespace POS.Repositories.Suppliers
     {
         Task<Supplier> GetSupplier(int id);
         Task<IEnumerable<Supplier>> GetSuppliersWithContacts();
-        Task<Supplier> GetLastSupplier();
+        Task<int> GetLastSupplierId();
     }
 }

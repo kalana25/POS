@@ -18,15 +18,11 @@ namespace POS.UseCases.General.Suppliers.GetNextSupplierCode
 
         public async Task<string> Execute()
         {
-            Supplier supplier = await unitOfWork.Suppliers.GetLastSupplier();
-            if (supplier != null)
-            {
-                int nextId = supplier.Id;
-                nextId += 1;
-                string result = nextId.ToString().PadLeft(4, '0');
-                return $"SU{result}";
-            }
-            return "SU0001";
+            int supplierId = await unitOfWork.Suppliers.GetLastSupplierId();
+            int nextId = supplierId;
+            nextId += 1;
+            string result = nextId.ToString().PadLeft(4, '0');
+            return $"SU{result}";
         }
     }
 }
