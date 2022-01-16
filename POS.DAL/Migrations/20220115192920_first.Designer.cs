@@ -10,8 +10,8 @@ using POS.DAL;
 namespace POS.DAL.Migrations
 {
     [DbContext(typeof(DataBaseContext))]
-    [Migration("20210226174607_start")]
-    partial class start
+    [Migration("20220115192920_first")]
+    partial class first
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
