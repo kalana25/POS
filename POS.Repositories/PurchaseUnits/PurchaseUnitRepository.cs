@@ -47,6 +47,11 @@ namespace POS.Repositories.PurchaseUnits
                 .ToListAsync();
         }
 
+        public async Task<int> GetLastPurchaseUnitId()
+        {
+            return await DatabaseContext.PurchaseUnits.OrderByDescending(x => x.Id).Select(x => x.Id).FirstOrDefaultAsync();
+        }
+
         public DataBaseContext DatabaseContext
         {
             get { return context as DataBaseContext; }

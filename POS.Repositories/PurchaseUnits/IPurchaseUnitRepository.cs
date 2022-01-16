@@ -10,5 +10,6 @@ namespace POS.Repositories.PurchaseUnits
     public interface IPurchaseUnitRepository:IRepository<PurchaseUnit>
     {
         Task<IEnumerable<PurchaseUnit>> GetByItem(int itemId);
+        Task<int> GetLastPurchaseUnitId();
     }
 }

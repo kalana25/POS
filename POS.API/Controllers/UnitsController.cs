@@ -13,6 +13,7 @@ using POS.UseCases.General.BaseUnits.GetBaseUnit;
 using POS.UseCases.General.BaseUnits.DeleteBaseUnit;
 using POS.UseCases.General.BaseUnits.SaveBaseUnit;
 using POS.UseCases.General.BaseUnits.UpdateBaseUnit;
+using POS.UseCases.General.BaseUnits.GetNextBaseUnitCode;
 using POS.UseCases.General.PurchaseUnits.PaginatedPurchaseUnits;
 using POS.UseCases.General.PurchaseUnits.GetPurchaseUnit;
 using POS.UseCases.General.PurchaseUnits.GetPurchaseUnits;
@@ -20,6 +21,7 @@ using POS.UseCases.General.PurchaseUnits.DeletePurchaseUnit;
 using POS.UseCases.General.PurchaseUnits.SavePurchaseUnit;
 using POS.UseCases.General.PurchaseUnits.UpdatePurchaseUnit;
 using POS.UseCases.General.PurchaseUnits.GetPurchaseUnitsByItem;
+using POS.UseCases.General.PurchaseUnits.GetNextPurchaseUnitCode;
 using POS.UseCases.DTO;
 using System.Security.Claims;
 
@@ -128,6 +130,25 @@ namespace POS.API.Controllers
                 deleteBaseUnit.Id = id;
                 var result = await deleteBaseUnit.Execute();
                 return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(Microsoft.AspNetCore.Http.StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
+
+        [HttpGet("base/find/next/code")]
+        public async Task<IActionResult> GetNextBaseUnitCode()
+        {
+            try
+            {
+                var nextBaseUnit = usecaseFactory.Create<GetNextBaseUnitCodeUsecase>();
+                var result = await nextBaseUnit.Execute();
+                if (result == null)
+                {
+                    return NotFound();
+                }
+                return Ok(new { code = result });
             }
             catch (Exception ex)
             {
@@ -278,6 +299,26 @@ namespace POS.API.Controllers
                 return StatusCode(Microsoft.AspNetCore.Http.StatusCodes.Status500InternalServerError, ex.Message);
             }
         }
+
+        [HttpGet("purchase/find/next/code")]
+        public async Task<IActionResult> GetNextSupplierCode()
+        {
+            try
+            {
+                var nextPurchaseUnit = usecaseFactory.Create<GetNextPurchaseUnitCodeUsecase>();
+                var result = await nextPurchaseUnit.Execute();
+                if (result == null)
+                {
+                    return NotFound();
+                }
+                return Ok(new { code = result });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(Microsoft.AspNetCore.Http.StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
+
 
         [HttpGet("purchase/findall/")]
         public async Task<IActionResult> GetAllPunit()

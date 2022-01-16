@@ -14,6 +14,7 @@ using POS.UseCases.General.Discounts.PaginatedDiscounts;
 using POS.UseCases.General.Discounts.SaveDiscount;
 using POS.UseCases.General.Discounts.UpdateDiscount;
 using POS.UseCases.General.Discounts.DeleteDiscount;
+using POS.UseCases.General.Discounts.GetNextDiscountCode;
 
 namespace POS.API.Controllers
 {
@@ -66,6 +67,25 @@ namespace POS.API.Controllers
                     return CreatedAtAction(nameof(Get), new { id = result.Id }, result);
                 }
                 return BadRequest();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(Microsoft.AspNetCore.Http.StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
+
+        [HttpGet("find/next/code")]
+        public async Task<IActionResult> GetNextDiscountCode()
+        {
+            try
+            {
+                var nextDiscount = usecaseFactory.Create<GetNextDiscountCodeUsecase>();
+                var result = await nextDiscount.Execute();
+                if (result == null)
+                {
+                    return NotFound();
+                }
+                return Ok(new { code = result });
             }
             catch (Exception ex)
             {

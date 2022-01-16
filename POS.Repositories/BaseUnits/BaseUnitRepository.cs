@@ -26,5 +26,10 @@ namespace POS.Repositories.BaseUnits
                 .Include(b => b.PurchaseUnits)
                 .FirstOrDefaultAsync(x => x.Id == id);
         }
+
+        public async Task<int> GetLastBaseUnitId()
+        {
+            return await DatabaseContext.BaseUnits.OrderByDescending(x => x.Id).Select(x => x.Id).FirstOrDefaultAsync();
+        }
     }
 }

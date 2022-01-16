@@ -12,5 +12,6 @@ namespace POS.Repositories.Discounts
     {
         Task<Discount> GetDiscountWithItem(int id);
         Task<IEnumerable<Discount>> GetAllDiscountWithItem();
+        Task<int> GetLastDiscountId();
     }
 }

@@ -44,5 +44,10 @@ namespace POS.Repositories.Discounts
         {
             return await DatabaseContext.Discounts.Include(d => d.Item).FirstOrDefaultAsync(x => x.Id == id);
         }
+
+        public async Task<int> GetLastDiscountId()
+        {
+            return await DatabaseContext.Discounts.OrderByDescending(x => x.Id).Select(x => x.Id).FirstOrDefaultAsync();
+        }
     }
 }

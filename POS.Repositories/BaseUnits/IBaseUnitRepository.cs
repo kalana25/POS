@@ -9,5 +9,6 @@ namespace POS.Repositories.BaseUnits
     public interface IBaseUnitRepository:IRepository<BaseUnit>
     {
         Task<BaseUnit> GetBaseUnitWithPurchaseUnits(int id);
+        Task<int> GetLastBaseUnitId();
     }
 }
