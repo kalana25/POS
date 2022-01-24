@@ -100,7 +100,7 @@ namespace POS.UseCases.General.GoodReceivedNotes.SaveGoodReceivedNote
                     else
                     {
                         purchaseUnit = await unitOfWork.PurchaseUnits.Get(detail.UnitId);
-                        inventory.Quantity = detail.Quantity * purchaseUnit.Quantity;
+                        inventory.Quantity += detail.Quantity * purchaseUnit.Quantity;
                     }
                     inventory.UpdatedBy = CreatedBy;
                     inventory.UpdatedByName = CreatedByName;
