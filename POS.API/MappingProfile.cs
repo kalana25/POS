@@ -83,6 +83,9 @@ namespace POS.API
             CreateMap<Inventory, InventoryHeaderWithFullInfoDto>();
             CreateMap<Inventory, InventoryHeaderInfoWithItemAndUnit>();
             CreateMap<InventoryDetail, InventoryDetailWithUnitAndGrnInfoDto>();
+            CreateMap<Inventory, InventoryItemDto>()
+                .ForMember(d => d.ItemName, m => m.MapFrom(o => o.Item.Name));
+
 
             CreateMap<GoodReceivedNoteItem, GrnItemFullInfoDto>();
             

@@ -44,6 +44,14 @@ namespace POS.Repositories.Inventories
                 .FirstOrDefaultAsync(x => x.ItemId == itemId);
         }
 
+        public async Task<IEnumerable<Inventory>> GetInventoryByCategoryId(int categoryId)
+        {
+            return await DatabaseContext.Inventories
+                .Include(x => x.Item)
+                .Where(x => x.Item.CategoryId == categoryId)
+                .ToListAsync();
+        }
+
         public DataBaseContext DatabaseContext
         {
             get { return context as DataBaseContext; }

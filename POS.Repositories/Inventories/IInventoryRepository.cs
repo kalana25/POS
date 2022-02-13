@@ -10,5 +10,6 @@ namespace POS.Repositories.Inventories
     public interface IInventoryRepository:IRepository<Inventory>
     {
         Task<Inventory> GetInventoryWithDetailsByItem(int itemId);
+        Task<IEnumerable<Inventory>> GetInventoryByCategoryId(int categoryId);
     }
 }

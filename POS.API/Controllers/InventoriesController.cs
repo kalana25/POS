@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using POS.UseCases.General.Inventories.PaginatedInventories;
 using POS.UseCases.General.Inventories.GetInventoryByItem;
+using POS.UseCases.General.Inventories.GetInventoryByCategory;
 using POS.Core.Interfaces;
 using POS.Core.General;
 
@@ -62,6 +63,27 @@ namespace POS.API.Controllers
                 {
                     return NotFound();
                 }
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(Microsoft.AspNetCore.Http.StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
+
+        [HttpGet("availableStock/find/CategoryId/{categoryId}")]
+        public async Task<IActionResult> GetAvailableInventoryByCategory(int categoryId)
+        {
+            try
+            {
+                if (categoryId <1)
+                {
+                    return BadRequest();
+                }
+
+                var availableItemStock = usecaseFactory.Create<GetInventoryByCategoryUsecase>();
+                availableItemStock.CategoryId = categoryId;
+                var result = await availableItemStock.Execute();
                 return Ok(result);
             }
             catch (Exception ex)
