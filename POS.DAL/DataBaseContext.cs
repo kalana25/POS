@@ -41,6 +41,19 @@ namespace POS.DAL
                 .WithOne(g => g.PurchaseOrderDetail)
                 .OnDelete(DeleteBehavior.Restrict);
 
+            //Restrict cascade delete OrderDetails when a Order is deleted
+            modelBuilder.Entity<Order>()
+                .HasMany(o => o.OrderDetails)
+                .WithOne(od => od.Order)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            //Restrict cascade delete Items when a OrderDetail is deleted
+            modelBuilder.Entity<OrderDetail>()
+                .HasOne(od => od.Item)
+                .WithMany(i => i.OrderedItems)
+                .OnDelete(DeleteBehavior.Restrict);
+                
+
             modelBuilder.Entity<Supplier>()
                 .HasMany(s => s.PurchaseOrders)
                 .WithOne(p => p.Supplier)
@@ -85,6 +98,9 @@ namespace POS.DAL
         public DbSet<Unit> Units { get; set; }
         public DbSet<BaseUnit> BaseUnits { get; set; }
         public DbSet<PurchaseUnit> PurchaseUnits { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderDetail> OrderDetails { get; set; }
+
 
     }
 }
