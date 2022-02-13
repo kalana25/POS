@@ -14,6 +14,8 @@ using POS.Repositories.PurchaseUnits;
 using POS.Repositories.Grns;
 using POS.Repositories.Inventories;
 using POS.Repositories.InventoryDetails;
+using POS.Repositories.Orders;
+using POS.Repositories.OrderDetails;
 using POS.Core.DI;
 
 
@@ -35,6 +37,8 @@ namespace POS.Repositories
         IGrnRepository Grns { get; set; }
         IInventoryRepository Inventories { get; set; }
         IInventoryDetailRepository InventoryDetails { get; set; }
+        IOrderRepository Orders { get; set; }
+        IOrderDetailRepository OrderDetails { get; set; }
         Task<int> Complete();
     }
 }
