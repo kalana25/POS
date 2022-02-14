@@ -15,7 +15,7 @@ namespace POS.UseCases.General.Inventories.GetInventoryByItem
         private readonly IMapper mapper;
         private readonly IUnitOfWork unitOfWork;
 
-        public int ItemId { get; set; }
+        public int InventoryId { get; set; }
 
         public GetInventoryByItemUsecase(IMapper mapper, IUnitOfWork unitOfWork)
         {
@@ -25,7 +25,7 @@ namespace POS.UseCases.General.Inventories.GetInventoryByItem
 
         public async Task<InventoryHeaderWithFullInfoDto> Execute()
         {
-            var inventory = await unitOfWork.Inventories.GetInventoryWithDetailsByItem(ItemId);
+            var inventory = await unitOfWork.Inventories.GetInventoryWithDetailsByItem(InventoryId);
             InventoryHeaderWithFullInfoDto header = mapper.Map<Inventory, InventoryHeaderWithFullInfoDto>(inventory);
             return header;
         }

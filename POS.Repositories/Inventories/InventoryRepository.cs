@@ -32,7 +32,7 @@ namespace POS.Repositories.Inventories
             return new ResponseData<Inventory>(requestData.Page, requestData.PageSize, count, result);
         }
 
-        public async Task<Inventory> GetInventoryWithDetailsByItem(int itemId)
+        public async Task<Inventory> GetInventoryWithDetailsByItem(int inventoryId)
         {
             return await DatabaseContext.Inventories
                 .Include(x=>x.Item)
@@ -41,7 +41,7 @@ namespace POS.Repositories.Inventories
                 .ThenInclude(d=>d.Unit)
                 .Include(i=>i.Details)
                 .ThenInclude(g=>g.GoodReceivedNote)
-                .FirstOrDefaultAsync(x => x.ItemId == itemId);
+                .FirstOrDefaultAsync(x => x.Id == inventoryId);
         }
 
         public async Task<IEnumerable<Inventory>> GetInventoryByCategoryId(int categoryId)
@@ -50,6 +50,18 @@ namespace POS.Repositories.Inventories
                 .Include(x => x.Item)
                 .Where(x => x.Item.CategoryId == categoryId)
                 .ToListAsync();
+        }
+
+        public async Task<Inventory> GetInventoryWithDetailsByItemAndPrices(int itemId, decimal purchasePrice, decimal sellingPrice)
+        {
+            return await DatabaseContext.Inventories
+                .Include(x => x.Item)
+                .Include(x => x.Unit)
+                .Include(i => i.Details)
+                .ThenInclude(d => d.Unit)
+                .Include(i => i.Details)
+                .ThenInclude(g => g.GoodReceivedNote)
+                .FirstOrDefaultAsync(x => x.ItemId == itemId && x.SellingPricePerBaseUnit==sellingPrice && x.PurchasingPricePerBaseUnit==purchasePrice);
         }
 
         public DataBaseContext DatabaseContext

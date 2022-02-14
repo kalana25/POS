@@ -45,7 +45,21 @@ namespace POS.UseCases.General.GoodReceivedNotes.SaveGoodReceivedNote
 
             foreach(var detail in details)
             {
-                Inventory inventory = await unitOfWork.Inventories.GetInventoryWithDetailsByItem(detail.ItemId);
+                decimal basePurchasePricePerUnit = 0;
+                decimal baseSellingPricePerUnit = 0;
+                PurchaseUnit purchaseUnit = await unitOfWork.PurchaseUnits.Get(detail.UnitId);
+                if (detail.IsBaseUnit)
+                {
+                    baseSellingPricePerUnit = detail.SellingPrice;
+                    basePurchasePricePerUnit = detail.PurchasingPrice;
+                }
+                else
+                {
+                    baseSellingPricePerUnit = detail.SellingPrice / purchaseUnit.Quantity;
+                    basePurchasePricePerUnit = detail.PurchasingPrice / purchaseUnit.Quantity;
+                }
+
+                Inventory inventory = await unitOfWork.Inventories.GetInventoryWithDetailsByItemAndPrices(detail.ItemId,basePurchasePricePerUnit,baseSellingPricePerUnit);
                 if (inventory == null)  // If No inventory
                 {
                     //new inventory
@@ -56,9 +70,11 @@ namespace POS.UseCases.General.GoodReceivedNotes.SaveGoodReceivedNote
                         ReOrderLevel = item.ReOrderLevel,
                         CreatedBy = this.CreatedBy,
                         CreatedOn = DateTime.Now,
-                        CreatedByName = this.CreatedByName
+                        CreatedByName = this.CreatedByName,
+                        SellingPricePerBaseUnit = baseSellingPricePerUnit,
+                        PurchasingPricePerBaseUnit = basePurchasePricePerUnit
                     };
-                    PurchaseUnit purchaseUnit = null;
+                    
                     if (detail.IsBaseUnit)
                     {
                         inventory.BaseUnitId = detail.UnitId;
@@ -66,7 +82,6 @@ namespace POS.UseCases.General.GoodReceivedNotes.SaveGoodReceivedNote
                     } 
                     else
                     {
-                        purchaseUnit =await unitOfWork.PurchaseUnits.Get(detail.UnitId);
                         inventory.BaseUnitId = purchaseUnit.BaseUnitId;
                         inventory.Quantity = detail.Quantity * purchaseUnit.Quantity;
                     }
@@ -83,15 +98,12 @@ namespace POS.UseCases.General.GoodReceivedNotes.SaveGoodReceivedNote
                         IsBaseUnit = detail.IsBaseUnit,
                         UnitId = detail.UnitId,
                         GoodReceivedNote = grnHeader,
-                        OpenBalanceQuantity = detail.Quantity,
-                        SellingPricePerBaseUnit = (detail.IsBaseUnit)?detail.SellingPrice:detail.SellingPrice/purchaseUnit.Quantity,
-                        PurchasingPricePerBaseUnit = (detail.IsBaseUnit)?detail.PurchasingPrice:detail.PurchasingPrice/purchaseUnit.Quantity
+                        OpenBalanceQuantity = detail.Quantity
                     });
                     unitOfWork.Inventories.Add(inventory);
                 }
                 else  //If there is an inventory
                 {
-                    PurchaseUnit purchaseUnit = null;
                     // update inventory
                     if (detail.IsBaseUnit)
                     {
@@ -99,12 +111,14 @@ namespace POS.UseCases.General.GoodReceivedNotes.SaveGoodReceivedNote
                     } 
                     else
                     {
-                        purchaseUnit = await unitOfWork.PurchaseUnits.Get(detail.UnitId);
                         inventory.Quantity += detail.Quantity * purchaseUnit.Quantity;
                     }
                     inventory.UpdatedBy = CreatedBy;
                     inventory.UpdatedByName = CreatedByName;
                     inventory.UpdatedOn = DateTime.Now;
+                    inventory.PurchasingPricePerBaseUnit = basePurchasePricePerUnit;
+                    inventory.SellingPricePerBaseUnit = baseSellingPricePerUnit;
+
                     unitOfWork.InventoryDetails.Add(
                     new InventoryDetail
                     {
@@ -118,8 +132,6 @@ namespace POS.UseCases.General.GoodReceivedNotes.SaveGoodReceivedNote
                         UnitId = detail.UnitId,
                         GoodReceivedNote = grnHeader,
                         OpenBalanceQuantity = detail.Quantity,
-                        SellingPricePerBaseUnit = (detail.IsBaseUnit) ? detail.SellingPrice:detail.SellingPrice/purchaseUnit.Quantity,
-                        PurchasingPricePerBaseUnit = (detail.IsBaseUnit) ? detail.PurchasingPrice : detail.PurchasingPrice / purchaseUnit.Quantity,
                     });
                 }
 

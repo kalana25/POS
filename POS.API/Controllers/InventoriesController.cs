@@ -46,18 +46,18 @@ namespace POS.API.Controllers
             }
         }
 
-        [HttpGet("fullinfo/find/ItemId/{itemId}")]
-        public async Task<IActionResult> GetFullInfo(int itemId)
+        [HttpGet("fullinfo/find/InventoryId/{inventoryId}")]
+        public async Task<IActionResult> GetFullInfo(int inventoryId)
         {
             try
             {
-                if (itemId < 1)
+                if (inventoryId < 1)
                 {
                     return BadRequest();
                 }
 
                 var findInventoryFullInfo = usecaseFactory.Create<GetInventoryByItemUsecase>();
-                findInventoryFullInfo.ItemId = itemId;
+                findInventoryFullInfo.InventoryId = inventoryId;
                 var result = await findInventoryFullInfo.Execute();
                 if (result == null)
                 {

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
@@ -16,6 +17,14 @@ namespace POS.Models
         [ForeignKey("Unit")]
         public int BaseUnitId { get; set; }
         public int ReOrderLevel { get; set; }
+
+        [Required]
+        [Column(TypeName = "decimal(18,2)")]
+        public decimal SellingPricePerBaseUnit { get; set; }
+
+        [Required]
+        [Column(TypeName = "decimal(18,2)")]
+        public decimal PurchasingPricePerBaseUnit { get; set; }
 
         public string CreatedBy { get; set; }
         public DateTime CreatedOn { get; set; }
