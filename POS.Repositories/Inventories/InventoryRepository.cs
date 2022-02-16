@@ -45,6 +45,11 @@ namespace POS.Repositories.Inventories
                 .FirstOrDefaultAsync(x => x.Id == inventoryId);
         }
 
+        /// <summary>
+        /// Fetch Unique Items in the current stock for given category
+        /// </summary>
+        /// <param name="categoryId">item category Id</param>
+        /// <returns>UniqueStockItemByCategory</returns>
         public async Task<IEnumerable<UniqueStockItemByCategory>> GetInventoryByCategoryId(int categoryId)
         {
             return await DatabaseContext
