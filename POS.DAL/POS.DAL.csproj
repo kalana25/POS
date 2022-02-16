@@ -21,4 +21,8 @@
     <ProjectReference Include="..\POS.Models\POS.Models.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Sql Scripts\" />
+  </ItemGroup>
+
 </Project>

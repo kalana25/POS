@@ -2,6 +2,7 @@
 using POS.Core.Interfaces;
 using AutoMapper;
 using POS.Models;
+using POS.Models.StoredProcedureModels;
 using POS.Repositories;
 using POS.UseCases.DTO;
 using System;
@@ -24,11 +25,10 @@ namespace POS.UseCases.General.Inventories.GetInventoryByCategory
             this.unitOfWork = unitOfWork;
         }
 
-        public async Task<IEnumerable<InventoryItemDto>> Execute()
+        public async Task<IEnumerable<UniqueStockItemByCategory>> Execute()
         {
             var inventoryItems = await this.unitOfWork.Inventories.GetInventoryByCategoryId(this.CategoryId);
-            IEnumerable<InventoryItemDto> result = mapper.Map<IEnumerable<Inventory>,IEnumerable<InventoryItemDto>>(inventoryItems);
-            return result;
+            return inventoryItems;
         }
     }
 }

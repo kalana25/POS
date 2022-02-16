@@ -4,6 +4,7 @@ using System.Text;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using POS.Models;
+using POS.Models.StoredProcedureModels;
 
 namespace POS.DAL
 {
@@ -79,7 +80,7 @@ namespace POS.DAL
                 .WithOne(id => id.Unit)
                 .OnDelete(DeleteBehavior.Restrict);
 
-
+            modelBuilder.Entity<UniqueStockItemByCategory>();
         }
 
         public DbSet<Address> Addresses { get; set; }
@@ -100,7 +101,7 @@ namespace POS.DAL
         public DbSet<PurchaseUnit> PurchaseUnits { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderDetail> OrderDetails { get; set; }
-
-
+        public DbSet<UniqueStockItemByCategory> UniqueStockItems { get; set; }
+        
     }
 }

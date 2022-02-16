@@ -20,12 +20,6 @@ namespace POS.UseCases.DTO
         [Column(TypeName = "decimal(18,2)")]
         public decimal PurchasingPrice { get; set; }
 
-        [Column(TypeName = "decimal(18,2)")]
-        public decimal SellingPricePerBaseUnit { get; set; }
-
-        [Column(TypeName = "decimal(18,2)")]
-        public decimal PurchasingPricePerBaseUnit { get; set; }
-
         public UnitInfoDto Unit { get; set; }
         public GrnHeaderInfoDto GoodReceivedNote { get; set; }
     }

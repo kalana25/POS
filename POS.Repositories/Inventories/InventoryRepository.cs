@@ -5,6 +5,7 @@ using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 using POS.DAL;
+using POS.Models.StoredProcedureModels;
 using POS.Models;
 using POS.Core.General;
 
@@ -44,11 +45,11 @@ namespace POS.Repositories.Inventories
                 .FirstOrDefaultAsync(x => x.Id == inventoryId);
         }
 
-        public async Task<IEnumerable<Inventory>> GetInventoryByCategoryId(int categoryId)
+        public async Task<IEnumerable<UniqueStockItemByCategory>> GetInventoryByCategoryId(int categoryId)
         {
-            return await DatabaseContext.Inventories
-                .Include(x => x.Item)
-                .Where(x => x.Item.CategoryId == categoryId)
+            return await DatabaseContext
+                .UniqueStockItems
+                .FromSqlInterpolated($"EXECUTE SP_UniqueStockItemsByCategory {categoryId}")
                 .ToListAsync();
         }
 
