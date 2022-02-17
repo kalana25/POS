@@ -11,6 +11,7 @@ namespace POS.Repositories.Discounts
     public interface IDiscountRepository:IRepository<Discount>
     {
         Task<Discount> GetDiscountWithItem(int id);
+        Task<IEnumerable<Discount>> GetValidDiscountByItemAndDate(int itemId, DateTime date);
         Task<IEnumerable<Discount>> GetAllDiscountWithItem();
         Task<int> GetLastDiscountId();
     }

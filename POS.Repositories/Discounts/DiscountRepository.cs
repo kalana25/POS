@@ -37,17 +37,35 @@ namespace POS.Repositories.Discounts
 
         public async Task<IEnumerable<Discount>> GetAllDiscountWithItem()
         {
-            return await DatabaseContext.Discounts.Include(d => d.Item).ToListAsync();
+            return await DatabaseContext
+                .Discounts
+                .Include(d => d.Item)
+                .ToListAsync();
         }
 
         public async Task<Discount> GetDiscountWithItem(int id)
         {
-            return await DatabaseContext.Discounts.Include(d => d.Item).FirstOrDefaultAsync(x => x.Id == id);
+            return await DatabaseContext
+                .Discounts
+                .Include(d => d.Item)
+                .FirstOrDefaultAsync(x => x.Id == id);
         }
 
         public async Task<int> GetLastDiscountId()
         {
-            return await DatabaseContext.Discounts.OrderByDescending(x => x.Id).Select(x => x.Id).FirstOrDefaultAsync();
+            return await DatabaseContext
+                .Discounts
+                .OrderByDescending(x => x.Id)
+                .Select(x => x.Id)
+                .FirstOrDefaultAsync();
+        }
+
+        public async Task<IEnumerable<Discount>> GetValidDiscountByItemAndDate(int itemId, DateTime date)
+        {
+            return await DatabaseContext
+                .Discounts
+                .Where(x => x.ItemId == itemId && x.StartDate <= date && x.EndDate >= date)
+                .ToListAsync();
         }
     }
 }

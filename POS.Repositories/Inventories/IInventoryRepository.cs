@@ -10,8 +10,9 @@ namespace POS.Repositories.Inventories
     [AutoDIService]
     public interface IInventoryRepository:IRepository<Inventory>
     {
-        Task<Inventory> GetInventoryWithDetailsByItem(int inventoryId);
+        Task<Inventory> GetInventoryWithDetailsById(int inventoryId);
         Task<Inventory> GetInventoryWithDetailsByItemAndPrices(int itemId, decimal purchasePrice, decimal sellingPrice);
         Task<IEnumerable<UniqueStockItemByCategory>> GetInventoryByCategoryId(int categoryId);
+        Task<IEnumerable<Inventory>> GetInventoryWithDetailsByItem(int itemId);
     }
 }

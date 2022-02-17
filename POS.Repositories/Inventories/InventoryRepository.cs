@@ -33,7 +33,7 @@ namespace POS.Repositories.Inventories
             return new ResponseData<Inventory>(requestData.Page, requestData.PageSize, count, result);
         }
 
-        public async Task<Inventory> GetInventoryWithDetailsByItem(int inventoryId)
+        public async Task<Inventory> GetInventoryWithDetailsById(int inventoryId)
         {
             return await DatabaseContext.Inventories
                 .Include(x=>x.Item)
@@ -68,6 +68,15 @@ namespace POS.Repositories.Inventories
                 .Include(i => i.Details)
                 .ThenInclude(g => g.GoodReceivedNote)
                 .FirstOrDefaultAsync(x => x.ItemId == itemId && x.SellingPricePerBaseUnit==sellingPrice && x.PurchasingPricePerBaseUnit==purchasePrice);
+        }
+
+        public async Task<IEnumerable<Inventory>> GetInventoryWithDetailsByItem(int itemId)
+        {
+            return await DatabaseContext
+                .Inventories
+                .Include(i => i.Details)
+                .Where(i => i.ItemId == itemId)
+                .ToListAsync();
         }
 
         public DataBaseContext DatabaseContext

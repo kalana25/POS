@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 using POS.UseCases.General.Inventories.PaginatedInventories;
 using POS.UseCases.General.Inventories.GetInventoryByItem;
 using POS.UseCases.General.Inventories.GetInventoryByCategory;
+using POS.UseCases.General.Inventories.GetItemPricesAndDiscounts;
 using POS.Core.Interfaces;
 using POS.Core.General;
 
@@ -84,6 +85,28 @@ namespace POS.API.Controllers
                 var availableItemStock = usecaseFactory.Create<GetInventoryByCategoryUsecase>();
                 availableItemStock.CategoryId = categoryId;
                 var result = await availableItemStock.Execute();
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(Microsoft.AspNetCore.Http.StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
+
+        [HttpGet("itemPricesAndDiscounts/find/ItemId/{itemId}/date/{date}")]
+        public async Task<IActionResult> GetItemPricesWithDiscounts(int itemId,DateTime date)
+        {
+            try
+            {
+                if (itemId < 1)
+                {
+                    return BadRequest();
+                }
+
+                var itemPricesWithDiscounts = usecaseFactory.Create<GetItemPricesAndDiscountsUsecase>();
+                itemPricesWithDiscounts.ItemId = itemId;
+                itemPricesWithDiscounts.Date = date;
+                var result = await itemPricesWithDiscounts.Execute();
                 return Ok(result);
             }
             catch (Exception ex)

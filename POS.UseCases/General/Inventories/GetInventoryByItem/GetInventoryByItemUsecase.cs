@@ -25,7 +25,7 @@ namespace POS.UseCases.General.Inventories.GetInventoryByItem
 
         public async Task<InventoryHeaderWithFullInfoDto> Execute()
         {
-            var inventory = await unitOfWork.Inventories.GetInventoryWithDetailsByItem(InventoryId);
+            var inventory = await unitOfWork.Inventories.GetInventoryWithDetailsById(InventoryId);
             InventoryHeaderWithFullInfoDto header = mapper.Map<Inventory, InventoryHeaderWithFullInfoDto>(inventory);
             return header;
         }
